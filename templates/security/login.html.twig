@@ -1,0 +1,74 @@
+{% extends 'security_layout.html.twig' %}
+
+{% block title %}{{parent()}} Sécurité{% endblock %}
+
+{% block body %}
+    <div class="card-body">
+        <form action="{{ path('app_login') }}" method="post" class="js-validate needs-validation" novalidate>
+            <div class="text-center">
+                <div class="mb-5">
+                    <h1 class="display-5">Connexion</h1>
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    <span class="divider-center text-muted mb-4"></span>
+                </div>
+            </div>
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-3">
+                    Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Deconnexion</a>
+                </div>
+            {% endif %}
+
+
+            <div class="mb-4">
+                <label class="form-label" for="inputUsername">Email</label>
+                <input type="text" value="{{ last_username }}" name="_username" id="inputUsername" class="form-control form-control-lg" autocomplete="username" tabindex="1" required autofocus>
+            </div>
+
+            <div class="mb-4">
+
+                <label class="form-label" for="inputPassword">Mot de passe</label>
+                <div class="input-group input-group-merge" data-hs-validation-validate-class>
+                    <input type="password" class="js-toggle-password form-control form-control-lg" name="_password" id="inputPassword" placeholder="8+ caractères" aria-label="8+ characters required" required minlength="8" data-hs-toggle-password-options='{
+                           "target": "#changePassTarget",
+                           "defaultClass": "bi-eye-slash",
+                           "showClass": "bi-eye",
+                           "classChangeTarget": "#changePassIcon"
+                         }' autocomplete="current-password" tabindex="2">
+                    <a id="changePassTarget" class="input-group-append input-group-text" href="javascript:;">
+                        <i id="changePassIcon" class="bi-eye"></i>
+                    </a>
+                </div>
+
+                <span class="invalid-feedback">Entrez un mot de passe valide.</span>
+            </div>
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
+
+            {#
+            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+            See https://symfony.com/doc/current/security/remember_me.html
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Remember me
+                </label>
+            </div>
+            #}
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg" tabindex="3">Se connecter</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
