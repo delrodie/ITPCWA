@@ -1,0 +1,152 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des slides{% endblock %}
+
+{% block body %}
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h1 class="page-header-title">Gestion des slides</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md">
+                                <h4 class="card-header-title">Liste des slides</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+
+                        <div class="table-responsive datatable-custom">
+                            <table id="liste" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
+                   "columnDefs": [{
+                      "targets": [0, 4, 9],
+                      "width": "5%",
+                      "orderable": false
+                    }],
+                   "order": [],
+                   "info": {
+                     "totalQty": "#datatableWithPaginationInfoTotalQty"
+                   },
+                   "search": "#datatableSearch",
+                   "entries": "#datatableEntries",
+                   "pageLength": 12,
+                   "isResponsive": false,
+                   "isShowPaging": false,
+                   "pagination": "datatablePagination"
+                 }'>
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="table-column-pe-0">#</th>
+                                    <th>Slides</th>
+                                    <th>Statuts</th>
+                                </thead>
+
+                                <tbody>
+                                {% for slide in slides %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td class="table-column-ps-0">
+                                            <a class="d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#slideModal{{slide.id }}">
+                                                <div class="flex-shrink-0">
+                                                    <img class="avatar avatar-lg" src="{{ asset('uploads/slide/' ~ slide.media) }}" alt="Image Description">
+                                                </div>
+                                                <div class="flex-grow-1 ms-3">
+                                                    <h5 class="text-inherit mb-0">{{ slide.titre }}</h5>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {{ slide.statut ? '<span class="badge bg-success">ACTIF</span>' : '<span class="badge bg-danger">DESACTIVE</span>' }}
+                                        </td>
+                                    </tr>
+
+                                    <div class="modal fade" id="slideModal{{ slide.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ slide.titre }}</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img class="img-fluid" src="{{ asset('uploads/slide/' ~ slide.media) }}" alt="Image Description">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fermer</button>
+                                                    <a href="{{ path('app_backend_slide_edit', {'slug': slide.slug}) }}" class="btn btn-primary">Modifier</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6"><em>Aucune slide enregistrée</em></td>
+                                    </tr>
+                                {% endfor %}
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="haeder-title">Formulaire</h4>
+                    </div>
+                    <div class="card-body">
+                        {{ include('backend_slide/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+                        {{ include('backend_slide/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+    <script src="{{ asset('assets/js/upload-init.js') }}"></script>
+    <script type='text/javascript'>
+
+        $("input[data-preview]").change(function() {
+            var $input = $(this);
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(this.files[0]);
+            fileReader.onload = function(fileEvent) {
+                $($input.data('preview')).attr('src', fileEvent.target.result);
+            };
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#liste').DataTable();
+        });
+    </script>
+{% endblock %}
