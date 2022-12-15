@@ -1,6 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'errors_layout.html.twig' %}
 {% block title %}{{ status }} : {{ message }}{% endblock %}
 {% block body %}
-    <h1>{{ status }}</h1>
-    <p>{{ message }}</p>
+
+    <div class="container">
+        <h2>Oups! Cette page est introuvable.</h2>
+        <h1>{{ status }}</h1>
+        <p>
+            On dirait que rien n'a été trouvé à cet endroit. Sans doute la page n'existe plus. <br>
+            Prière reprendre donc la visite par la page d'accueil!
+        </p>
+        <a href="{{ absolute_url(path('app_home')) }}">Retour à l'accueil</a>
+    </div>
 {% endblock %}

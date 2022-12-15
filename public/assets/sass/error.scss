@@ -1,0 +1,54 @@
+body{
+    padding: 0;
+    margin: 0;
+    font-family: "montserrat", sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(125deg, #4c0202, #e6322d);
+}
+
+.container{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    color: white !important;
+
+    h1{
+        font-size: 200px;
+        margin: 0;
+        font-weight: 900;
+        letter-spacing: 10px;
+        background: url(../images/error-bg.jpg) center center no-repeat;
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+    }
+
+    h2{
+        margin: 0;
+        font-size: 2.5rem;
+    }
+
+    p{
+        font-size: 1.2rem;
+        margin: 0 auto 50px;
+        line-height: 1.9rem;
+    }
+
+    a{
+        text-decoration: none;
+        background: #000;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 25px;
+        font-size: 1.3rem;
+        font-weight: bold;
+        transition: 0.4s;
+        border: 0;
+
+        &:hover{
+            background: darkred !important;
+            //color: black !important;
+        }
+    }
+}

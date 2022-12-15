@@ -1,0 +1,48 @@
+@media screen and (max-width: 425px) {
+  header #axes.axes {
+    text-align: left;
+  }
+
+  header #axes.axes .col:nth-child(1), header #axes.axes .col:nth-child(2), header #axes.axes .col:nth-child(3) {
+    border-bottom: solid 1px #cc4e4e;
+  }
+
+  header #axes.axes .col h3 {
+    font-size: 1rem;
+    padding: 10px 20px;
+    line-height: 1.5rem;
+  }
+}
+@media screen and (min-width: 426px) and (max-width: 767px) {
+  header #axes.axes {
+    text-align: left;
+  }
+
+  header #axes.axes .col:nth-child(1), header #axes.axes .col:nth-child(2), header #axes.axes .col:nth-child(3) {
+    border-bottom: solid 1px #cc4e4e;
+  }
+
+  header #axes.axes .col h3 {
+    font-size: 1rem;
+    padding: 10px 20px;
+    line-height: 1.5rem;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  header #axes.axes {
+    text-align: left;
+  }
+
+  header #axes.axes .col:nth-child(1), header #axes.axes .col:nth-child(2), header #axes.axes .col:nth-child(3) {
+    border-bottom: solid 1px #cc4e4e;
+  }
+
+  header #axes.axes .col h3 {
+    font-size: 1rem;
+    padding: 10px 20px;
+    line-height: 1.5rem;
+  }
+}
+/*# sourceMappingURL=responsive.css.map */
+
+/*# sourceMappingURL=responsive.css.map */
