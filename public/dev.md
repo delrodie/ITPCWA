@@ -7,7 +7,7 @@ langage: PHP 8
 Framework: symfony 6.1.*
 ```` 
 
-reférence de [formattage](https://docs.github.com/fr/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#links)
+reférence de [formatdashcontage](https://docs.github.com/fr/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#links)
 
 ## Partie 1 : Backoffice 
 

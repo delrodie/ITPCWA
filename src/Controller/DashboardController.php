@@ -19,8 +19,10 @@ class DashboardController extends AbstractController
     #[Route('/dashboard', name: 'app_backend_dashboard')]
     public function index(): Response
     {
+
         return $this->render('backend/dashboard.html.twig',[
-            'visiteurs' => $this->utility->vistiteurList()
+            'visiteurs' => $this->utility->vistiteurList(),
+            'pages' => $this->utility->pagePlusVisited()
         ]);
     }
 }

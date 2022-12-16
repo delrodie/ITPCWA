@@ -51,6 +51,16 @@ class VisiteurRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findMostPageVisit()
+    {
+        return $this->createQueryBuilder('v')
+            ->select('count(v.id) as nombre, v.url')
+            ->groupBy('v.url')
+            ->orderBy('nombre', 'DESC')
+            ->getQuery()->getResult()
+            ;
+    }
+
 //    /**
 //     * @return Visiteur[] Returns an array of Visiteur objects
 //     */

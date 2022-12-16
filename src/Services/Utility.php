@@ -73,6 +73,12 @@ class Utility
         return true;
     }
 
+    public function pagePlusVisited()
+    {
+        return $this->visiteurRepository->findMostPageVisit();
+        //dd();
+    }
+
     /**
      * Generation du numero de la page frontend
      *
