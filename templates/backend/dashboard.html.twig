@@ -1,5 +1,5 @@
 {% extends 'backend_layout.html.twig' %}
-{% block title %}{{ parent() }}{% endblock %}
+{% block title %}{{ parent() }} Tableau de bord{% endblock %}
 
 {% block body %}
     <div class="content container-fluid">
@@ -23,7 +23,7 @@
 
                         <div class="row align-items-center gx-2 mb-1">
                             <div class="col-6">
-                                <h2 class="card-title text-inherit">72,540</h2>
+                                <h2 class="card-title text-inherit">{{ visiteurs.total|number_format(0,'','.') }}</h2>
                             </div>
 
                             <div class="col-6">
@@ -83,7 +83,7 @@
 
                         <div class="row align-items-center gx-2 mb-1">
                             <div class="col-6">
-                                <h2 class="card-title text-inherit">29.4%</h2>
+                                <h2 class="card-title text-inherit">{{ visiteurs.mois|number_format(0,'',',') }}</h2>
                             </div>
 
                             <div class="col-6">
@@ -141,7 +141,7 @@
 
                         <div class="row align-items-center gx-2 mb-1">
                             <div class="col-6">
-                                <h2 class="card-title text-inherit">56.8%</h2>
+                                <h2 class="card-title text-inherit">{{ visiteurs.semaine|number_format(0,'','.') }}</h2>
                             </div>
 
                             <div class="col-6">
@@ -198,7 +198,7 @@
 
                         <div class="row align-items-center gx-2 mb-1">
                             <div class="col-6">
-                                <h2 class="card-title text-inherit">92,913</h2>
+                                <h2 class="card-title text-inherit">{{ visiteurs.jour|number_format(0,'','.') }}</h2>
                             </div>
 
                             <div class="col-6">
