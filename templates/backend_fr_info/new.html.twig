@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New FrInfo{% endblock %}
+
+{% block body %}
+    <h1>Create new FrInfo</h1>
+
+    {{ include('backend_fr_info/_form.html.twig') }}
+
+    <a href="{{ path('app_backend_fr_info_index') }}">back to list</a>
+{% endblock %}

@@ -48,6 +48,18 @@
             "config/routes/liip_imagine.yaml"
         ]
     },
+    "php-flasher/flasher-notyf-symfony": {
+        "version": "v1.8.2"
+    },
+    "php-flasher/flasher-sweetalert-symfony": {
+        "version": "v1.8.2"
+    },
+    "php-flasher/flasher-symfony": {
+        "version": "v1.8.2"
+    },
+    "php-flasher/flasher-toastr-symfony": {
+        "version": "v1.8.2"
+    },
     "phpunit/phpunit": {
         "version": "9.5",
         "recipe": {

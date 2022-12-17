@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FrInfo{% endblock %}
+
+{% block body %}
+    <h1>FrInfo</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ fr_info.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ fr_info.titre }}</td>
+            </tr>
+            <tr>
+                <th>Debut</th>
+                <td>{{ fr_info.debut ? fr_info.debut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fin</th>
+                <td>{{ fr_info.fin ? fr_info.fin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Traduction</th>
+                <td>{{ fr_info.traduction ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_fr_info_index') }}">back to list</a>
+
+    <a href="{{ path('app_backend_fr_info_edit', {'id': fr_info.id}) }}">edit</a>
+
+    {{ include('backend_fr_info/_delete_form.html.twig') }}
+{% endblock %}
