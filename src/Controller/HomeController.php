@@ -7,6 +7,7 @@ use App\Services\GestionCache;
 use App\Services\Utility;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -24,10 +25,12 @@ class HomeController extends AbstractController
      * @throws InvalidArgumentException
      */
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $this->utility->visiteur();
+        if ($request->getLocale() === 'fr')
+            return $this->redirectToRoute('app_francais',[], Response::HTTP_SEE_OTHER);
 
+        //$this->utility->visiteur();
 
         return $this->render('home/index.html.twig', [
             'slides' => $this->gestionCache->cacheSlides(),

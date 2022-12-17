@@ -88,7 +88,8 @@ class Utility
     private function route_page(string $route): int
     {
         $resulat = match ($route){
-            'app_home' => 1
+            'app_home' => 1,
+            'app_francais' => 2,
         };
 
         return $resulat;

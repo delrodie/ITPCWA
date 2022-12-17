@@ -39,6 +39,24 @@ class FrInfoRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Liste des messages actifs
+     *
+     * @return float|int|mixed|string
+     */
+    public function findListActif()
+    {
+        return $this->createQueryBuilder('fr')
+            ->where('fr.statut = :statut')
+            ->andWhere(':date BETWEEN fr.debut AND fr.fin')
+            ->setParameters([
+                'statut' => true,
+                'date' => date('Y-m-d 00:00:00')
+            ])
+            ->getQuery()->getResult()
+            ;
+    }
+
 //    /**
 //     * @return FrInfo[] Returns an array of FrInfo objects
 //     */
