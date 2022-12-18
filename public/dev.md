@@ -55,7 +55,7 @@ Chaque rubrique est associée à une entité (table) d'où le MLD suivant:
 ```MLD
 # Tables des rubriques française
 FrInfo (Id, titre, debut, fin) 
-FrType (Id, libelle, slug)
+FrType (Id, libelle, pageIndex, slug)
 FrPresentation (Id, titre, resumé, contenu, media, slug, tags, pageIndex, createdAt, updatedAt, #FrType)
 FrActualite (Id, titre, resume, contenu, media, slug, tags, pageIndex, createdAt, updatedAt)
 FrCampagne (id, titre, resume, contenu, media, slug, tags, pageIndex, createdAt, updatedAt)
@@ -64,7 +64,7 @@ FrRessource (id, reference, titre, description, media, slug, pageIdex, created, 
 
 #Table des rubriques anglaise 
 EnInfo (Id, titre, debut, fin) 
-EnType (Id, libelle, slug)
+EnType (Id, libelle, pageIndex, slug)
 EnPresentation (Id, titre, resumé, contenu, media, slug, tags, pageIndex, createdAt, updatedAt, #FrType)
 EnActualite (Id, titre, resume, contenu, media, slug, tags, pageIndex, createdAt, updatedAt)
 EnCampagne (id, titre, resume, contenu, media, slug, tags, pageIndex, createdAt, updatedAt)
@@ -75,7 +75,7 @@ EnRessource (id, reference, titre, description, media, slug, pageIdex, created, 
 Slider (Id, titre, media, statut)
 Candidat (id, nom, prenoms, phone, email, mediaLettreMotivation, mediaCV, createdAt, updatedAt, #job)
 Visiteur (Id, IP, IdSession, page, createdAt)
-page (id, TypePage, index)
+Traduction (id, route, locale, page)
 User (id, username, pass, roles)
 ``` 
 </p>
