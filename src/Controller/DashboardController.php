@@ -22,7 +22,8 @@ class DashboardController extends AbstractController
 
         return $this->render('backend/dashboard.html.twig',[
             'visiteurs' => $this->utility->vistiteurList(),
-            'pages' => $this->utility->pagePlusVisited()
+            'pages' => $this->utility->pagePlusVisited(),
+            'logs' => $this->utility->visteurLogs(),
         ]);
     }
 }

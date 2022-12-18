@@ -26,7 +26,7 @@ class FrancaisController extends AbstractController
     #[Route('/', name: 'app_francais')]
     public function index(): Response
     {
-        $this->utility->visiteur();
+        //$this->utility->visiteur();
         return $this->render('francais/index.html.twig',[
             'slides' => $this->gestionCache->cacheSlides()
         ]);

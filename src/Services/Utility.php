@@ -48,51 +48,10 @@ class Utility
         return $entity;
     }
 
-    /**
-     * Instanciation de la table visiteur
-     *
-     * @return bool
-     */
-    public function visiteur(): bool
-    {
-        $request = $this->requestStack->getCurrentRequest();
-        //$request->getSession()->clear();
-
-        if (!$request->getSession()->get('_visiteur')) {
-            $request->getSession()->set('_visiteur', uniqid(12));
-
-            $visiteur = new Visiteur();
-            $visiteur->setIp($request->getClientIp());
-            $visiteur->setPage($this->route_page($request->get('_route')));
-            $visiteur->setUrl($request->getUri());
-            $visiteur->setSession($request->getSession()->get('_visiteur'));
-
-            $this->visiteurRepository->save($visiteur, true);
-        }
-
-        return true;
-    }
-
     public function pagePlusVisited()
     {
         return $this->visiteurRepository->findMostPageVisit();
         //dd();
-    }
-
-    /**
-     * Generation du numero de la page frontend
-     *
-     * @param string $route
-     * @return int
-     */
-    private function route_page(string $route): int
-    {
-        $resulat = match ($route){
-            'app_home' => 1,
-            'app_francais' => 2,
-        };
-
-        return $resulat;
     }
 
     /**
@@ -121,5 +80,36 @@ class Utility
             'debut' => date('Y-m-').$debut,
             'fin' => date('Y-m-').$fin
         ];
+    }
+
+    public function visteurLogs()
+    {
+        $path = $this->requestStack->getCurrentRequest()->server->get('DOCUMENT_ROOT').'/logs.json';
+        if (!file_exists($path)) return [];
+
+        $datas = json_decode(file_get_contents('logs.json'), true);
+
+        arsort($datas);
+        $list=[];$i=0;
+        foreach ($datas as $data){ //dd($data);
+            $list[$i++] = [
+                'id' => $i,
+                'ip' => $data['ip'],
+                'page' => '<a href="'.$data['url'].'" target="_blank">'.$this->page_titre($data['page']).'</a>',
+                'url' => $data['url'],
+                'session' => $data['session'],
+                'created_at' => $data['createdAt']
+            ];
+        }
+        //dd($list);
+        return $list;
+    }
+
+    protected function page_titre(int $page): string
+    {
+        return match ($page){
+            1 => "Page d'accueil principal",
+            2 => "Page d'accueil version francaise"
+        };
     }
 }
