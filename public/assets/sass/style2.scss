@@ -1,5 +1,5 @@
 /**
- * Bienvenue à toi visiteur du code source du site iternet de ITPCWA
+ * Bienvenue à toi visiteur du code source du site internet de ITPCWA
  * Cette proposition a été faite par Delrodie AMOIKON "delrodieamoikon@gmail.com"
  * Date: Decembre 2022
  */
@@ -833,6 +833,83 @@ main{
             iframe{
                 min-width: 100%;
                 min-height: 500px;
+            }
+
+            .sitemap{
+                ul{
+                    margin-left: 20px;
+                }
+
+                a{
+                    text-decoration: none;
+                }
+
+                &-tree{
+                    li{
+                        list-style-type: none;
+                        margin: 10px 0 10px 10px;
+                        position: relative;
+
+                        &:before{
+                            content:"";
+                            position: absolute;
+                            top: -10px;
+                            left: -20px;
+                            border-left: 1px solid rgba(56,1,1, 0.1);
+                            border-bottom: 1px solid rgba(56,1,1, 0.1);
+                            width: 20px;
+                            height: 15px;
+                        }
+                        &:after{
+                            position: absolute;
+                            content: "";
+                            top: 5px;
+                            left: -20px;
+                            border-left: 1px solid rgba(56,1,1, 0.1);
+                            border-top: 1px solid rgba(56,1,1, 0.1);
+                            width: 20px;
+                            height: 100%;
+                        }
+                        &:last-child:after{
+                            display: none;
+                        }
+                        span{
+                            display: block;
+                            border: 1px solid rgba(56,1,1, 0.1);
+                            padding: 10px;
+                            color: black;
+                            text-decoration: none;
+                        }
+                    }
+                    li{
+                        span{
+                            &:hover,
+                            &:focus{
+                                background: rgba(56,1,1, 0.5);
+                                color: white;
+                                border: 1px solid rgba(56,1,1, 0.3);
+                                & + ul{
+                                    li{
+                                        span{
+                                            background: rgba(56,1,1, 0.5);
+                                            color: white;
+                                            border: 1px solid rgba(56,1,1, 0.3);
+                                        }
+                                    }
+                                }
+                            }
+
+                            &:hover + ul,
+                            &:focus + ul{
+                                li{
+                                    &:after, &:before{
+                                        border-color: rgba(56,1,1, 0.3);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 

@@ -37,11 +37,13 @@
                                 {{ render(url('app_frontend_message',{'_locale': locale})) }}
                             </div>
                             <div class="col-md-2 text-end flag" style="padding-right: 50px;">
-                                {% for locale in locales %}
-                                    {% if locale != app.request.locale %}
-                                        <a href="{{ path('app_frontend_index', {'_locale': locale}) }}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
-                                    {% endif %}
-                                {% endfor %}
+                                {% block translate %}
+                                    {% for locale in locales %}
+                                        {% if locale != app.request.locale %}
+                                            <a href="{{ path('app_frontend_index', {'_locale': locale}) }}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endblock %}
 
                                 <!--<a href="#"><img src="assets/images/flag_fr.svg" alt=""></a>-->
                             </div>
@@ -138,7 +140,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img src="assets/images/logo_bw.svg" alt="Logo ITPCWA">
+                                    <img src="{{ absolute_url(asset('assets/images/logo_bw.svg')) }}" alt="Logo ITPCWA">
                                     <p>
                                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex repellendus dolore dolores neque, consectetur,
                                         porro voluptates obcaecati unde ipsum quae ut cumque expedita suscipit minus inventore, adipisci iusto reiciendis animi.
@@ -147,16 +149,16 @@
                                 <div class="col-md-8 rubriques">
                                     <div class="row">
                                         <div class="col-lg-4">
-                                            <a href="page.html">Présentation</a>
-                                            <a href="page.html">Vision et mission</a>
-                                            <a href="page.html">Axes stratégiques</a>
-                                            <a href="page.html">Zone d'intervention</a>
+                                            <a href="#">Présentation</a>
+                                            <a href="#">Vision et mission</a>
+                                            <a href="#">Axes stratégiques</a>
+                                            <a href="#">Zone d'intervention</a>
                                         </div>
                                         <div class="col-lg-4">
-                                            <a href="#">Campagnes</a>
-                                            <a href="actualites.html">Actualités</a>
-                                            <a href="#">Ressources</a>
-                                            <a href="#">Jobs</a>
+                                            <a href="#">{{ 'Projects'|trans }}</a>
+                                            <a href="#">{{ 'News'|trans }}</a>
+                                            <a href="#">{{ 'Resources'|trans }}</a>
+                                            <a href="#">{{ 'Recruitments'|trans }}</a>
                                         </div>
                                         <div class="col-lg-4">
                                             <div><a href="#">Abidjan / Côte d'Ivoire</a></div>
@@ -168,7 +170,7 @@
                             </div>
                             <div class="row plan">
                                 <div class="col-lg-8 sitemap">
-                                    <a href="#">{{ 'Sitemap'|trans }}</a>
+                                    <a href="{{ absolute_url(path('app_sitemap', {'_locale': locale})) }}">{{ 'Sitemap'|trans }}</a>
                                 </div>
                                 <div class="col-lg-4 social-icons">
                                     <a href="#" class="icon-facebook"><i class="fa-brands fa-facebook-square"></i></a>
@@ -201,6 +203,7 @@
             <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
             <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v13.0" nonce="6sfAWFus"></script>
             <script src="{{ absolute_url(asset('assets/js/app2.js')) }}"></script>
             <script>
                 AOS.init();

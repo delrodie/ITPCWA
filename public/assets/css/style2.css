@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /**
- * Bienvenue à toi visiteur du code source du site iternet de ITPCWA
+ * Bienvenue à toi visiteur du code source du site internet de ITPCWA
  * Cette proposition a été faite par Delrodie AMOIKON "delrodieamoikon@gmail.com"
  * Date: Decembre 2022
  */
@@ -788,6 +788,70 @@ main #page.page .contenu-page .coordonees a:hover i {
 main #page.page .contenu-page iframe {
   min-width: 100%;
   min-height: 500px;
+}
+
+main #page.page .contenu-page .sitemap ul {
+  margin-left: 20px;
+}
+
+main #page.page .contenu-page .sitemap a {
+  text-decoration: none;
+}
+
+main #page.page .contenu-page .sitemap-tree li {
+  list-style-type: none;
+  margin: 10px 0 10px 10px;
+  position: relative;
+}
+
+main #page.page .contenu-page .sitemap-tree li:before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -20px;
+  border-left: 1px solid rgba(56, 1, 1, 0.1);
+  border-bottom: 1px solid rgba(56, 1, 1, 0.1);
+  width: 20px;
+  height: 15px;
+}
+
+main #page.page .contenu-page .sitemap-tree li:after {
+  position: absolute;
+  content: "";
+  top: 5px;
+  left: -20px;
+  border-left: 1px solid rgba(56, 1, 1, 0.1);
+  border-top: 1px solid rgba(56, 1, 1, 0.1);
+  width: 20px;
+  height: 100%;
+}
+
+main #page.page .contenu-page .sitemap-tree li:last-child:after {
+  display: none;
+}
+
+main #page.page .contenu-page .sitemap-tree li span {
+  display: block;
+  border: 1px solid rgba(56, 1, 1, 0.1);
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+}
+
+main #page.page .contenu-page .sitemap-tree li span:hover, main #page.page .contenu-page .sitemap-tree li span:focus {
+  background: rgba(56, 1, 1, 0.5);
+  color: white;
+  border: 1px solid rgba(56, 1, 1, 0.3);
+}
+
+main #page.page .contenu-page .sitemap-tree li span:hover + ul li span, main #page.page .contenu-page .sitemap-tree li span:focus + ul li span {
+  background: rgba(56, 1, 1, 0.5);
+  color: white;
+  border: 1px solid rgba(56, 1, 1, 0.3);
+}
+
+main #page.page .contenu-page .sitemap-tree li span:hover + ul li:after, main #page.page .contenu-page .sitemap-tree li span:hover + ul li:before, main #page.page .contenu-page .sitemap-tree li span:focus + ul li:after, main #page.page .contenu-page .sitemap-tree li span:focus + ul li:before {
+  border-color: rgba(56, 1, 1, 0.3);
 }
 
 main #page.page .social .ressources {

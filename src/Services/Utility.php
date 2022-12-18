@@ -74,7 +74,7 @@ class Utility
     private function semaine()
     {
         $debut = date('d') - date('w') + 1;
-        $fin = date('d') - date('w') + 7;
+        $fin = date('d') - date('w') + 7; 
 
         return  [
             'debut' => date('Y-m-').$debut,
