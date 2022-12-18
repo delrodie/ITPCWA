@@ -39,6 +39,19 @@ class EnInfoRepository extends ServiceEntityRepository
         }
     }
 
+    public function findListActif()
+    {
+        return $this->createQueryBuilder('en')
+            ->where('en.statut = :statut')
+            ->andWhere(':date BETWEEN en.debut AND en.fin')
+            ->setParameters([
+                'statut' => true,
+                'date' => date('Y-m-d 00:00:00')
+            ])
+            ->getQuery()->getResult()
+            ;
+    }
+
 //    /**
 //     * @return EnInfo[] Returns an array of EnInfo objects
 //     */

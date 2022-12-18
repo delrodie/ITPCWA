@@ -109,7 +109,8 @@ class Utility
     {
         return match ($page){
             1 => "Page d'accueil principal",
-            2 => "Page d'accueil version francaise"
+            2 => "Page d'accueil version francaise",
+            3 => "Page d'accueil version anglaise"
         };
     }
 }

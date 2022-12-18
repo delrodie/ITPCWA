@@ -21,19 +21,12 @@ class HomeController extends AbstractController
     {
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
+
     #[Route('/', name: 'app_home')]
     public function index(Request $request): Response
     {
-        if ($request->getLocale() === 'fr')
-            return $this->redirectToRoute('app_francais',[], Response::HTTP_SEE_OTHER);
 
-        //$this->utility->visiteur();
+        return $this->redirectToRoute('app_frontend_index',['_locale' => $request->getLocale()], Response::HTTP_SEE_OTHER);
 
-        return $this->render('home/index.html.twig', [
-            'slides' => $this->gestionCache->cacheSlides(),
-        ]);
     }
 }

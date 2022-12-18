@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repository\EnInfoRepository;
 use App\Repository\FrInfoRepository;
 use App\Repository\SlideRepository;
 use Psr\Cache\InvalidArgumentException;
@@ -12,7 +13,7 @@ class GestionCache
 {
     public function __construct(
         private CacheInterface $cache, private SlideRepository $slideRepository,
-        private FrInfoRepository $frInfoRepository
+        private FrInfoRepository $frInfoRepository, private  EnInfoRepository $enInfoRepository
     )
     {
     }
@@ -44,6 +45,21 @@ class GestionCache
         return $this->cache->get('frInfos', function (ItemInterface $item){
             $item->expiresAfter(604800);
             return $this->frInfoRepository->findListActif();
+        });
+    }
+
+    /**
+     * Mise en cache des messages en Anglais
+     *
+     * @throws InvalidArgumentException
+     */
+    public function cacheEnMessage(bool $delete=false)
+    {
+        if ($delete) return $this->cache->delete('enInfos');
+
+        return $this->cache->get('enInfos', function (ItemInterface $item){
+            $item->expiresAfter(604800);
+            return $this->enInfoRepository->findListActif();
         });
     }
 }
