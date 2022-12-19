@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\FrType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -38,6 +40,22 @@ class FrTypeRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * Liste des types non associés à la traduction anglaise
+     *
+     * @return float|int|mixed|string
+     */
+    public function findListInactif()
+    {
+        return $this->createQueryBuilder('ft')
+            ->where('ft.pageIndex is null')
+            ->orderBy('ft.titre', 'ASC')
+            //->setParameter('page', false)
+            ->getQuery()->getResult()
+            ;
+    }
+
 
 //    /**
 //     * @return FrType[] Returns an array of FrType objects

@@ -2,10 +2,17 @@
 
 namespace App\Services;
 
+use App\Entity\Traduction;
 use App\Entity\Visiteur;
+use App\Repository\EnTypeRepository;
 use App\Repository\FrTypeRepository;
 use App\Repository\SlideRepository;
+use App\Repository\TraductionRepository;
 use App\Repository\VisiteurRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
@@ -13,7 +20,9 @@ class Utility
 {
     public function __construct(
         private SlideRepository $slideRepository, private RequestStack $requestStack,
-        private VisiteurRepository $visiteurRepository, private FrTypeRepository $frTypeRepository
+        private VisiteurRepository $visiteurRepository, private FrTypeRepository $frTypeRepository,
+        private EnTypeRepository $enTypeRepository, private TraductionRepository $traductionRepository,
+        private EntityManagerInterface $entityManager
     )
     {
     }
@@ -113,6 +122,61 @@ class Utility
             1 => "Page d'accueil principal",
             2 => "Page d'accueil version francaise",
             3 => "Page d'accueil version anglaise"
+        };
+    }
+
+    /**
+     * @throws OptimisticLockException
+     * @throws ORMException
+     */
+    public function traductionSave($fr, $en, string $route)
+    {
+        // recuperation de la liste des traductions
+        $lastTraduction = $this->traductionRepository->findOneBy([],['id'=>"DESC"]);
+        if (!$lastTraduction) $id=1;
+        else $id = $lastTraduction->getId();
+
+        $traduction = new Traduction();
+        $traduction->setPage($id);
+        $traduction->setRoute($route);
+        $this->entityManager->persist($traduction);
+
+        $fr->setPageIndex($id);
+        $en->setPageIndex($id);
+
+        $this->entityManager->flush();
+
+        return true;
+    }
+
+    /**
+     * Suppression de la ligne suppression et de la correspondance en français
+     *
+     * @param $en
+     * @param string $route
+     * @return bool
+     */
+    public function traductionDelete($en, string $route): bool
+    {
+        $fr = $this->traductionRoute($route, $en->getPageIndex());
+        $traduction = $this->traductionRepository->findOneBy(['page' => $en->getPageIndex()]);
+        if ($fr and $traduction) {
+            $fr->setPageIndex(null);
+            $this->entityManager->flush();
+
+            $this->traductionRepository->remove($traduction, true);
+
+            return true;
+        }
+
+        return false;
+
+    }
+
+    protected function traductionRoute($route, int $pageIndex)
+    {
+        return match ($route){
+            'type' => $this->frTypeRepository->findOneBy(['pageIndex' => $pageIndex]),
         };
     }
 }

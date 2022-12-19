@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repository\EnInfoRepository;
+use App\Repository\EnTypeRepository;
 use App\Repository\FrInfoRepository;
 use App\Repository\FrTypeRepository;
 use App\Repository\SlideRepository;
@@ -16,7 +17,7 @@ class GestionCache
     public function __construct(
         private CacheInterface $cache, private SlideRepository $slideRepository,
         private FrInfoRepository $frInfoRepository, private  EnInfoRepository $enInfoRepository,
-        private FrTypeRepository $frTypeRepository
+        private FrTypeRepository $frTypeRepository, private EnTypeRepository $enTypeRepository
     )
     {
     }
@@ -77,6 +78,19 @@ class GestionCache
         return $this->cache->get('frType', function (ItemInterface $item){
             $item->expiresAfter(604800);
             return $this->frTypeRepository->findAll();
+        });
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function cacheEnType(bool $delete=false)
+    {
+        if ($delete) $this->cache->delete('enType');
+
+        return $this->cache->get('enType', function (ItemInterface $item){
+            $item->expiresAfter(6048000);
+            return $this->enTypeRepository->findAll();
         });
     }
 }

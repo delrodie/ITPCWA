@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EnType{% endblock %}
+
+{% block body %}
+    <h1>EnType</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ en_type.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ en_type.titre }}</td>
+            </tr>
+            <tr>
+                <th>PageIndex</th>
+                <td>{{ en_type.pageIndex }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ en_type.slug }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_en_type_index') }}">back to list</a>
+
+    <a href="{{ path('app_backend_en_type_edit', {'id': en_type.id}) }}">edit</a>
+
+    {{ include('backend_en_type/_delete_form.html.twig') }}
+{% endblock %}

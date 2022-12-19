@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+<div class="form-group">
+    <div class="mt-3">
+        <label for="_frtype">French correspondence</label>
+        <select name="_frtype" id="" class="form-select" required="required">
+            <option value="{% if traduction %}{{ traduction.page }}{% endif %}">{% if traduction %}{{ traduction.page }}{% endif %}</option>
+            {% for type in frTypes %}
+                <option value="{{ type.id }}">{{ type.titre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mt-3">
+        {{ form_row(form.titre) }}
+    </div>
+</div>
+    {{ form_widget(form) }}
+    <div class="text-end mt-5">
+        <a href="{{ path('app_backend_en_type_index') }}" class="btn btn-outline-secondary">Cancel</a>
+        <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+    </div>
+{{ form_end(form) }}

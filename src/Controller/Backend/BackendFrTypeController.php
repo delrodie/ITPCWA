@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Backend;
 
 use App\Entity\FrType;
 use App\Form\FrTypeType;
 use App\Repository\FrTypeRepository;
 use App\Services\GestionCache;
 use App\Services\Utility;
-use Faker\Factory;
 use Flasher\Prime\Flasher;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -122,6 +121,14 @@ class BackendFrTypeController extends AbstractController
     public function delete(Request $request, FrType $frType, FrTypeRepository $frTypeRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$frType->getId(), $request->request->get('_token'))) {
+            if ($frType->getPageIndex()){
+                $this->flasher
+                    ->create('sweetalert')
+                    ->icon('error')
+                    ->addError("Veuillez supprimer la correspondance anglaise de '{$frType->getTitre()}' pour pouvoir le/la supprimer!");
+
+                return $this->redirectToRoute('app_backend_en_type_index',[],Response::HTTP_SEE_OTHER);
+            }
             $frTypeRepository->remove($frType, true);
 
             $this->gestionCache->cacheFrType(true);
