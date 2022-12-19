@@ -92,11 +92,7 @@
                                                 {{ 'Who are we?'|trans }}
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                <li><a class="dropdown-item" href="#">Présentation</a></li>
-                                                <li><a class="dropdown-item" href="#">Mission / Vision</a></li>
-                                                <li><a class="dropdown-item" href="#">Axes stratégiques</a></li>
-                                                <li><a class="dropdown-item" href="#">Equipe</a></li>
-                                                <li><a class="dropdown-item" href="#">Zones d'intervention</a></li>
+                                                {{ render(url('app_frontend_menu',{'_locale': locale})) }}
                                             </ul>
                                         </li>
                                         <li class="nav-item">

@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\FrType;
 use App\Form\FrTypeType;
 use App\Repository\FrTypeRepository;
+use App\Services\GestionCache;
 use App\Services\Utility;
 use Faker\Factory;
 use Flasher\Prime\Flasher;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BackendFrTypeController extends AbstractController
 {
     public function __construct(
-        private Flasher $flasher, private Utility $utility
+        private Flasher $flasher, private Utility $utility, private GestionCache $gestionCache
     )
     {
     }
@@ -32,6 +34,8 @@ class BackendFrTypeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->utility->slug($frType, 'frType');
             $frTypeRepository->save($frType, true);
+
+            $this->gestionCache->cacheFrType(true);
 
             $this->flasher
                 ->create('sweetalert')
@@ -90,6 +94,8 @@ class BackendFrTypeController extends AbstractController
             $this->utility->slug($frType, 'frType');
             $frTypeRepository->save($frType, true);
 
+            $this->gestionCache->cacheFrType(true);
+
             $this->flasher
                 ->create('sweetalert')
                 ->icon('warning')
@@ -109,11 +115,16 @@ class BackendFrTypeController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     #[Route('/{id}', name: 'app_backend_fr_type_delete', methods: ['POST'])]
     public function delete(Request $request, FrType $frType, FrTypeRepository $frTypeRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$frType->getId(), $request->request->get('_token'))) {
             $frTypeRepository->remove($frType, true);
+
+            $this->gestionCache->cacheFrType(true);
 
             $this->flasher
                 ->create('notyf')

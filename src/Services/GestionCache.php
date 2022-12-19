@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Repository\EnInfoRepository;
 use App\Repository\FrInfoRepository;
+use App\Repository\FrTypeRepository;
 use App\Repository\SlideRepository;
 use Psr\Cache\InvalidArgumentException;
+use Symfony\Component\Cache\Adapter\FilesystemTagAwareAdapter;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
@@ -13,7 +15,8 @@ class GestionCache
 {
     public function __construct(
         private CacheInterface $cache, private SlideRepository $slideRepository,
-        private FrInfoRepository $frInfoRepository, private  EnInfoRepository $enInfoRepository
+        private FrInfoRepository $frInfoRepository, private  EnInfoRepository $enInfoRepository,
+        private FrTypeRepository $frTypeRepository
     )
     {
     }
@@ -25,6 +28,7 @@ class GestionCache
      */
     public function cacheSlides(bool $delete=false)
     {
+
         if ($delete) $this->cache->delete('slides');
 
         return $this->cache->get('slides', function (ItemInterface $item){
@@ -60,6 +64,19 @@ class GestionCache
         return $this->cache->get('enInfos', function (ItemInterface $item){
             $item->expiresAfter(604800);
             return $this->enInfoRepository->findListActif();
+        });
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function cacheFrType(bool $delete=false)
+    {
+        if ($delete) $this->cache->delete('frType');
+
+        return $this->cache->get('frType', function (ItemInterface $item){
+            $item->expiresAfter(604800);
+            return $this->frTypeRepository->findAll();
         });
     }
 }
