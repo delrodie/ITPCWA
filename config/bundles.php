@@ -17,4 +17,5 @@ return [
     Flasher\Toastr\Symfony\FlasherToastrSymfonyBundle::class => ['all' => true],
     Flasher\SweetAlert\Symfony\FlasherSweetAlertSymfonyBundle::class => ['all' => true],
     Flasher\Notyf\Symfony\FlasherNotyfSymfonyBundle::class => ['all' => true],
+    Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
 ];

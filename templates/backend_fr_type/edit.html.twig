@@ -1,0 +1,97 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des types de rubriques françaises{% endblock %}
+
+{% block body %}
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h1 class="page-header-title">Gestion des types de rubriques françaises</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md">
+                                <h4 class="card-header-title">Liste des types de rubriques françaises</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+
+                        <div class="table-responsive datatable-custom">
+                            <table id="liste" class="table">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="table-column-pe-0">#</th>
+                                    <th class="text-center">Titres</th>
+                                    <th class="text-center">Statuts</th>
+                                </thead>
+
+                                <tbody>
+                                {% for type in fr_types %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td class="table-column-ps-0">
+                                            <a href="{{ path('app_backend_fr_type_edit', {'id': type.id}) }}">{{ type.titre }}</a>
+                                        </td>
+                                        <td class="text-center">
+                                            {{ type.pageIndex ? '<span class="badge bg-success">ACTIF</span>' : '<span class="badge bg-danger">INACTIF</span>' }}
+                                        </td>
+                                    </tr>
+
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3" class="text-center"><em>Aucun type de rubrique enregistré</em></td>
+                                    </tr>
+                                {% endfor %}
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="haeder-title">Formulaire</h4>
+                    </div>
+                    <div class="card-body">
+                        {{ include('backend_fr_type/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+                        {{ include('backend_fr_type/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#liste').DataTable();
+        });
+    </script>
+{% endblock %}

@@ -12,4 +12,4 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [1920,865], mode: outbound}
-                background: { size: [1922, 867], position: center, color: 'transparent'}
+                background: { size: [1922, 867], position: center, color: '#ffffff'}

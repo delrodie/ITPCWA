@@ -25,11 +25,11 @@ class GestionCache
      */
     public function cacheSlides(bool $delete=false)
     {
-        if ($delete) return $this->cache->delete('slides');
+        if ($delete) $this->cache->delete('slides');
 
         return $this->cache->get('slides', function (ItemInterface $item){
             $item->expiresAfter(604800); // Une semaine de mise en cache
-            return $this->slideRepository->findBy(['statut' => true], ['id'=>"DESC"], 3);
+            return $this->slideRepository->findBy(['statut' => true], ['id'=>"DESC"]);
         });
     }
 
@@ -40,7 +40,7 @@ class GestionCache
      */
     public function cacheFrMessages(bool $delete=false)
     {
-        if ($delete) return $this->cache->delete('frInfos');
+        if ($delete) $this->cache->delete('frInfos');
 
         return $this->cache->get('frInfos', function (ItemInterface $item){
             $item->expiresAfter(604800);
@@ -55,7 +55,7 @@ class GestionCache
      */
     public function cacheEnMessage(bool $delete=false)
     {
-        if ($delete) return $this->cache->delete('enInfos');
+        if ($delete) $this->cache->delete('enInfos');
 
         return $this->cache->get('enInfos', function (ItemInterface $item){
             $item->expiresAfter(604800);

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New FrType{% endblock %}
+
+{% block body %}
+    <h1>Create new FrType</h1>
+
+    {{ include('backend_fr_type/_form.html.twig') }}
+
+    <a href="{{ path('app_backend_fr_type_index') }}">back to list</a>
+{% endblock %}

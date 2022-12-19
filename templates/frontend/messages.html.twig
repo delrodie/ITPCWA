@@ -1,7 +1,10 @@
-<div class="flash">
-    <div class="fash-infos">
-        {% for message in messages %}
-            <div class="flash-text">{{ message.titre}} </div>
-        {% endfor %}
+{% if messages %}
+    <h2>INFOS</h2>
+    <div class="flash">
+        <div class="fash-infos">
+            {% for message in messages %}
+                <div class="flash-text">{{ message.titre}} </div>
+            {% endfor %}
+        </div>
     </div>
-</div>
+{% endif %}

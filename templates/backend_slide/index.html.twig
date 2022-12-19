@@ -63,7 +63,11 @@
                                         <td class="table-column-ps-0">
                                             <a class="d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#slideModal{{slide.id }}">
                                                 <div class="flex-shrink-0">
-                                                    <img class="avatar avatar-lg" src="{{ asset('uploads/slide/' ~ slide.media) }}" alt="Image Description">
+                                                    {% if slide.media %}
+                                                        <img class="avatar avatar-lg" src="{{ asset('uploads/slide/' ~ slide.media) }}" alt="Image Description">
+                                                    {% else %}
+                                                        <img src="{{ asset('assets/images/slide/default.png') }}" alt="" class="avatar avatar-lg">
+                                                    {% endif %}
                                                 </div>
                                                 <div class="flex-grow-1 ms-3">
                                                     <h5 class="text-inherit mb-0">{{ slide.titre }}</h5>
@@ -83,7 +87,11 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <img class="img-fluid" src="{{ asset('uploads/slide/' ~ slide.media) }}" alt="Image Description">
+                                                    {% if slide.media %}
+                                                        <img class="img-fluid" src="{{ asset('uploads/slide/' ~ slide.media) }}" alt="Image Description">
+                                                    {% else %}
+                                                        <img src="{{ asset('assets/images/slide/default.png') }}" alt="" class="img-fluid">
+                                                    {% endif %}
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fermer</button>

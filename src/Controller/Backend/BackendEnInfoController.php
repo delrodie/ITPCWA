@@ -5,6 +5,7 @@ namespace App\Controller\Backend;
 use App\Entity\EnInfo;
 use App\Form\EnInfoType;
 use App\Repository\EnInfoRepository;
+use App\Services\GestionCache;
 use Flasher\Prime\FlasherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BackendEnInfoController extends AbstractController
 {
     public function __construct(
-        private FlasherInterface $flasher
+        private FlasherInterface $flasher, private GestionCache $gestionCache
     )
     {
     }
@@ -29,6 +30,8 @@ class BackendEnInfoController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $enInfoRepository->save($enInfo, true);
+
+            $this->gestionCache->cacheEnMessage(true);
 
             $this->flasher
                 ->create('sweetalert')
@@ -84,6 +87,8 @@ class BackendEnInfoController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $enInfoRepository->save($enInfo, true);
+
+            $this->gestionCache->cacheEnMessage(true);
 
             $this->flasher
                 ->create('sweetalert')

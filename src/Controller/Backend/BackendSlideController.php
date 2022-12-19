@@ -5,6 +5,7 @@ namespace App\Controller\Backend;
 use App\Entity\Slide;
 use App\Form\SlideType;
 use App\Repository\SlideRepository;
+use App\Services\GestionCache;
 use App\Services\GestionMedia;
 use App\Services\Utility;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BackendSlideController extends AbstractController
 {
     public function __construct(
-        private Utility $utility, private GestionMedia $gestionMedia,
+        private Utility $utility, private GestionMedia $gestionMedia, private GestionCache $gestionCache
     )
     {
     }
@@ -43,6 +44,8 @@ class BackendSlideController extends AbstractController
             }
             //dd($slide);
             $slideRepository->save($slide, true);
+
+            $this->gestionCache->cacheSlides(true);
 
             $this->addFlash('success', "Le slide a été ajouté avec succès!");
 
@@ -102,6 +105,8 @@ class BackendSlideController extends AbstractController
             }
 
             $slideRepository->save($slide, true);
+
+            $this->gestionCache->cacheSlides(true);
 
             $this->addFlash('success', "Le slide a été modifié avec succès!");
 

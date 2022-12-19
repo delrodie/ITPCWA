@@ -168,14 +168,19 @@
     <section id="sliders" class="sliders">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                {% for slide in slides %}
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ loop.index }}" class="{{ loop.first ? 'active'  }}" aria-current="true" aria-label="Slide {{ loop.index }}"></button>
+                {% endfor %}
+
             </div>
             <div class="carousel-inner">
                 {% for slide in slides %}
                     <div class="carousel-item {% if loop.first %} active {% endif %}">
-                        <img src="{{ absolute_url(asset('uploads/slide/' ~ slide.media)) | imagine_filter('slides') }}" class="d-block w-100" alt="{{ slide.titre }}">
+                        {% if slide.media %}
+                            <img src="{{ absolute_url(asset('uploads/slide/' ~ slide.media)) | imagine_filter('slides') }}" class="d-block w-100" alt="{{ slide.titre }}">
+                        {% else %}
+                            <img src="{{ absolute_url(asset('assets/images/slide/default.png')) | imagine_filter('slides') }}" class="d-block w-100" alt="{{ slide.titre }}">
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>

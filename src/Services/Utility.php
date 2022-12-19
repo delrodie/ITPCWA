@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entity\Visiteur;
+use App\Repository\FrTypeRepository;
 use App\Repository\SlideRepository;
 use App\Repository\VisiteurRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -12,7 +13,7 @@ class Utility
 {
     public function __construct(
         private SlideRepository $slideRepository, private RequestStack $requestStack,
-        private VisiteurRepository $visiteurRepository
+        private VisiteurRepository $visiteurRepository, private FrTypeRepository $frTypeRepository
     )
     {
     }
@@ -73,8 +74,9 @@ class Utility
 
     private function semaine()
     {
-        $debut = date('d') - date('w') + 1;
-        $fin = date('d') - date('w') + 7; 
+        //$first = date('w') + 7;
+        $debut = date('d') - (int) date('w') + 1;
+        $fin = date('d') - (int) date('w') + 7; //dd($first);
 
         return  [
             'debut' => date('Y-m-').$debut,
