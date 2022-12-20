@@ -1,0 +1,28 @@
+{{ form_start(form, {'attr':{'novalidate': 'novalidate'}}) }}
+<div class="row form-group">
+    <div class="col-6 mt-3">
+        <label for="traduction" class="">French correspondence</label>
+        <select name="_traduction" id="traduction" class="form-select">
+            <option value=""></option>
+            {% for actualite in fr_actualites  %}
+                <option value="{{ actualite.id }}">{{ actualite.titre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-6 mt-3">{{ form_row(form.titre) }}</div>
+    <div class="col-12 mt-3">{{ form_row(form.contenu) }}</div>
+    <div class="col-6 mt-3">{{ form_row(form.media) }}</div>
+    <div class="col-6 mt-3">
+        {% if en_actualite.media %}
+            <img src="{{ absolute_url(asset('uploads/actualite/' ~ en_actualite.media)) }}" class="img-fluid">
+        {% endif %}
+    </div>
+    <div class="col-6 mt-3">{{ form_row(form.tags) }}</div>
+</div>
+<div class="text-end mt-5">
+    {{ form_widget(form) }}
+    <a href="{{ path('app_backend_en_actualite_index') }}" class="btn btn-outline-secondary">Cancel</a>
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+</div>
+
+{{ form_end(form) }}

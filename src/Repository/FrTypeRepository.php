@@ -46,7 +46,7 @@ class FrTypeRepository extends ServiceEntityRepository
      *
      * @return float|int|mixed|string
      */
-    public function findListInactif()
+    public function findListInactif(): mixed
     {
         return $this->createQueryBuilder('ft')
             ->where('ft.pageIndex is null')

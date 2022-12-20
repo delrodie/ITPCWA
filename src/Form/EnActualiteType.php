@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\FrActualite;
+use App\Entity\EnActualite;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -11,17 +11,23 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
-class FrActualiteType extends AbstractType
+class EnActualiteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre', TextType::class,['attr'=>['class'=>'form-control', 'autocomplete'=>'off']])
+            ->add('titre', TextType::class,[
+                'attr'=>['class'=>'form-control', 'autocomplete'=>'off'],
+                'label' => "Title"
+            ])
             //->add('resume')
-            ->add('contenu', CKEditorType::class,['attr'=>['class'=>'form-control']])
+            ->add('contenu', CKEditorType::class,[
+                'attr'=>['class'=>'form-control'],
+                'label' => "Content"
+            ])
             ->add('media', FileType::class,[
                 'attr'=>['class'=>"dropify", 'data-preview' => ".preview"],
-                'label' => "Télécharger la photo",
+                'label' => "Download picture",
                 'mapped' => false,
                 'multiple' => false,
                 'constraints' => [
@@ -39,10 +45,7 @@ class FrActualiteType extends AbstractType
                 'required' => false
             ])
             //->add('slug')
-            ->add('tags', TextType::class,[
-                'attr'=>['class'=>'form-control', 'data-role'=>'tagsinput'],
-                'label' => "Mots clés (séparez les mots par des virgules)"
-            ])
+            ->add('tags', TextType::class,['attr'=>['class'=>'form-control', 'data-role'=>'tagsinput']])
             //->add('pageIndex')
             //->add('createdAt')
             //->add('updatedAt')
@@ -52,7 +55,7 @@ class FrActualiteType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => FrActualite::class,
+            'data_class' => EnActualite::class,
         ]);
     }
 }

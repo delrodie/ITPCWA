@@ -39,6 +39,13 @@ class FrActualiteRepository extends ServiceEntityRepository
         }
     }
 
+    public function findListInactif()
+    {
+        return $this->createQueryBuilder('fa')
+            ->where('fa.pageIndex is null')
+            ->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return FrActualite[] Returns an array of FrActualite objects
 //     */

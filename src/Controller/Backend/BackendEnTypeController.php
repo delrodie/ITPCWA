@@ -45,7 +45,8 @@ class BackendEnTypeController extends AbstractController
                     ->create('sweetalert')
                     ->icon('warning')
                     ->addSuccess("Attention, veuillez choisir la correspondance française!");
-                    ;
+
+                return $this->redirectToRoute('app_backend_en_type_index',[],Response::HTTP_SEE_OTHER);
             }
             $this->utility->slug($enType, 'enType');
             $enTypeRepository->save($enType, true);
