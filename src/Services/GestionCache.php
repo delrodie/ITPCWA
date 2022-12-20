@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repository\EnInfoRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnTypeRepository;
+use App\Repository\FrActualiteRepository;
 use App\Repository\FrInfoRepository;
 use App\Repository\FrPresentationRepository;
 use App\Repository\FrTypeRepository;
@@ -20,7 +21,8 @@ class GestionCache
         private CacheInterface $cache, private SlideRepository $slideRepository,
         private FrInfoRepository $frInfoRepository, private  EnInfoRepository $enInfoRepository,
         private FrTypeRepository $frTypeRepository, private EnTypeRepository $enTypeRepository,
-        private FrPresentationRepository $frPresentationRepository, private EnPresentationRepository $enPresentationRepository
+        private FrPresentationRepository $frPresentationRepository, private EnPresentationRepository $enPresentationRepository,
+        private FrActualiteRepository $frActualiteRepository
     )
     {
     }

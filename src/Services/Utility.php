@@ -6,6 +6,7 @@ use App\Entity\Traduction;
 use App\Entity\Visiteur;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnTypeRepository;
+use App\Repository\FrActualiteRepository;
 use App\Repository\FrPresentationRepository;
 use App\Repository\FrTypeRepository;
 use App\Repository\SlideRepository;
@@ -25,7 +26,7 @@ class Utility
         private VisiteurRepository $visiteurRepository, private FrTypeRepository $frTypeRepository,
         private EnTypeRepository $enTypeRepository, private TraductionRepository $traductionRepository,
         private EntityManagerInterface $entityManager, private FrPresentationRepository $frPresentationRepository,
-        private EnPresentationRepository $enPresentationRepository
+        private EnPresentationRepository $enPresentationRepository, private FrActualiteRepository $frActualiteRepository
     )
     {
     }
