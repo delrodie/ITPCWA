@@ -56,6 +56,13 @@ class FrTypeRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findListActif()
+    {
+        return $this->createQueryBuilder('ft')
+            ->where('ft.pageIndex is not null')
+            ->getQuery()->getResult()
+            ;
+    }
 
 //    /**
 //     * @return FrType[] Returns an array of FrType objects

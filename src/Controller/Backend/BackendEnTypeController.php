@@ -165,10 +165,15 @@ class BackendEnTypeController extends AbstractController
             $this->gestionCache->cacheEnType(true);
 
             $this->flasher
+                ->create('sweetalert')
+                ->icon('success')
+                ->addSuccess("Veuillez supprimer la version française de '{$enType->getTitre()} ");
+
+            $this->flasher
                 ->create('notyf')
                 ->addSuccess("Type '{$enType->getTitre()}' was deleted successfully!");
         }
 
-        return $this->redirectToRoute('app_backend_en_type_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_backend_fr_type_index', [], Response::HTTP_SEE_OTHER);
     }
 }

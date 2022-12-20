@@ -39,6 +39,14 @@ class EnTypeRepository extends ServiceEntityRepository
         }
     }
 
+    public function findListActif()
+    {
+        return $this->createQueryBuilder('fe')
+            ->where('fe.pageIndex is not null')
+            ->getQuery()->getResult()
+            ;
+    }
+
 //    /**
 //     * @return EnType[] Returns an array of EnType objects
 //     */

@@ -20,10 +20,9 @@
                          <li>
                              <span>{{ 'Who are we?'|trans }}</span>
                              <ul>
-                                 <li><a href="#"><span>Presentation</span></a></li>
-                                 <li><a href="#"><span>Presentation</span></a></li>
-                                 <li><a href="#"><span>Presentation</span></a></li>
-                                 <li><a href="#"><span>Presentation</span></a></li>
+                                 {% for menu in rubriques %}
+                                     <li><a href="#"><span>{{ menu.titre }}</span></a></li>
+                                 {% endfor %}
                              </ul>
                          </li>
                          <li><a href="#"><span>{{ 'News'|trans }}</span></a></li>
@@ -44,7 +43,7 @@
              <div class="col-lg-4 social"  data-aos="fade-left" data-aos-duration="2500">
                  <div class="ressources text-center">
                      <img src="{{ absolute_url(asset('assets/images/all/offre.jfif')) }}" class="img-fluid" >
-                     <a href="#" class="bouton btn-download">Télécharger</a>
+                     <a href="#" class="bouton btn-download">{{'Download'|trans}}</a>
                  </div>
                  <div class="zone-facebook d-none d-lg-block">
                      <div

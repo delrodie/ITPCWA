@@ -77,7 +77,7 @@ class GestionCache
 
         return $this->cache->get('frType', function (ItemInterface $item){
             $item->expiresAfter(604800);
-            return $this->frTypeRepository->findAll();
+            return $this->frTypeRepository->findListActif();
         });
     }
 
@@ -90,7 +90,7 @@ class GestionCache
 
         return $this->cache->get('enType', function (ItemInterface $item){
             $item->expiresAfter(6048000);
-            return $this->enTypeRepository->findAll();
+            return $this->enTypeRepository->findListActif();
         });
     }
 }

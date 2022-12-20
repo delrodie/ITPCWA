@@ -44,16 +44,20 @@ class FrontendController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     #[Route('/{_locale}/menu/type', name: 'app_frontend_menu')]
     public function menu($_locale)
     {
         if ($_locale === 'fr')
             $rubriques = $this->gestionCache->cacheFrType();
         else
-            $rubriques = [];
+            $rubriques = $this->gestionCache->cacheEnType();
 
         return $this->render('frontend/menu.html.twig',[
             'rubriques' => $rubriques
         ]);
     }
+
 }
