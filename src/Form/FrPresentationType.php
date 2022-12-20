@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\FrPresentation;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -19,15 +20,15 @@ class FrPresentationType extends AbstractType
         $builder
             ->add('titre', TextType::class,['attr'=>['class'=>'form-control', 'autocomplete'=>'off']])
             //->add('resume')
-            ->add('contenu', TextareaType::class,['attr'=>['class'=>'form-control']])
+            ->add('contenu', CKEditorType::class,['attr'=>['class'=>'form-control']])
             ->add('media', FileType::class,[
-                'attr'=>['class'=>"dropify-fr", 'data-preview' => ".preview"],
+                'attr'=>['class'=>"dropify", 'data-preview' => ".preview"],
                 'label' => "Télécharger la photo",
                 'mapped' => false,
                 'multiple' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => "200000k",
+                        'maxSize' => "20000m",
                         'mimeTypes' =>[
                             'image/png',
                             'image/jpeg',

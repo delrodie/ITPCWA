@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\FrPresentation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +39,20 @@ class FrPresentationRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function findByType($slug)
+    {
+        return $this->createQueryBuilder('fp')
+            ->addSelect('t')
+            ->leftJoin('fp.type', 't')
+            ->setMaxResults(1)
+            ->getQuery()->getSingleResult()
+            ;
     }
 
 //    /**

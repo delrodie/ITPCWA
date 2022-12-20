@@ -1,54 +1,54 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend_layout.html.twig' %}
 
-{% block title %}FrPresentation{% endblock %}
+{% block title %}{{ parent() }} Gestion des articles de présentation{% endblock %}
 
 {% block body %}
-    <h1>FrPresentation</h1>
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h1 class="page-header-title">Gestion des articles de présentation</h1>
+                </div>
+            </div>
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ fr_presentation.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ fr_presentation.titre }}</td>
-            </tr>
-            <tr>
-                <th>Resume</th>
-                <td>{{ fr_presentation.resume }}</td>
-            </tr>
-            <tr>
-                <th>Contenu</th>
-                <td>{{ fr_presentation.contenu }}</td>
-            </tr>
-            <tr>
-                <th>Media</th>
-                <td>{{ fr_presentation.media }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ fr_presentation.slug }}</td>
-            </tr>
-            <tr>
-                <th>Tags</th>
-                <td>{{ fr_presentation.tags }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ fr_presentation.createdAt ? fr_presentation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ fr_presentation.updatedAt ? fr_presentation.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="row">
+            <div class="col-12">
+                <h3>{{ fr_presentation.titre }}</h3>
+                <div class="mt-5">
+                    <img src="{{ absolute_url(asset('uploads/presentation/' ~ fr_presentation.media)) }}" alt="{{ fr_presentation.titre }}" class="img-fluid" style="float: left; width: 500px; padding-right: 10px">
+                    {{ fr_presentation.contenu|raw }}
+                </div>
+                <div class="input-form-group mt-5">
+                    <label for="tags">Mots clés</label>
+                    <input type="text" class="form-control" data-role="tagsinput" value="{{ fr_presentation.tags }}">
+                </div>
+            </div>
+            <div class="col-12 text-center mt-5">
+                <a href="{{ path('app_backend_fr_presentation_index') }}" class="btn btn-outline-secondary"><i class="fa fa-reply"></i> Retour à la liste</a>
 
-    <a href="{{ path('app_backend_fr_presentation_index') }}">back to list</a>
+                <a href="{{ path('app_backend_fr_presentation_edit', {'id': fr_presentation.id}) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Modifier</a>
 
-    <a href="{{ path('app_backend_fr_presentation_edit', {'id': fr_presentation.id}) }}">edit</a>
 
-    {{ include('backend_fr_presentation/_delete_form.html.twig') }}
+            </div>
+            <div class="text-end">{{ include('backend_fr_presentation/_delete_form.html.twig') }}</div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/app.css')) }}">
+    <style>
+        .bootstrap-tagsinput{
+            //width: 50%;
+            box-shadow: none;
+            border: none;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 {% endblock %}

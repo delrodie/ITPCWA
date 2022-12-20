@@ -39,7 +39,7 @@ class FrPresentation
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\OneToOne(inversedBy: 'presentation', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'presentation', cascade: ['persist'])]
     private ?FrType $type = null;
 
     public function getId(): ?int

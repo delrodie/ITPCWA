@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Entity\Traduction;
 use App\Entity\Visiteur;
 use App\Repository\EnTypeRepository;
+use App\Repository\FrPresentationRepository;
 use App\Repository\FrTypeRepository;
 use App\Repository\SlideRepository;
 use App\Repository\TraductionRepository;
@@ -22,7 +23,7 @@ class Utility
         private SlideRepository $slideRepository, private RequestStack $requestStack,
         private VisiteurRepository $visiteurRepository, private FrTypeRepository $frTypeRepository,
         private EnTypeRepository $enTypeRepository, private TraductionRepository $traductionRepository,
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager, private FrPresentationRepository $frPresentationRepository
     )
     {
     }
@@ -49,7 +50,7 @@ class Utility
 
         // Generation du resume
         if ($resume){
-            $contenu = substr(strip_tags($resume),0,155);
+            $contenu = substr(strip_tags($entity->getContenu()),0,155);
             $entity->setResume($contenu);
         }
 

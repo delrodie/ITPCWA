@@ -43,6 +43,8 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/dashboard, roles: ROLE_ADMIN }
         - { path: ^/backend/, roles: ROLE_ADMIN }
+        - { path: ^/efconnect, roles: ROLE_USER }
+        - { path: ^/elfinder, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

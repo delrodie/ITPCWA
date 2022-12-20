@@ -57,7 +57,6 @@
                                     <th scope="col" class="table-column-pe-0">#</th>
                                     <th>TYPES</th>
                                     <th>TITRES</th>
-                                    <th>RESUMES</th>
                                     <th>ACTIONS</th>
                                 </thead>
 
@@ -67,7 +66,6 @@
                                         <td>{{ loop.index }}</td>
                                         <td>{{ presentation.type }}</td>
                                         <td>{{ presentation.titre }}</td>
-                                        <td>{{ presentation.resume|raw }}</td>
                                         <td>
                                             <a href="{{ path('app_backend_fr_presentation_show', {'id': presentation.id}) }}"><i class="fa fa-eye"></i></a>
                                             &nbsp; | &nbsp;

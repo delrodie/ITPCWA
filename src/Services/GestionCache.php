@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repository\EnInfoRepository;
 use App\Repository\EnTypeRepository;
 use App\Repository\FrInfoRepository;
+use App\Repository\FrPresentationRepository;
 use App\Repository\FrTypeRepository;
 use App\Repository\SlideRepository;
 use Psr\Cache\InvalidArgumentException;
@@ -17,7 +18,8 @@ class GestionCache
     public function __construct(
         private CacheInterface $cache, private SlideRepository $slideRepository,
         private FrInfoRepository $frInfoRepository, private  EnInfoRepository $enInfoRepository,
-        private FrTypeRepository $frTypeRepository, private EnTypeRepository $enTypeRepository
+        private FrTypeRepository $frTypeRepository, private EnTypeRepository $enTypeRepository,
+        private FrPresentationRepository $frPresentationRepository
     )
     {
     }
