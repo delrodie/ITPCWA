@@ -1,0 +1,59 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des produits{% endblock %}
+
+{% block body %}
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h1 class="page-header-title">Gestion des produits</h1>
+                </div>
+            </div>
+        </div>
+
+        {{ include('backend_fr_presentation/_form.html.twig') }}
+
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/app.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.ckeditor.com/4.15.1/basic/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js    "></script>
+    <script src="{{ asset('backoffice/js/upload-init.js') }}"></script>
+    <script type='text/javascript'>
+        $("input[data-preview]").change(function() {
+            var $input = $(this);
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(this.files[0]);
+            fileReader.onload = function(fileEvent) {
+                $($input.data('preview')).attr('src', fileEvent.target.result);
+            };
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
+    <script>
+        CKEDITOR.replace( 'fr_presentation[contenu]');
+        CKEDITOR.replace( 'produit[details]');
+    </script>
+    <script>
+        HSCore.components.HSFlatpickr.init('#produit_promoDateDebut');
+        HSCore.components.HSFlatpickr.init('#produit_promoDateFin');
+        const eventDateRange = HSCore.components.HSFlatpickr.getItem('produit_promoDateDebut');
+        const eventDateRange2 = HSCore.components.HSFlatpickr.getItem('produit_promoDateFin');
+    </script>
+{% endblock %}
+

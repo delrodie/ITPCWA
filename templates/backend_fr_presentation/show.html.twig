@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FrPresentation{% endblock %}
+
+{% block body %}
+    <h1>FrPresentation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ fr_presentation.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ fr_presentation.titre }}</td>
+            </tr>
+            <tr>
+                <th>Resume</th>
+                <td>{{ fr_presentation.resume }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ fr_presentation.contenu }}</td>
+            </tr>
+            <tr>
+                <th>Media</th>
+                <td>{{ fr_presentation.media }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ fr_presentation.slug }}</td>
+            </tr>
+            <tr>
+                <th>Tags</th>
+                <td>{{ fr_presentation.tags }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ fr_presentation.createdAt ? fr_presentation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ fr_presentation.updatedAt ? fr_presentation.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_fr_presentation_index') }}">back to list</a>
+
+    <a href="{{ path('app_backend_fr_presentation_edit', {'id': fr_presentation.id}) }}">edit</a>
+
+    {{ include('backend_fr_presentation/_delete_form.html.twig') }}
+{% endblock %}

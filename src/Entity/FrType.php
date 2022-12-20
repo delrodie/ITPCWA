@@ -22,6 +22,9 @@ class FrType
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
+    #[ORM\OneToOne(mappedBy: 'type', cascade: ['persist', 'remove'])]
+    private ?FrPresentation $presentation = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,5 +64,32 @@ class FrType
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function getPresentation(): ?FrPresentation
+    {
+        return $this->presentation;
+    }
+
+    public function setPresentation(?FrPresentation $presentation): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($presentation === null && $this->presentation !== null) {
+            $this->presentation->setType(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($presentation !== null && $presentation->getType() !== $this) {
+            $presentation->setType($this);
+        }
+
+        $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->titre;
     }
 }
