@@ -1,0 +1,54 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Management presentation{% endblock %}
+
+{% block body %}
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h1 class="page-header-title">Management presentation</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h3>{{ en_presentation.titre }}</h3>
+                <div class="mt-5">
+                    <img src="{{ absolute_url(asset('uploads/presentation/' ~ en_presentation.media)) }}" alt="{{ en_presentation.titre }}" class="img-fluid" style="float: left; width: 500px; padding-right: 10px">
+                    {{ en_presentation.contenu|raw }}
+                </div>
+                <div class="input-form-group mt-5">
+                    <label for="tags">Mots clés</label>
+                    <input type="text" class="form-control" data-role="tagsinput" value="{{ en_presentation.tags }}">
+                </div>
+            </div>
+            <div class="col-12 text-center mt-5">
+                <a href="{{ path('app_backend_en_presentation_index') }}" class="btn btn-outline-secondary"><i class="fa fa-reply"></i> Back to the list</a>
+
+                <a href="{{ path('app_backend_en_presentation_edit', {'id': en_presentation.id}) }}" class="btn btn-primary"><i class="fa fa-edit"></i> update</a>
+
+
+            </div>
+            <div class="text-end">{{ include('backend_en_presentation/_delete_form.html.twig') }}</div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/app.css')) }}">
+    <style>
+        .bootstrap-tagsinput{
+        //width: 50%;
+            box-shadow: none;
+            border: none;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+{% endblock %}

@@ -1,18 +1,18 @@
 {% extends 'backend_layout.html.twig' %}
 
-{% block title %}{{ parent() }} Gestion des présentations{% endblock %}
+{% block title %}{{ parent() }} Presentation management{% endblock %}
 
 {% block body %}
     <div class="content container-fluid">
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h1 class="page-header-title">Gestion des présentations</h1>
+                    <h1 class="page-header-title">Presentation management</h1>
                 </div>
             </div>
         </div>
 
-        {{ include('backend_fr_presentation/_form.html.twig') }}
+        {{ include('backend_en_presentation/_form.html.twig') }}
 
     </div>
 {% endblock %}
@@ -44,16 +44,6 @@
         $(document).ready(function() {
             $('.select2').select2();
         });
-    </script>
-    <script>
-        //CKEDITOR.replace( 'fr_presentation[contenu]');
-        CKEDITOR.replace( 'produit[details]');
-    </script>
-    <script>
-        HSCore.components.HSFlatpickr.init('#produit_promoDateDebut');
-        HSCore.components.HSFlatpickr.init('#produit_promoDateFin');
-        const eventDateRange = HSCore.components.HSFlatpickr.getItem('produit_promoDateDebut');
-        const eventDateRange2 = HSCore.components.HSFlatpickr.getItem('produit_promoDateFin');
     </script>
 {% endblock %}
 

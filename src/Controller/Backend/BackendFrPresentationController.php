@@ -60,11 +60,16 @@ class BackendFrPresentationController extends AbstractController
             $frPresentationRepository->save($frPresentation, true);
 
             $this->flasher
+                ->create('sweetalert')
+                ->icon('success')
+                ->addSuccess("Veuillez enregistrer la version anglaise de cet article");
+
+            $this->flasher
                 ->create('notyf')
                 ->addSuccess("L'article {$frPresentation->getTitre()} a été ajouté avec succès!")
                 ;
 
-            return $this->redirectToRoute('app_backend_fr_presentation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_backend_en_presentation_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('backend_fr_presentation/new.html.twig', [
