@@ -26,11 +26,18 @@ class FrontendPresentationController extends AbstractController
     {
 
         if ($_locale === 'fr')
-            $presentation = $this->gestionCache->cacheFrPresentation($slug, true);
+            $presentation = $this->gestionCache->cacheFrPresentation($slug);
         else
-            $presentation = [];
+            $presentation = $this->gestionCache->cacheEnPresentation($slug);
 
-        if (!$presentation) throw new \Exception("Aucune page n'est associée à cette rubrique ".$slug);
+        //dd($presentation);
+
+        if (!$presentation) {
+            return $this->render('frontend/presentation_404.html.twig',[
+                'locale' => $_locale
+            ]);
+        }
+
         return $this->render('frontend/presentation.html.twig',[
             'presentation' => $presentation,
             'locale' => $_locale

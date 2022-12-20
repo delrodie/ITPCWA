@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\EnPresentation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +38,21 @@ class EnPresentationRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findByType($slug)
+    {
+        return $this->createQueryBuilder('ep')
+            ->addSelect('t')
+            ->leftJoin('ep.type', 't')
+            ->where('t.slug = :type')
+            //->setMaxResults(1)
+            ->setParameter('type', $slug)
+            ->getQuery()->getOneOrNullResult()
+            ;
     }
 
 //    /**

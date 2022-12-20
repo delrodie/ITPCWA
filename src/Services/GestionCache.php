@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repository\EnInfoRepository;
+use App\Repository\EnPresentationRepository;
 use App\Repository\EnTypeRepository;
 use App\Repository\FrInfoRepository;
 use App\Repository\FrPresentationRepository;
@@ -19,7 +20,7 @@ class GestionCache
         private CacheInterface $cache, private SlideRepository $slideRepository,
         private FrInfoRepository $frInfoRepository, private  EnInfoRepository $enInfoRepository,
         private FrTypeRepository $frTypeRepository, private EnTypeRepository $enTypeRepository,
-        private FrPresentationRepository $frPresentationRepository
+        private FrPresentationRepository $frPresentationRepository, private EnPresentationRepository $enPresentationRepository
     )
     {
     }
@@ -107,7 +108,8 @@ class GestionCache
             $item->expiresAfter(6048000);
             $presentation =$this->frPresentationRepository->findByType($slug) ; //dd($presentation);
             if ($presentation){
-                //$traduction = $this
+                $enType = $this->enTypeRepository->findOneBy(['pageIndex' => $presentation->getType()->getPageIndex()]);
+
                 $resultat = [
                     'id' => $presentation->getId(),
                     'titre' => $presentation->getTitre(),
@@ -122,7 +124,45 @@ class GestionCache
                     'type_titre' => $presentation->getType()->getTitre(),
                     'type_pageIndex' => $presentation->getType()->getPageIndex(),
                     'type_slug' => $presentation->getType()->getSlug(),
-                    ''
+                    'traduction' => $enType->getSlug()
+                ];
+            }else{
+                $resultat = [];
+            }
+
+            return $resultat;
+
+        });
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function cacheEnPresentation($slug, bool $delete=false)
+    {
+        if ($delete) $this->cache->delete($slug);
+
+        return $this->cache->get($slug, function (ItemInterface $item) use ($slug){
+            $item->expiresAfter(6048000);
+            $presentation =$this->enPresentationRepository->findByType($slug) ; //dd($presentation);
+            if ($presentation){
+                $frType = $this->frTypeRepository->findOneBy(['pageIndex' => $presentation->getType()->getPageIndex()]);
+
+                $resultat = [
+                    'id' => $presentation->getId(),
+                    'titre' => $presentation->getTitre(),
+                    'resume' => $presentation->getResume(),
+                    'contenu' => $presentation->getContenu(),
+                    'media' => $presentation->getMedia(),
+                    'slug' => $presentation->getSlug(),
+                    'tags' => $presentation->getTags(),
+                    'createdAt' => $presentation->getCreatedAt(),
+                    'updatedAt' => $presentation->getUpdatedAt(),
+                    'type_id' => $presentation->getType()->getId(),
+                    'type_titre' => $presentation->getType()->getTitre(),
+                    'type_pageIndex' => $presentation->getType()->getPageIndex(),
+                    'type_slug' => $presentation->getType()->getSlug(),
+                    'traduction' => $frType->getSlug(),
                 ];
             }else{
                 $resultat = [];

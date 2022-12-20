@@ -10,6 +10,7 @@ use App\Services\GestionCache;
 use App\Services\GestionMedia;
 use App\Services\Utility;
 use Flasher\Prime\Flasher;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,6 +34,9 @@ class BackendFrPresentationController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     #[Route('/new', name: 'app_backend_fr_presentation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, FrPresentationRepository $frPresentationRepository): Response
     {
@@ -58,6 +62,8 @@ class BackendFrPresentationController extends AbstractController
                 $frPresentation->setMedia($media);
             }
             $frPresentationRepository->save($frPresentation, true);
+
+            $this->gestionCache->cacheFrPresentation($frPresentation->getType()->getSlug(), true);
 
             $this->flasher
                 ->create('sweetalert')
@@ -86,6 +92,9 @@ class BackendFrPresentationController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     #[Route('/{id}/edit', name: 'app_backend_fr_presentation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, FrPresentation $frPresentation, FrPresentationRepository $frPresentationRepository): Response
     {
@@ -105,6 +114,8 @@ class BackendFrPresentationController extends AbstractController
             }
             $frPresentationRepository->save($frPresentation, true);
 
+            $this->gestionCache->cacheFrPresentation($frPresentation->getType()->getSlug(), true);
+
             $this->flasher
                 ->create('notyf')
                 ->addSuccess("La rubrique {$frPresentation->getType()->getTitre()} a été modifiée avec succès!");
@@ -118,6 +129,9 @@ class BackendFrPresentationController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     #[Route('/{id}', name: 'app_backend_fr_presentation_delete', methods: ['POST'])]
     public function delete(Request $request, FrPresentation $frPresentation, FrPresentationRepository $frPresentationRepository): Response
     {
@@ -125,6 +139,8 @@ class BackendFrPresentationController extends AbstractController
             $frPresentationRepository->remove($frPresentation, true);
             if ($frPresentation->getMedia())
                 $this->gestionMedia->removeUpload($frPresentation->getMedia(), 'presentation');
+
+            $this->gestionCache->cacheFrPresentation($frPresentation->getType()->getSlug(), true);
 
             $this->flasher
                 ->create('notyf')

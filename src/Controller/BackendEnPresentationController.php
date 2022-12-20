@@ -9,6 +9,7 @@ use App\Services\GestionCache;
 use App\Services\GestionMedia;
 use App\Services\Utility;
 use Flasher\Prime\Flasher;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,6 +33,9 @@ class BackendEnPresentationController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     #[Route('/new', name: 'app_backend_en_presentation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EnPresentationRepository $enPresentationRepository): Response
     {
@@ -60,6 +64,8 @@ class BackendEnPresentationController extends AbstractController
 
             $enPresentationRepository->save($enPresentation, true);
 
+            $this->gestionCache->cacheEnPresentation($enPresentation->getType()->getSlug(), true);
+
             $this->flasher
                 ->create('notyf')
                 ->addSuccess("Item '{$enPresentation->getTitre()}' has been successfully added!");
@@ -81,6 +87,9 @@ class BackendEnPresentationController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     #[Route('/{id}/edit', name: 'app_backend_en_presentation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, EnPresentation $enPresentation, EnPresentationRepository $enPresentationRepository): Response
     {
@@ -100,6 +109,8 @@ class BackendEnPresentationController extends AbstractController
             }
             $enPresentationRepository->save($enPresentation, true);
 
+            $this->gestionCache->cacheEnPresentation($enPresentation->getType()->getSlug(), true);
+
             $this->flasher
                 ->create('notyf')
                 ->addSuccess("Item '{$enPresentation->getTitre()}' has been successfully updated!");
@@ -113,6 +124,9 @@ class BackendEnPresentationController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     #[Route('/{id}', name: 'app_backend_en_presentation_delete', methods: ['POST'])]
     public function delete(Request $request, EnPresentation $enPresentation, EnPresentationRepository $enPresentationRepository): Response
     {
@@ -121,6 +135,8 @@ class BackendEnPresentationController extends AbstractController
             if ($enPresentation->getMedia()){
                 $this->gestionMedia->removeUpload($enPresentation->getMedia(), 'presentation');
             }
+
+            $this->gestionCache->cacheEnPresentation($enPresentation->getType()->getSlug(), true);
 
             $this->flasher
                 ->create('notyf')

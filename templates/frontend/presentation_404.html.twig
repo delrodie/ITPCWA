@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ presentation.titre }}{% endblock %}
+{% block title %}{{ 'Page not found'|trans }}{% endblock %}
 
 {% block translate %}
     {% for locale in locales %}
         {% if locale != app.request.locale %}
-            <a href="{{ absolute_url(path('app_frontend_presentation', {'slug': presentation.traduction, '_locale': locale})) }}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
+            <a href="{{ absolute_url(path('app_frontend_index', {'_locale': locale})) }}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
         {% endif %}
     {% endfor %}
 {% endblock %}
@@ -18,23 +18,15 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ path('app_frontend_index', {'_locale': locale}) }}"><i class="fa-solid fa-house"></i></a></li>
                         <li class="breadcrumb-item"><a href="#">{{ 'Who are we?'|trans }}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ presentation.type_titre }}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ 'Page not found'|trans }}</li>
                     </ol>
                 </nav>
             </div>
             <div class="row">
                 <div class="col-lg-8 contenu-page p-lg-5"  data-aos="zoom-in" data-aos-duration="2500">
-                    {% if presentation.media %}
-                        <figure>
-                            <img src="{{ absolute_url(asset('uploads/presentation/' ~ presentation.media)) }}" alt="{{ presentation.titre }}" class="img-fluid img-thumbnail">
-                        </figure>
-                        <div class="publication text-muted">09 {{ presentation.updatedAt|date('M')}} 2022</div>
-                    {% endif %}
 
-                    <h5>{{ presentation.titre }}</h5>
-                    <div class="text">
-                        {{ presentation.contenu|raw }}
-                    </div>
+
+                    <h5><em>{{ 'Page being edited'|trans }}</em></h5>
                 </div>
                 <div class="col-lg-4 social"  data-aos="fade-left" data-aos-duration="2500">
                     <div class="ressources text-center">
@@ -60,7 +52,7 @@
                     <div class="newsletter">
                         <h6>Newsletter</h6>
                         <div class="description">
-                            {{ 'Be the first to receive all the news from ITPC West Africa'|trans }}
+                           {{ 'Be the first to receive all the news from ITPC West Africa'|trans }}
                         </div>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder="Inscrivez-vous" aria-label="Inscrivez" aria-describedby="button-addon2">
