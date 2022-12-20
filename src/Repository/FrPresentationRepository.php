@@ -50,8 +50,10 @@ class FrPresentationRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('fp')
             ->addSelect('t')
             ->leftJoin('fp.type', 't')
-            ->setMaxResults(1)
-            ->getQuery()->getSingleResult()
+            ->where('t.slug = :type')
+            //->setMaxResults(1)
+            ->setParameter('type', $slug)
+            ->getQuery()->getOneOrNullResult()
             ;
     }
 

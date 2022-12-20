@@ -1,0 +1,15 @@
+{% extends 'errors_layout.html.twig' %}
+{% block title %}{{ status }} : {{ message }}{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <h2>Oups! Accès interdit.</h2>
+        <h1>{{ status }}</h1>
+        <p>
+            L'accès à ce contenu a été refusé.
+            Si vous pensez que c'est une erreur, contactez l'administrateur d'ITPC West Africa. <br>
+            Prière reprendre en attendant la visite par la page d'accueil!
+        </p>
+        <a href="{{ absolute_url(path('app_home')) }}">Retour à l'accueil</a>
+    </div>
+{% endblock %}

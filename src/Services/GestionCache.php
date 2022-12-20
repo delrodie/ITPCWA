@@ -95,4 +95,41 @@ class GestionCache
             return $this->enTypeRepository->findListActif();
         });
     }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function cacheFrPresentation($slug, bool $delete=false)
+    {
+        if($delete) $this->cache->delete($slug);
+
+        return $this->cache->get($slug, function (ItemInterface $item) use ($slug){
+            $item->expiresAfter(6048000);
+            $presentation =$this->frPresentationRepository->findByType($slug) ; //dd($presentation);
+            if ($presentation){
+                //$traduction = $this
+                $resultat = [
+                    'id' => $presentation->getId(),
+                    'titre' => $presentation->getTitre(),
+                    'resume' => $presentation->getResume(),
+                    'contenu' => $presentation->getContenu(),
+                    'media' => $presentation->getMedia(),
+                    'slug' => $presentation->getSlug(),
+                    'tags' => $presentation->getTags(),
+                    'createdAt' => $presentation->getCreatedAt(),
+                    'updatedAt' => $presentation->getUpdatedAt(),
+                    'type_id' => $presentation->getType()->getId(),
+                    'type_titre' => $presentation->getType()->getTitre(),
+                    'type_pageIndex' => $presentation->getType()->getPageIndex(),
+                    'type_slug' => $presentation->getType()->getSlug(),
+                    ''
+                ];
+            }else{
+                $resultat = [];
+            }
+
+            return $resultat;
+
+        });
+    }
 }

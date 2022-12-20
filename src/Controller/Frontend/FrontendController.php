@@ -56,7 +56,8 @@ class FrontendController extends AbstractController
             $rubriques = $this->gestionCache->cacheEnType();
 
         return $this->render('frontend/menu.html.twig',[
-            'rubriques' => $rubriques
+            'rubriques' => $rubriques,
+            'locale' => $_locale
         ]);
     }
 

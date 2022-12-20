@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ presentation.titre }}{% endblock %}
+
+{% block translate %}
+    {% for locale in locales %}
+        {% if locale != app.request.locale %}
+            <a href="{{ absolute_url(path('app_frontend_presentation', {'slug': presentation.slug, '_locale': locale})) }}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block body %}
+    <main>
+        <section id="page" class="page">
+            <div class="breadcrumb">
+                <nav  style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_frontend_index', {'_locale': locale}) }}"><i class="fa-solid fa-house"></i></a></li>
+                        <li class="breadcrumb-item"><a href="#">{{ 'Who are we?'|trans }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ presentation.type_titre }}</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 contenu-page p-lg-5"  data-aos="zoom-in" data-aos-duration="2500">
+                    {% if presentation.media %}
+                        <figure>
+                            <img src="{{ absolute_url(asset('uploads/presentation/' ~ presentation.media)) }}" alt="{{ presentation.titre }}" class="img-fluid img-thumbnail">
+                        </figure>
+                        <div class="publication text-muted">09 {{ presentation.updatedAt|date('M')}} 2022</div>
+                    {% endif %}
+
+                    <h5>{{ presentation.titre }}</h5>
+                    <div class="text">
+                        {{ presentation.contenu|raw }}
+                    </div>
+                </div>
+                <div class="col-lg-4 social"  data-aos="fade-left" data-aos-duration="2500">
+                    <div class="ressources text-center">
+                        <img src="{{ absolute_url(asset('assets/images/all/offre.jfif')) }}" class="img-fluid" >
+                        <a href="#" class="bouton btn-download">{{'Download'|trans}}</a>
+                    </div>
+                    <div class="zone-facebook d-none d-lg-block">
+                        <div
+                                class="fb-page"
+                                data-href="https://www.facebook.com/ItpcWestAfrica/"
+                                data-tabs="timeline, events, messages."
+                                data-height="850"
+                                data-small-header="false"
+                                data-adapt-container-width="true"
+                                data-hide-cover="false"
+                                data-show-facepile="true">
+                            <blockquote cite="https://www.facebook.com/ItpcWestAfrica/" class="fb-xfbml-parse-ignore">
+                                <a href="https://www.facebook.com/ItpcWestAfrica/">ITPC West Africa</a>
+                            </blockquote>
+                        </div>
+                        <div id="fb-root"></div>
+                    </div>
+                    <div class="newsletter">
+                        <h6>Newsletter</h6>
+                        <div class="description">
+                            Recevez en primeur toute l'actualités de l'ITPC West Africa
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Inscrivez-vous" aria-label="Inscrivez" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block metas %}
+    <link rel="alternate" href="{{ absolute_url(path('app_frontend_index',{'_locale': locale})) }}" hreflang="{{ locale }}">
+
+    <meta name="keywords" content="ITPCWA, ITPC West Africa, {{ 'AIDS'|trans }}, {{ 'HIV'|trans }}">
+    <meta name="description" content="{{ 'ITPC West Africa Enable optimal access to HIV treatment, in sufficient quality and quantity, for all people who need it'|trans }}" />
+    <link rel="canonical" href="{{ absolute_url(path('app_frontend_index',{'_locale': locale})) }}" />
+    <link rel="next" href=" {{ absolute_url(path('app_home')) }}" />
+
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ITPC West Africa - International Treatment Preparedness Coalition" />
+    <meta property="og:description" content="{{ 'ITPC West Africa Enable optimal access to HIV treatment, in sufficient quality and quantity, for all people who need it'|trans }}" />
+    <meta property="og:url" content="{{ absolute_url(path('app_frontend_index',{"_locale": locale})) }}" />
+    <meta property="og:site_name" content="ITPC West Africa" />
+    <meta property="article:modified_time" content="2022-12-18T11:08:30+00:00" />
+    <meta property="og:image" content="{{ absolute_url(asset('assets/images/logo.svg')) }}" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="{{ 'ITPC West Africa Enable optimal access to HIV treatment, in sufficient quality and quantity, for all people who need it'|trans }}"/>
+    <meta name="twitter:title" content="ITPC West Africa - International Treatment Preparedness Coalition"/>
+    <meta name="twitter:domain" content="ITPC West Africa"/>
+    <meta name="twitter:image:src" content="{{ absolute_url(asset('assets/images/logo.svg')) }}"/>
+{% endblock %}
