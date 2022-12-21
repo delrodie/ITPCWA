@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ actualite.locale.titre }}{% endblock %}
+
+{% block body %}
+    <main>
+        <section id="page" class="page">
+            <div class="breadcrumb">
+                <nav  style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_frontend_index', {'_locale': locale}) }}"><i class="fa-solid fa-house"></i></a></li>
+                        <li class="breadcrumb-item"><a href="{{ path('app_frontend_actualite_index', {'rubrique': 'news'|trans, '_locale': locale}) }}">{{ 'News'|trans }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ actualite.locale.titre }}</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 contenu-page p-lg-5"  data-aos="zoom-in" data-aos-duration="2500">
+                    {% if actualite.locale.media %}
+                        <figure>
+                                <img src="{{ absolute_url(asset('uploads/actualite/' ~ actualite.locale.media)) }}" alt="{{ actualite.locale.titre }}" class="img-fluid img-thumbnail">
+                        </figure>
+                        <div class="publication text-muted">{{ actualite.locale.createdAt|ago(locale=locale) }}</div>
+                    {% endif %}
+                    <h5>{{ actualite.locale.titre }}</h5>
+                    <div class="text">
+                        {{ actualite.locale.contenu|raw }}
+                    </div>
+                    <div class="autres-articles">
+                        <h4>{{ 'Other news'|trans }}</h4>
+                        <div class="row">
+                            {% for other in actualite.others %}
+                                <div class="col-md-6">
+                                    <div class="card mb-3 actualites" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="2500">
+                                        <div class="row g-0 justify-content-center align-items-center">
+                                            {% if other.media %}
+                                                <div class="col-md-4">
+                                                    <img src="{{ absolute_url(asset('uploads/actualite/' ~ other.media)) }}" class="img-fluid rounded-start" alt="{{ other.titre }}">
+                                                </div>
+                                            {% endif %}
+                                            <div class="{{ other.media ? 'col-md-8' : 'col-md-12' }}">
+                                                <div class="card-body">
+                                                    <h6 class="card-title"><a href="{{ path('app_frontend_actualite_show', {'rubrique': 'news'|trans, 'slug': other.slug, '_locale': locale}) }}">{{ other.titre }}</a></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 social"  data-aos="fade-left" data-aos-duration="2500">
+                    <div class="ressources text-center">
+                        <img src="{{ absolute_url(asset('assets/images/all/offre.jfif')) }}" class="img-fluid" >
+                        <a href="#" class="bouton btn-download">{{ 'Download'|trans }}</a>
+                    </div>
+                    <div class="zone-facebook d-none d-lg-block">
+                        <div
+                                class="fb-page"
+                                data-href="https://www.facebook.com/ItpcWestAfrica/"
+                                data-tabs="timeline, events, messages."
+                                data-height="850"
+                                data-small-header="false"
+                                data-adapt-container-width="true"
+                                data-hide-cover="false"
+                                data-show-facepile="true">
+                            <blockquote cite="https://www.facebook.com/ItpcWestAfrica/" class="fb-xfbml-parse-ignore">
+                                <a href="https://www.facebook.com/ItpcWestAfrica/">ITPC West Africa</a>
+                            </blockquote>
+                        </div>
+                        <div id="fb-root"></div>
+                    </div>
+                    <div class="newsletter">
+                        <h6>Newsletter</h6>
+                        <div class="description">
+                            {{ 'Be the first to receive all the news from ITPC West Africa'|trans }}
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="{{ 'Sign up'|trans }}" aria-label="{{ 'Sign up'|trans }}" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block translate %}
+    {% for locale in locales %}
+        {% if locale != app.request.locale %}
+            <a href="{{ path('app_frontend_actualite_show', {'rubrique': traduction, 'slug': actualite.traduction.slug, '_locale': locale}) }}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

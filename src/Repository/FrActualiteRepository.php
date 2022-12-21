@@ -46,6 +46,26 @@ class FrActualiteRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+    public function findListActif()
+    {
+        return $this->createQueryBuilder('fa')
+            ->where('fa.pageIndex is not null')
+            ->orderBy('fa.id', 'DESC')
+            ->getQuery()->getResult()
+            ;
+    }
+
+    public function findOther($slug)
+    {
+        return $this->createQueryBuilder('fa')
+            ->where('fa.slug <> :slug')
+            ->orderBy('fa.id', 'DESC')
+            ->setParameter('slug', $slug)
+            ->setMaxResults(2)
+            ->getQuery()->getResult()
+            ;
+    }
+
 //    /**
 //     * @return FrActualite[] Returns an array of FrActualite objects
 //     */

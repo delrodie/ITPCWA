@@ -179,10 +179,33 @@ class Utility
 
     }
 
+    /**
+     * Recherche du type d'entité concerné par la traduction pour suppression
+     *
+     */
     protected function traductionRoute($route, int $pageIndex)
     {
         return match ($route){
             'type' => $this->frTypeRepository->findOneBy(['pageIndex' => $pageIndex]),
+            'actualite' => $this->frActualiteRepository->findOneBy(['pageIndex' => $pageIndex])
         };
     }
+
+    /**
+     * Recherche de l'article francais pour afficher dans le select
+     *
+     * @param $route
+     * @param int $pageIndex
+     * @return array
+     */
+    public function traductionSelect(int $pageIndex, $route): array
+    {
+        $fr = $this->traductionRoute($route, $pageIndex);
+        return [
+            'pageIndex' => $fr->getPageIndex(),
+            'titre' => $fr->getTitre()
+        ];
+    }
+
+
 }

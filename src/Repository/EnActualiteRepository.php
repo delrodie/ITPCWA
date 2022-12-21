@@ -39,6 +39,26 @@ class EnActualiteRepository extends ServiceEntityRepository
         }
     }
 
+    public function findListActif()
+    {
+        return $this->createQueryBuilder('ea')
+            ->where('ea.pageIndex is not null')
+            ->orderBy('ea.id', 'DESC')
+            ->getQuery()->getResult()
+            ;
+    }
+
+    public function findOther($slug)
+    {
+        return $this->createQueryBuilder('ea')
+            ->where('ea.slug <> :slug')
+            ->orderBy('ea.id', 'DESC')
+            ->setParameter('slug', $slug)
+            ->setMaxResults(2)
+            ->getQuery()->getResult()
+            ;
+    }
+
 //    /**
 //     * @return EnActualite[] Returns an array of EnActualite objects
 //     */

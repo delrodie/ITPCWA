@@ -199,7 +199,7 @@
 {% block translate %}
     {% for locale in locales %}
         {% if locale != app.request.locale %}
-            <a href="{{ path('app_frontend_index', {'_locale': locale}) }}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
+            <a href="{{ absolute_url(path('app_frontend_index', {'_locale': locale})) }}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
         {% endif %}
     {% endfor %}
 {% endblock %}

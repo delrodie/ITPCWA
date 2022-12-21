@@ -6,6 +6,7 @@ use App\Entity\EnActualite;
 use App\Form\EnActualiteType;
 use App\Repository\EnActualiteRepository;
 use App\Repository\FrActualiteRepository;
+use App\Repository\TraductionRepository;
 use App\Services\GestionCache;
 use App\Services\GestionMedia;
 use App\Services\Utility;
@@ -23,7 +24,8 @@ class BackendEnActualiteController extends AbstractController
     const TRADUCTION_ENTITY = 'actualite';
     public function __construct(
         private GestionMedia $gestionMedia, private GestionCache $gestionCache, private Utility $utility,
-        private FrActualiteRepository $frActualiteRepository, private Flasher $flasher
+        private FrActualiteRepository $frActualiteRepository, private Flasher $flasher,
+        private TraductionRepository $traductionRepository
     )
     {
     }
@@ -77,7 +79,8 @@ class BackendEnActualiteController extends AbstractController
         return $this->renderForm('backend_en_actualite/new.html.twig', [
             'en_actualite' => $enActualite,
             'form' => $form,
-            'fr_actualites' => $this->frActualiteRepository->findListInactif()
+            'fr_actualites' => $this->frActualiteRepository->findListInactif(),
+            'traduction' => null
         ]);
     }
 
@@ -119,7 +122,8 @@ class BackendEnActualiteController extends AbstractController
         return $this->renderForm('backend_en_actualite/edit.html.twig', [
             'en_actualite' => $enActualite,
             'form' => $form,
-            'fr_actualites' => $this->frActualiteRepository->findAll()
+            'fr_actualites' => $this->frActualiteRepository->findAll(),
+            'traduction' => $this->utility->traductionSelect($enActualite->getPageIndex(), self::TRADUCTION_ENTITY)
         ]);
     }
 

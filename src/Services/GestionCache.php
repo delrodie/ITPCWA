@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repository\EnActualiteRepository;
 use App\Repository\EnInfoRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnTypeRepository;
@@ -22,7 +23,7 @@ class GestionCache
         private FrInfoRepository $frInfoRepository, private  EnInfoRepository $enInfoRepository,
         private FrTypeRepository $frTypeRepository, private EnTypeRepository $enTypeRepository,
         private FrPresentationRepository $frPresentationRepository, private EnPresentationRepository $enPresentationRepository,
-        private FrActualiteRepository $frActualiteRepository
+        private FrActualiteRepository $frActualiteRepository, private EnActualiteRepository $enActualiteRepository
     )
     {
     }
@@ -172,6 +173,70 @@ class GestionCache
 
             return $resultat;
 
+        });
+    }
+
+    public function cacheFrActualites(bool $delete=false)
+    {
+        if ($delete) $this->cache->delete('frActualites');
+
+        return $this->cache->get('frActualites', function (ItemInterface $item){
+            $item->expiresAfter(6048000);
+            return $this->frActualiteRepository->findListActif();
+        });
+    }
+
+
+    public function cacheEnActualites(bool $delete=false)
+    {
+        if ($delete) $this->cache->delete('enActualites');
+
+        return $this->cache->get('enActualites', function (ItemInterface $item){
+            $item->expiresAfter(6048000);
+            return $this->enActualiteRepository->findListActif();
+        });
+    }
+
+
+    public function cacheFrActualiteItem($slug, bool $delete=false)
+    {
+        if ($delete) $this->cache->delete($slug); //dd($slug);
+
+        return $this->cache->get($slug, function (ItemInterface $item) use ($slug){
+            $item->expiresAfter(6048000);
+            $actualite = $this->frActualiteRepository->findOneBy(['slug' => $slug]);
+            if ($actualite){
+                $traduction = $this->enActualiteRepository->findOneBy(['pageIndex' => $actualite->getPageIndex()]);
+                $other = $this->frActualiteRepository->findOther($slug);
+                return [
+                    'locale' => $actualite,
+                    'traduction' => $traduction,
+                    'others' => $other
+                ];
+            }else{
+                return [];
+            }
+        });
+    }
+
+    public function cacheEnActualiteItem($slug, bool $delete=false)
+    {
+        if ($delete) $this->cache->delete($slug);
+
+        return $this->cache->get($slug, function (ItemInterface $item) use ($slug){
+            $item->expiresAfter(6048000);
+            $actualite = $this->enActualiteRepository->findOneBy(['slug' => $slug]);
+            if ($actualite){
+                $traduction = $this->frActualiteRepository->findOneBy(['pageIndex' => $actualite->getPageIndex()]);
+                $other = $this->enActualiteRepository->findOther($actualite->getSlug());
+                return [
+                    'locale' => $actualite,
+                    'traduction' => $traduction,
+                    'others' => $other
+                ];
+            }else{
+                return [];
+            }
         });
     }
 }

@@ -58,7 +58,7 @@ class BackendFrActualiteController extends AbstractController
                 ->create('notyf')
                 ->addSuccess("L'article '{$frActualite->getTitre()} a été ajouté avec succès!");
 
-            return $this->redirectToRoute('app_backend_fr_actualite_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_backend_en_actualite_new', [], Response::HTTP_SEE_OTHER);
         }
 
         $this->flasher

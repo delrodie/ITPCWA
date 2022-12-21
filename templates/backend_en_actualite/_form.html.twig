@@ -2,8 +2,13 @@
 <div class="row form-group">
     <div class="col-6 mt-3">
         <label for="traduction" class="">French correspondence</label>
-        <select name="_traduction" id="traduction" class="form-select">
-            <option value=""></option>
+        <select name="_traduction" id="traduction" class="form-select" required="required">
+            {% if traduction %}
+                <option value="{{ traduction.pageIndex }}">{{ traduction.titre }}</option>
+                <option value=""></option>
+            {% else %}
+                <option value=""></option>
+            {% endif %}
             {% for actualite in fr_actualites  %}
                 <option value="{{ actualite.id }}">{{ actualite.titre }}</option>
             {% endfor %}
