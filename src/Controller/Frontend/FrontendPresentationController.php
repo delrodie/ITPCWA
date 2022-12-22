@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Frontend;
 
 use App\Services\GestionCache;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -26,17 +25,18 @@ class FrontendPresentationController extends AbstractController
     {
 
         if ($_locale === 'fr')
-            $presentation = $this->gestionCache->cacheFrPresentation($slug);
+            $presentation = $this->gestionCache->cacheFrPresentation($slug, true);
         else
-            $presentation = $this->gestionCache->cacheEnPresentation($slug);
+            $presentation = $this->gestionCache->cacheEnPresentation($slug, true);
 
-        //dd($presentation);
+        if (!$presentation)
+            throw $this->createNotFoundException("Page not found");
 
-        if (!$presentation) {
+        /*if (!$presentation) {
             return $this->render('frontend/presentation_404.html.twig',[
                 'locale' => $_locale
             ]);
-        }
+        }*/
 
         return $this->render('frontend/presentation.html.twig',[
             'presentation' => $presentation,

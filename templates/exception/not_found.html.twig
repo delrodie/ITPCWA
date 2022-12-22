@@ -1,14 +1,15 @@
 {% extends 'errors_layout.html.twig' %}
-{% block title %}{{ status }} : {{ message }}{% endblock %}
+{% block title %}{{ status }} : {{ message|trans }}{% endblock %}
 {% block body %}
 
     <div class="container">
-        <h2>Oups! Cette page est introuvable.</h2>
+        <h2>{{ 'Whoops! Page not found.'|trans }}</h2>
         <h1>{{ status }}</h1>
         <p>
-            On dirait que rien n'a été trouvé à cet endroit. Sans doute la page n'existe plus. <br>
-            Prière reprendre donc la visite par la page d'accueil!
+            {{ 'Looks like nothing was found there.'|trans}}
+            {{ 'Probably the page no longer exists or it is being edited.'|trans }} <br>
+            {{ 'Please resume the visit via the home page!'|trans }}
         </p>
-        <a href="{{ absolute_url(path('app_home')) }}">Retour à l'accueil</a>
+        <a href="{{ absolute_url(path('app_home')) }}">{{ 'Back to home'|trans }}</a>
     </div>
 {% endblock %}

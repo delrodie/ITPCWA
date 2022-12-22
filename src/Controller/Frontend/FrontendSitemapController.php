@@ -8,7 +8,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class SitemapController extends AbstractController
+#[Route('/sitemap')]
+class FrontendSitemapController extends AbstractController
 {
     public function __construct(
         private GestionCache $gestionCache
@@ -16,7 +17,7 @@ class SitemapController extends AbstractController
     {
     }
 
-    #[Route('/{_locale}/sitemap', name: 'app_sitemap')]
+    #[Route('/{_locale}', name: 'app_sitemap')]
     public function index($_locale): Response
     {
         if ($_locale === 'fr')
