@@ -33,3 +33,4 @@ services:
             $slideDirectory: '%kernel.project_dir%/public/uploads/slide'
             $presentationDirectory: '%kernel.project_dir%/public/uploads/presentation'
             $actualiteDirectory: '%kernel.project_dir%/public/uploads/actualite'
+            $projetDirectory: '%kernel.project_dir%/public/uploads/projet'

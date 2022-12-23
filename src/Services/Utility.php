@@ -9,6 +9,7 @@ use App\Repository\EnPresentationRepository;
 use App\Repository\EnTypeRepository;
 use App\Repository\FrActualiteRepository;
 use App\Repository\FrPresentationRepository;
+use App\Repository\FrProjetRepository;
 use App\Repository\FrTypeRepository;
 use App\Repository\SlideRepository;
 use App\Repository\TraductionRepository;
@@ -28,7 +29,7 @@ class Utility
         private EnTypeRepository $enTypeRepository, private TraductionRepository $traductionRepository,
         private EntityManagerInterface $entityManager, private FrPresentationRepository $frPresentationRepository,
         private EnPresentationRepository $enPresentationRepository, private FrActualiteRepository $frActualiteRepository,
-        private EnActualiteRepository $enActualiteRepository
+        private EnActualiteRepository $enActualiteRepository, private FrProjetRepository $frProjetRepository
     )
     {
     }
