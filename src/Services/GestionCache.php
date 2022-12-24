@@ -249,7 +249,7 @@ class GestionCache
 
         return $this->cache->get('frProjet', function (ItemInterface $item){
             $item->expiresAfter(6048000);
-            return $this->frProjetRepository->findAll();
+            return $this->frProjetRepository->findBy([],['id'=>"DESC"]);
         });
     }
 
@@ -262,4 +262,45 @@ class GestionCache
             return $this->enProjetRepository->findAll();
         });
     }
+
+    public function cacheFrProjetItem(string $slug, bool $delete=false)
+    {
+        if ($delete) $this->cache->delete($slug);
+
+        return $this->cache->get($slug, function (ItemInterface $item) use ($slug){
+            $item->expiresAfter(6048000);
+            $projet = $this->frProjetRepository->findOneBy(['slug' => $slug]);
+            if ($projet){
+                $traduction = $this->enProjetRepository->findOneBy(['pageIndex' => $projet->getPageIndex()]);
+                // les actions concernées par ce projet
+                return [
+                    'locale' => $projet,
+                    'traduction' => $traduction,
+                    'actions' => []
+                ];
+            }else
+                return [];
+        });
+    }
+
+    public function cacheEnProjetItem(string $slug, bool $delete=false)
+    {
+        if ($delete) $this->cache->delete($slug);
+
+        return $this->cache->get($slug, function (ItemInterface $item) use ($slug){
+            $item->expiresAfter(6048000);
+            $projet = $this->enProjetRepository->findOneBy(['slug' => $slug]);
+            if ($projet){
+                $traduction = $this->frProjetRepository->findOneBy(['pageIndex' => $projet->getPageIndex()]);
+                // Les actions de ce projet
+                return [
+                    'locale' => $projet,
+                    'traduction' => $traduction,
+                    'actions' => []
+                ];
+            }else
+                return [];
+        });
+    }
+
 }

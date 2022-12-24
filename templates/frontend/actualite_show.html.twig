@@ -96,3 +96,28 @@
         {% endif %}
     {% endfor %}
 {% endblock %}
+
+{% block metas %}
+    <link rel="alternate" href="{{ absolute_url(path('app_frontend_actualite_show', {'slug': actualite.locale.slug, '_locale': locale, 'rubrique': 'news'|trans})) }}" hreflang="{{ locale }}">
+
+    <meta name="keywords" content="{{ actualite.locale.tags }}">
+    <meta name="description" content="{{ actualite.locale.resume|raw }}" />
+    <link rel="canonical" href="{{ absolute_url(path('app_frontend_actualite_show', {'slug': actualite.locale.slug, '_locale': locale, 'rubrique': 'news'|trans})) }}" />
+    <link rel="next" href=" {{ absolute_url(path('app_home')) }}" />
+
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_GB" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ actualite.locale.titre }}" />
+    <meta property="og:description" content="{{ actualite.locale.resume|raw }}" />
+    <meta property="og:url" content="{{ absolute_url(path('app_frontend_actualite_show', {'slug': actualite.locale.slug, '_locale': locale, 'rubrique': 'news'|trans})) }}" />
+    <meta property="og:site_name" content="ITPC West Africa" />
+    <meta property="article:created_time" content="{{ actualite.locale.createdAt|date('Y-m-d') }}T{{ actualite.locale.createdAt|date('H:i:s') }}+00:00" />
+    <meta property="og:image" content="{{ absolute_url(asset('uploads/actualite/'~ actualite.locale.media)) }}" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="{{ actualite.locale.resume|raw }}"/>
+    <meta name="twitter:title" content="{{ actualite.locale.titre }}"/>
+    <meta name="twitter:domain" content="ITPC West Africa"/>
+    <meta name="twitter:image:src" content="{{ absolute_url(asset('uploads/actualite/' ~ actualite.locale.media)) }}"/>
+{% endblock %}

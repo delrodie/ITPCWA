@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{projet.locale.titre }}{% endblock %}
+
+{% block body %}
+    <main>
+        <section id="page" class="page">
+            <div class="breadcrumb">
+                <nav  style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_frontend_index', {'_locale': locale}) }}"><i class="fa-solid fa-house"></i></a></li>
+                        <li class="breadcrumb-item"><a href="{{ path('app_frontend_projet_index', {'_locale': locale}) }}">{{ 'Projects'|trans }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{projet.locale.titre }}</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 contenu-page p-lg-5"  data-aos="zoom-in" data-aos-duration="2500">
+                    {% if projet.locale.media %}
+                        <figure>
+                            <img src="{{ absolute_url(asset('uploads/projet/' ~ projet.locale.media)) }}" alt="{{projet.locale.titre }}" class="img-fluid img-thumbnail">
+                        </figure>
+                        <div class="publication text-muted">{{projet.locale.createdAt|ago(locale=locale) }}</div>
+                    {% endif %}
+                    <h5>{{projet.locale.titre }}</h5>
+                    <div class="text">
+                        {{projet.locale.contenu|raw }}
+                    </div>
+
+                </div>
+                <div class="col-lg-4 social"  data-aos="fade-left" data-aos-duration="2500">
+                    <div class="ressources text-center">
+                        <img src="{{ absolute_url(asset('assets/images/all/offre.jfif')) }}" class="img-fluid" >
+                        <a href="#" class="bouton btn-download">{{ 'Download'|trans }}</a>
+                    </div>
+                    <div class="zone-facebook d-none d-lg-block">
+                        <div
+                                class="fb-page"
+                                data-href="https://www.facebook.com/ItpcWestAfrica/"
+                                data-tabs="timeline, events, messages."
+                                data-height="850"
+                                data-small-header="false"
+                                data-adapt-container-width="true"
+                                data-hide-cover="false"
+                                data-show-facepile="true">
+                            <blockquote cite="https://www.facebook.com/ItpcWestAfrica/" class="fb-xfbml-parse-ignore">
+                                <a href="https://www.facebook.com/ItpcWestAfrica/">ITPC West Africa</a>
+                            </blockquote>
+                        </div>
+                        <div id="fb-root"></div>
+                    </div>
+                    <div class="newsletter">
+                        <h6>Newsletter</h6>
+                        <div class="description">
+                            {{ 'Be the first to receive all the news from ITPC West Africa'|trans }}
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="{{ 'Sign up'|trans }}" aria-label="{{ 'Sign up'|trans }}" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block translate %}
+    {% for locale in locales %}
+        {% if locale != app.request.locale %}
+            <a href="{{ path('app_frontend_projet_show', {'slug': projet.traduction.slug, '_locale': locale}) }}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+
+{% block metas %}
+    <link rel="alternate" href="{{ absolute_url(path('app_frontend_projet_show', {'slug': projet.locale.slug, '_locale': locale})) }}" hreflang="{{ locale }}">
+
+    <meta name="keywords" content="{{ projet.locale.tags }}">
+    <meta name="description" content="{{ projet.locale.resume|raw }}" />
+    <link rel="canonical" href="{{ absolute_url(path('app_frontend_projet_show', {'slug': projet.locale.slug, '_locale': locale})) }}" />
+    <link rel="next" href=" {{ absolute_url(path('app_frontend_projet_index')) }}" />
+
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_GB" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ projet.locale.titre }}" />
+    <meta property="og:description" content="{{ projet.locale.resume|raw }}" />
+    <meta property="og:url" content="{{ absolute_url(path('app_frontend_projet_show', {'slug': projet.locale.slug, '_locale': locale})) }}" />
+    <meta property="og:site_name" content="ITPC West Africa" />
+    <meta property="article:created_time" content="{{ projet.locale.createdAt|date('Y-m-d') }}T{{ projet.locale.createdAt|date('H:i:s') }}+00:00" />
+    <meta property="og:image" content="{{ absolute_url(asset('uploads/projet/'~ projet.locale.media)) }}" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="{{ projet.locale.resume|raw }}"/>
+    <meta name="twitter:title" content="{{ projet.locale.titre }}"/>
+    <meta name="twitter:domain" content="ITPC West Africa"/>
+    <meta name="twitter:image:src" content="{{ absolute_url(asset('uploads/projet/' ~ projet.locale.media)) }}"/>
+{% endblock %}
