@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Entity\Traduction;
 use App\Entity\Visiteur;
+use App\Form\EnProjetType;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnPresentationRepository;
+use App\Repository\EnProjetRepository;
 use App\Repository\EnTypeRepository;
 use App\Repository\FrActualiteRepository;
 use App\Repository\FrPresentationRepository;
@@ -29,7 +31,8 @@ class Utility
         private EnTypeRepository $enTypeRepository, private TraductionRepository $traductionRepository,
         private EntityManagerInterface $entityManager, private FrPresentationRepository $frPresentationRepository,
         private EnPresentationRepository $enPresentationRepository, private FrActualiteRepository $frActualiteRepository,
-        private EnActualiteRepository $enActualiteRepository, private FrProjetRepository $frProjetRepository
+        private EnActualiteRepository $enActualiteRepository, private FrProjetRepository $frProjetRepository,
+        private EnProjetRepository $enProjetRepository,
     )
     {
     }
@@ -188,7 +191,8 @@ class Utility
     {
         return match ($route){
             'type' => $this->frTypeRepository->findOneBy(['pageIndex' => $pageIndex]),
-            'actualite' => $this->frActualiteRepository->findOneBy(['pageIndex' => $pageIndex])
+            'actualite' => $this->frActualiteRepository->findOneBy(['pageIndex' => $pageIndex]),
+            'projet' => $this->frProjetRepository->findOneBy(['pageIndex' => $pageIndex]),
         };
     }
 

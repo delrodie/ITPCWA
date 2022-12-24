@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnInfoRepository;
 use App\Repository\EnPresentationRepository;
+use App\Repository\EnProjetRepository;
 use App\Repository\EnTypeRepository;
 use App\Repository\FrActualiteRepository;
 use App\Repository\FrInfoRepository;
@@ -25,7 +26,7 @@ class GestionCache
         private FrTypeRepository $frTypeRepository, private EnTypeRepository $enTypeRepository,
         private FrPresentationRepository $frPresentationRepository, private EnPresentationRepository $enPresentationRepository,
         private FrActualiteRepository $frActualiteRepository, private EnActualiteRepository $enActualiteRepository,
-        private FrProjetRepository $frProjetRepository
+        private FrProjetRepository $frProjetRepository, private EnProjetRepository $enProjetRepository
     )
     {
     }
@@ -246,9 +247,19 @@ class GestionCache
     {
         if ($delete) $this->cache->delete('frProjet');
 
-        return $this->cache->get('frprojet', function (ItemInterface $item){
+        return $this->cache->get('frProjet', function (ItemInterface $item){
             $item->expiresAfter(6048000);
             return $this->frProjetRepository->findAll();
+        });
+    }
+
+    public function cacheEnProjet(bool $delete=false)
+    {
+        if ($delete) $this->cache->delete('enProjet');
+
+        return $this->cache->get('enProjet', function (ItemInterface $item){
+            $item->expiresAfter(6048000);
+            return $this->enProjetRepository->findAll();
         });
     }
 }

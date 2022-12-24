@@ -39,6 +39,14 @@ class FrProjetRepository extends ServiceEntityRepository
         }
     }
 
+    public function findListInactif()
+    {
+        return $this->createQueryBuilder('fp')
+            ->where('fp.pageIndex is null')
+            ->getQuery()->getResult()
+            ;
+    }
+
 //    /**
 //     * @return FrProjet[] Returns an array of FrProjet objects
 //     */

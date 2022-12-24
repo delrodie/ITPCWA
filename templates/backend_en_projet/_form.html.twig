@@ -1,0 +1,33 @@
+{{ form_start(form, {'attr':{'novalidate': 'novalidate'}}) }}
+<div class="row form-group">
+    <div class="col-6 mt-3">
+        <label for="traduction" class="">French correspondence</label>
+        <select name="_traduction" id="traduction" class="form-select" required="required">
+            {% if traduction %}
+                <option value="{{ traduction.pageIndex }}">{{ traduction.titre }}</option>
+                <option value=""></option>
+            {% else %}
+                <option value=""></option>
+            {% endif %}
+            {% for projet in fr_projets  %}
+                <option value="{{ projet.id }}">{{ projet.titre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-6 mt-3">{{ form_row(form.titre) }}</div>
+    <div class="col-12 mt-3">{{ form_row(form.contenu) }}</div>
+    <div class="col-6 mt-3">{{ form_row(form.media) }}</div>
+    <div class="col-6 mt-3">
+        {% if en_projet.media %}
+            <img src="{{ absolute_url(asset('uploads/projet/' ~ en_projet.media)) }}" class="img-fluid">
+        {% endif %}
+    </div>
+    <div class="col-6 mt-3">{{ form_row(form.tags) }}</div>
+</div>
+<div class="text-end mt-5">
+    {{ form_widget(form) }}
+    <a href="{{ path('app_backend_fr_projet_index') }}" class="btn btn-outline-secondary">Cancel</a>
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+</div>
+
+{{ form_end(form) }}

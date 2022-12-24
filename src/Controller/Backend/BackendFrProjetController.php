@@ -60,7 +60,7 @@ class BackendFrProjetController extends AbstractController
                 ->create('notyf')
                 ->addSuccess("Le projet {$frProjet->getTitre()} a été ajouté avec succès!");
 
-            return $this->redirectToRoute('app_backend_fr_projet_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_backend_en_projet_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('backend_fr_projet/new.html.twig', [
@@ -126,7 +126,7 @@ class BackendFrProjetController extends AbstractController
                     ->addError("Attention, la version anglaise correspondante devrait être supprimée d'abord!");
 
                 // Redirection a la version anglaise
-                dd('redirection a la version anglaise');
+                return $this->redirectToRoute('app_backend_en_projet_index',[], Response::HTTP_SEE_OTHER);
             }
 
             $frProjetRepository->remove($frProjet, true);
@@ -134,7 +134,7 @@ class BackendFrProjetController extends AbstractController
             $this->gestionCache->cacheFrProjet(true); // suppression du cache
 
             if ($frProjet->getMedia())
-                $this->gestionMedia->removeUpload($frProjet->getMedia());
+                $this->gestionMedia->removeUpload($frProjet->getMedia(), "projet");
 
             $this->flasher
                 ->create('notyf')
