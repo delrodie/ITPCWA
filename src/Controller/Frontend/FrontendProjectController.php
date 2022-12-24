@@ -42,9 +42,9 @@ class FrontendProjectController extends AbstractController
     {
         if ($_locale === 'fr'){
             // Le projet en francais mis en cache
-            $projet = $this->gestionCache->cacheFrProjetItem($slug, true);
+            $projet = $this->gestionCache->cacheFrProjetItem($slug);
         }else{ //dd($slug);
-            $projet = $this->gestionCache->cacheEnProjetItem($slug, true); // le projet en anglais mis en cache
+            $projet = $this->gestionCache->cacheEnProjetItem($slug); // le projet en anglais mis en cache
         }
 
         return $this->render("frontend/projet_show.html.twig",[

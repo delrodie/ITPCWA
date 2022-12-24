@@ -249,7 +249,7 @@ class GestionCache
 
         return $this->cache->get('frProjet', function (ItemInterface $item){
             $item->expiresAfter(6048000);
-            return $this->frProjetRepository->findBy([],['id'=>"DESC"]);
+            return $this->frProjetRepository->findListActif();
         });
     }
 
@@ -259,7 +259,7 @@ class GestionCache
 
         return $this->cache->get('enProjet', function (ItemInterface $item){
             $item->expiresAfter(6048000);
-            return $this->enProjetRepository->findAll();
+            return $this->enProjetRepository->findListActif();
         });
     }
 

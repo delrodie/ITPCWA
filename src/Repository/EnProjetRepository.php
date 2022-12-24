@@ -39,6 +39,15 @@ class EnProjetRepository extends ServiceEntityRepository
         }
     }
 
+    public function findListActif()
+    {
+        return $this->createQueryBuilder('ep')
+            ->where('ep.pageIndex is not null')
+            ->orderBy('ep.id', 'DESC')
+            ->getQuery()->getResult()
+            ;
+    }
+
 //    /**
 //     * @return EnProjet[] Returns an array of EnProjet objects
 //     */

@@ -4,8 +4,10 @@ namespace App\Controller\Frontend;
 
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnPresentationRepository;
+use App\Repository\EnProjetRepository;
 use App\Repository\FrActualiteRepository;
 use App\Repository\FrPresentationRepository;
+use App\Repository\FrProjetRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +21,9 @@ class SitemapController extends AbstractController
         FrPresentationRepository $frPresentationRepository,
         EnPresentationRepository $enPresentationRepository,
         EnActualiteRepository $enActualiteRepository,
-        FrActualiteRepository $frActualiteRepository
+        FrActualiteRepository $frActualiteRepository,
+        EnProjetRepository $enProjetRepository,
+        FrProjetRepository $frProjetRepository
     ): Response
     {
         $hostname = $request->getSchemeAndHttpHost(); // recuperation du nom de l'hôte depuis l'url
@@ -39,10 +43,12 @@ class SitemapController extends AbstractController
             if ($loc === 'fr'){
                 $presentations = $frPresentationRepository->findAll();
                 $actualites = $frActualiteRepository->findAll();
+                $projets = $frProjetRepository->findListActif();
                 $rubrique = 'actualites';
             }else{
                 $presentations = $enPresentationRepository->findAll();
                 $actualites = $enActualiteRepository->findAll();
+                $projets = $enProjetRepository->findListActif();
                 $rubrique = 'news';
             }
 
@@ -73,6 +79,24 @@ class SitemapController extends AbstractController
                         'slug' => $actualite->getSlug()
                     ]),
                     'lastmod' => $actualite->getCreatedAt()->format('Y-m-d'),
+                    'image' => $images
+                ];
+            }
+
+            foreach ($projets as $projet){
+                if ($projet->getUpdatedAt()) $date = $projet->getUpdatedAt();
+                else $date = $projet->getCreatedAt();
+
+                $images = [
+                    'loc' => '/uploads/projet/'.$projet->getMedia(),
+                    'title' => $projet->getTitre()
+                ];
+                $urls[] = [
+                    'loc' => $this->generateUrl('app_frontend_projet_show',[
+                        '_locale' => $loc,
+                        'slug' => $projet->getSlug()
+                    ]),
+                    'lastmod' => $date->format('Y-m-d'),
                     'image' => $images
                 ];
             }
