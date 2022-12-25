@@ -12,6 +12,7 @@ use App\Repository\EnTypeRepository;
 use App\Repository\FrActualiteRepository;
 use App\Repository\FrPresentationRepository;
 use App\Repository\FrProjetRepository;
+use App\Repository\FrRessourceRepository;
 use App\Repository\FrTypeRepository;
 use App\Repository\SlideRepository;
 use App\Repository\TraductionRepository;
@@ -32,7 +33,7 @@ class Utility
         private EntityManagerInterface $entityManager, private FrPresentationRepository $frPresentationRepository,
         private EnPresentationRepository $enPresentationRepository, private FrActualiteRepository $frActualiteRepository,
         private EnActualiteRepository $enActualiteRepository, private FrProjetRepository $frProjetRepository,
-        private EnProjetRepository $enProjetRepository,
+        private EnProjetRepository $enProjetRepository, private FrRessourceRepository $frRessourceRepository
     )
     {
     }
@@ -212,5 +213,23 @@ class Utility
         ];
     }
 
+    public function getReference($entity)
+    {
+        $date = date('ym');
+        $lastReference = $this->frRessourceRepository->findOneBy([],['id'=>"DESC"]);
+        if (!$lastReference) $ref = $date.'-'.$this->reference(1);
+        else $ref = $date.'-'.$lastReference->getId();
+
+        return $entity->setReference($ref);
+    }
+
+    protected function reference(int $id)
+    {
+        if ($id < 10) $res = '00'.$id;
+        elseif ($id < 100) $res = '0'.$id;
+        else $res = $id;
+
+        return $res;
+    }
 
 }

@@ -1,0 +1,22 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-10 offset-1">
+        <div class="row form-group">
+            <div class="col-12 mt-3">{{ form_row(form.titre) }}</div>
+            <div class="col-12 mt-3">{{ form_row(form.description) }}</div>
+            <div class="col-8 mt-3">{{ form_row(form.media) }}</div>
+            {% if fr_ressource.media %}
+                <div class="col-4 mt-5">
+                    <a href="{{ asset('/uploads/ressources/' ~ fr_ressource.media) }}">{{ fr_ressource.titre }}</a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="text-end mt-5">
+            {{ form_widget(form) }}
+            <a href="{{ path('app_backend_fr_ressource_index') }}" class="btn btn-outline-secondary">Annuler</a>
+            <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+        </div>
+    </div>
+</div>
+
+{{ form_end(form) }}

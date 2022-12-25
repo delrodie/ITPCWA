@@ -11,6 +11,7 @@ use App\Repository\FrActualiteRepository;
 use App\Repository\FrInfoRepository;
 use App\Repository\FrPresentationRepository;
 use App\Repository\FrProjetRepository;
+use App\Repository\FrRessourceRepository;
 use App\Repository\FrTypeRepository;
 use App\Repository\SlideRepository;
 use Psr\Cache\InvalidArgumentException;
@@ -26,7 +27,8 @@ class GestionCache
         private FrTypeRepository $frTypeRepository, private EnTypeRepository $enTypeRepository,
         private FrPresentationRepository $frPresentationRepository, private EnPresentationRepository $enPresentationRepository,
         private FrActualiteRepository $frActualiteRepository, private EnActualiteRepository $enActualiteRepository,
-        private FrProjetRepository $frProjetRepository, private EnProjetRepository $enProjetRepository
+        private FrProjetRepository $frProjetRepository, private EnProjetRepository $enProjetRepository,
+        private FrRessourceRepository $frRessourceRepository
     )
     {
     }
@@ -300,6 +302,16 @@ class GestionCache
                 ];
             }else
                 return [];
+        });
+    }
+
+    public function cacheFrRessource(bool $delete=true)
+    {
+        if ($delete) $this->cache->delete('frRessource');
+
+        return $this->cache->get('frRessource', function (ItemInterface $item){
+            $item->expiresAfter(6048000);
+            return $this->frRessourceRepository->findListActif();
         });
     }
 

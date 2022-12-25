@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FrRessource{% endblock %}
+
+{% block body %}
+    <h1>FrRessource</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ fr_ressource.id }}</td>
+            </tr>
+            <tr>
+                <th>Reference</th>
+                <td>{{ fr_ressource.reference }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ fr_ressource.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ fr_ressource.description }}</td>
+            </tr>
+            <tr>
+                <th>Media</th>
+                <td>{{ fr_ressource.media }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ fr_ressource.slug }}</td>
+            </tr>
+            <tr>
+                <th>Extension</th>
+                <td>{{ fr_ressource.extension }}</td>
+            </tr>
+            <tr>
+                <th>PageIndex</th>
+                <td>{{ fr_ressource.pageIndex }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ fr_ressource.createdAt ? fr_ressource.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ fr_ressource.updatedAt ? fr_ressource.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_fr_ressource_index') }}">back to list</a>
+
+    <a href="{{ path('app_backend_fr_ressource_edit', {'id': fr_ressource.id}) }}">edit</a>
+
+    {{ include('backend_fr_ressource/_delete_form.html.twig') }}
+{% endblock %}

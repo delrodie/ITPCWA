@@ -60,7 +60,7 @@ FrPresentation (Id, titre, resumé, contenu, media, slug, tags, pageIndex, creat
 FrActualite (Id, titre, resume, contenu, media, slug, tags, pageIndex, createdAt, updatedAt)
 FrCampagne (id, titre, resume, contenu, media, slug, tags, pageIndex, createdAt, updatedAt)
 FrJob (id, reference, titre, resume, contenu, media, slug, date fin, lieu fonction, createdAt, updatedAt)
-FrRessource (id, reference, titre, description, media, slug, pageIdex, created, updatedAt)
+FrRessource (id, reference, titre, description, media, slug, extension, pageIdex, created, updatedAt)
 
 #Table des rubriques anglaise 
 EnInfo (Id, titre, debut, fin) 
@@ -69,7 +69,7 @@ EnPresentation (Id, titre, resumé, contenu, media, slug, tags, pageIndex, creat
 EnActualite (Id, titre, resume, contenu, media, slug, tags, pageIndex, createdAt, updatedAt)
 EnCampagne (id, titre, resume, contenu, media, slug, tags, pageIndex, createdAt, updatedAt)
 EnJob (id, reference, titre, resume, contenu, media, slug, date fin, lieu fonction, createdAt, updatedAt)
-EnRessource (id, reference, titre, description, media, slug, pageIdex, created, updatedAt)
+EnRessource (id, reference, titre, description, media, slug, extension, pageIdex, created, updatedAt)
 
 # tables globales
 Slider (Id, titre, media, statut)
