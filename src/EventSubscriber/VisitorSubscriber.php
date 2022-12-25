@@ -96,12 +96,20 @@ class VisitorSubscriber implements EventSubscriberInterface
             $resultat = match ($route){
                 'app_home' => 1,
                 'app_frontend_index' =>2,
+                'app_frontend_actualite_index' =>4,
+                'app_frontend_actualite_show' =>6,
+                'app_frontend_projet_index' =>8,
+                'app_frontend_projet_show' =>10,
                 default => throw new \Exception('Non supporter')
             };
         else{
             $resultat = match ($route){
                 'app_home' => 1,
                 'app_frontend_index' => 3,
+                'app_frontend_actualite_index' => 5,
+                'app_frontend_actualite_show' => 7,
+                'app_frontend_projet_index' => 9,
+                'app_frontend_projet_show' => 11,
                 default => throw new \Exception('Unexpected match value')
             };
         }
@@ -113,6 +121,10 @@ class VisitorSubscriber implements EventSubscriberInterface
     {
         return match ($route) {
                 'app_frontend_index' => true,
+                'app_frontend_actualite_index' => true,
+                'app_frontend_actualite_show' => true,
+                'app_frontend_projet_index' => true,
+                'app_frontend_projet_show' => true,
                 default => false,
             };
     }

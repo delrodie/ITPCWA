@@ -132,7 +132,15 @@ class Utility
         return match ($page){
             1 => "Page d'accueil principal",
             2 => "Page d'accueil version francaise",
-            3 => "Page d'accueil version anglaise"
+            3 => "Page d'accueil version anglaise",
+            4 => "Liste des actualités version francaise",
+            5 => "Liste des actualités version anglaise",
+            6 => "Article de l'actualité en version francaise",
+            7 => "Article de l'actualité en version anglaise",
+            8 => "Version francaise de la liste des projets",
+            9 => "Version anglaise de la liste des projets",
+            10 => "Version francaise d'un article des projets",
+            11 => "Version anglaise d'un article des projets",
         };
     }
 
