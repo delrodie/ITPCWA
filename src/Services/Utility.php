@@ -8,6 +8,7 @@ use App\Form\EnProjetType;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnProjetRepository;
+use App\Repository\EnRessourceRepository;
 use App\Repository\EnTypeRepository;
 use App\Repository\FrActualiteRepository;
 use App\Repository\FrPresentationRepository;
@@ -33,7 +34,8 @@ class Utility
         private EntityManagerInterface $entityManager, private FrPresentationRepository $frPresentationRepository,
         private EnPresentationRepository $enPresentationRepository, private FrActualiteRepository $frActualiteRepository,
         private EnActualiteRepository $enActualiteRepository, private FrProjetRepository $frProjetRepository,
-        private EnProjetRepository $enProjetRepository, private FrRessourceRepository $frRessourceRepository
+        private EnProjetRepository $enProjetRepository, private FrRessourceRepository $frRessourceRepository,
+        private EnRessourceRepository $enRessourceRepository,
     )
     {
     }
@@ -221,12 +223,16 @@ class Utility
         ];
     }
 
-    public function getReference($entity)
+    public function getReference($entity, string $lang)
     {
+        if ($lang === 'fr')
+            $lastReference = $this->frRessourceRepository->findOneBy([],['id'=>"DESC"]);
+        else
+            $lastReference = $this->enRessourceRepository->findOneBy([],['id'=>"DESC"]);
+
         $date = date('ym');
-        $lastReference = $this->frRessourceRepository->findOneBy([],['id'=>"DESC"]);
         if (!$lastReference) $ref = $date.'-'.$this->reference(1);
-        else $ref = $date.'-'.$lastReference->getId();
+        else $ref = $date.'-'.$this->reference($lastReference->getId());
 
         return $entity->setReference($ref);
     }

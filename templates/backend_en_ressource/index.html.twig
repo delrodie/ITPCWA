@@ -1,27 +1,27 @@
 {% extends 'backend_layout.html.twig' %}
 
-{% block title %}{{ parent() }} Gestion des ressources{% endblock %}
+{% block title %}{{ parent() }} Resources management{% endblock %}
 
 {% block body %}
     <div class="content container-fluid">
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h1 class="page-header-title">Gestion des ressources</h1>
+                    <h1 class="page-header-title">Resources management</h1>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-12 text-end mb-5">
-                <a href="{{ path('app_backend_fr_ressource_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Ajouter</a>
+                <a href="{{ path('app_backend_en_ressource_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add</a>
             </div>
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md">
-                                <h4 class="card-header-title">Liste des ressources</h4>
+                                <h4 class="card-header-title">Resources list</h4>
                             </div>
                         </div>
                     </div>
@@ -56,13 +56,13 @@
                                 <tr>
                                     <th scope="col" class="table-column-pe-0">#</th>
                                     <th class="text-center">REFERENCES</th>
-                                    <th class="text-center">TITRES</th>
+                                    <th class="text-center">TITLES</th>
                                     <th class="text-center">RESUMES</th>
                                     <th class="text-center">ACTIONS</th>
                                 </thead>
 
                                 <tbody>
-                                {% for ressource in fr_ressources %}
+                                {% for ressource in en_ressources %}
                                     <tr>
                                         <td>{{ loop.index }}</td>
                                         <td>{{ ressource.reference }}</td>
@@ -74,19 +74,15 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="text-justify">
-                                            {{ ressource.description|raw }}
-                                        </td>
+                                        <td class="text-justify">{{ ressource.description|raw }}</td>
                                         <td class="text-center">
-                                            <a href="{{ path('app_backend_fr_ressource_show', {'id': ressource.id}) }}"><i class="fa fa-eye"></i></a>
-                                            &nbsp; | &nbsp;
-                                            <a href="{{ path('app_backend_fr_ressource_edit', {'id': ressource.id}) }}"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ path('app_backend_en_ressource_edit', {'id': ressource.id}) }}"><i class="fa fa-edit"></i></a>
                                         </td>
                                     </tr>
 
                                 {% else %}
                                     <tr>
-                                        <td colspan="5" class="text-center"><em>Aucune ressource enregistrée</em></td>
+                                        <td colspan="5" class="text-center"><em>No recording found</em></td>
                                     </tr>
                                 {% endfor %}
 

@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\FrRessource;
+use App\Entity\EnRessource;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -11,17 +11,20 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
-class FrRessourceType extends AbstractType
+class EnRessourceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             //->add('reference')
-            ->add('titre', TextType::class,['attr'=>['class'=>'form-control', 'autocomplete'=>'off']])
+            ->add('titre', TextType::class,[
+                'attr'=>['class'=>'form-control', 'autocomplete'=>'off'],
+                'label' => 'Title'
+            ])
             ->add('description', CKEditorType::class,['attr'=>['class'=>'form-control']])
             ->add('media', FileType::class,[
-                'attr'=>['class'=>"dropify", 'data-preview' => ".preview"],
-                'label' => "Télécharger le document",
+                'attr'=>['class'=>"dropify-fr", 'data-preview' => ".preview"],
+                'label' => "Download document",
                 'mapped' => false,
                 'multiple' => false,
                 'constraints' => [
@@ -47,7 +50,6 @@ class FrRessourceType extends AbstractType
             ])
             //->add('slug')
             //->add('extension')
-            //->add('pageIndex')
             //->add('createdAt')
             //->add('updatedAt')
         ;
@@ -56,7 +58,7 @@ class FrRessourceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => FrRessource::class,
+            'data_class' => EnRessource::class,
         ]);
     }
 }

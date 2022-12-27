@@ -40,7 +40,7 @@ class BackendFrRessourceController extends AbstractController
         $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $this->utility->getReference($frRessource);
+                $this->utility->getReference($frRessource, 'fr');
             $this->utility->slug($frRessource, 'frRessource'); // gestion des slugs
             // Gestion des fichiers
             $mediaFile = $form->get('media')->getData();

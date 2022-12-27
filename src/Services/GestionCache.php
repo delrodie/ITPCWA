@@ -6,6 +6,7 @@ use App\Repository\EnActualiteRepository;
 use App\Repository\EnInfoRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnProjetRepository;
+use App\Repository\EnRessourceRepository;
 use App\Repository\EnTypeRepository;
 use App\Repository\FrActualiteRepository;
 use App\Repository\FrInfoRepository;
@@ -28,7 +29,7 @@ class GestionCache
         private FrPresentationRepository $frPresentationRepository, private EnPresentationRepository $enPresentationRepository,
         private FrActualiteRepository $frActualiteRepository, private EnActualiteRepository $enActualiteRepository,
         private FrProjetRepository $frProjetRepository, private EnProjetRepository $enProjetRepository,
-        private FrRessourceRepository $frRessourceRepository
+        private FrRessourceRepository $frRessourceRepository, private EnRessourceRepository $enRessourceRepository
     )
     {
     }
@@ -315,4 +316,13 @@ class GestionCache
         });
     }
 
+    public function cacheEnRessource(bool $delete=true)
+    {
+        if ($delete) $this->cache->delete('enRessource');
+
+        return $this->cache->get('enRessource', function (ItemInterface $item){
+            $item->expiresAfter(6048000);
+            return $this->enRessourceRepository->findBy([],['id'=>"DESC"]);
+        });
+    }
 }
