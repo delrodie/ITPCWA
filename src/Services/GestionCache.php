@@ -10,6 +10,7 @@ use App\Repository\EnRessourceRepository;
 use App\Repository\EnTypeRepository;
 use App\Repository\FrActualiteRepository;
 use App\Repository\FrInfoRepository;
+use App\Repository\FrJobRepository;
 use App\Repository\FrPresentationRepository;
 use App\Repository\FrProjetRepository;
 use App\Repository\FrRessourceRepository;
@@ -29,7 +30,8 @@ class GestionCache
         private FrPresentationRepository $frPresentationRepository, private EnPresentationRepository $enPresentationRepository,
         private FrActualiteRepository $frActualiteRepository, private EnActualiteRepository $enActualiteRepository,
         private FrProjetRepository $frProjetRepository, private EnProjetRepository $enProjetRepository,
-        private FrRessourceRepository $frRessourceRepository, private EnRessourceRepository $enRessourceRepository
+        private FrRessourceRepository $frRessourceRepository, private EnRessourceRepository $enRessourceRepository,
+        private FrJobRepository $frJobRepository,
     )
     {
     }
@@ -306,7 +308,7 @@ class GestionCache
         });
     }
 
-    public function cacheFrRessource(bool $delete=true)
+    public function cacheFrRessource(bool $delete=false)
     {
         if ($delete) $this->cache->delete('frRessource');
 
@@ -316,13 +318,28 @@ class GestionCache
         });
     }
 
-    public function cacheEnRessource(bool $delete=true)
+    public function cacheEnRessource(bool $delete=false)
     {
         if ($delete) $this->cache->delete('enRessource');
 
         return $this->cache->get('enRessource', function (ItemInterface $item){
             $item->expiresAfter(6048000);
             return $this->enRessourceRepository->findBy([],['id'=>"DESC"]);
+        });
+    }
+
+    public function cacheJob(string $lang, bool $delete=false)
+    {
+        $cacheName = $lang.'Job';
+        if ($delete) $this->cache->delete($cacheName);
+
+        return $this->cache->get($cacheName, function (ItemInterface $item) use ($lang){
+            $item->expiresAfter(6048000);
+
+            if ($lang === 'fr') $jobs = $this->frJobRepository->findBy([],['id'=>"DESC"]);
+            else $jobs = [];
+
+            return $jobs;
         });
     }
 }

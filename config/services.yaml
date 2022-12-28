@@ -35,3 +35,4 @@ services:
             $actualiteDirectory: '%kernel.project_dir%/public/uploads/actualite'
             $projetDirectory: '%kernel.project_dir%/public/uploads/projet'
             $ressourceDirectory: '%kernel.project_dir%/public/uploads/ressources'
+            $jobDirectory: '%kernel.project_dir%/public/uploads/job'

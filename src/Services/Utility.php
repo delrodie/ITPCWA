@@ -11,6 +11,7 @@ use App\Repository\EnProjetRepository;
 use App\Repository\EnRessourceRepository;
 use App\Repository\EnTypeRepository;
 use App\Repository\FrActualiteRepository;
+use App\Repository\FrJobRepository;
 use App\Repository\FrPresentationRepository;
 use App\Repository\FrProjetRepository;
 use App\Repository\FrRessourceRepository;
@@ -35,7 +36,7 @@ class Utility
         private EnPresentationRepository $enPresentationRepository, private FrActualiteRepository $frActualiteRepository,
         private EnActualiteRepository $enActualiteRepository, private FrProjetRepository $frProjetRepository,
         private EnProjetRepository $enProjetRepository, private FrRessourceRepository $frRessourceRepository,
-        private EnRessourceRepository $enRessourceRepository,
+        private EnRessourceRepository $enRessourceRepository, private FrJobRepository $frJobRepository,
     )
     {
     }
@@ -143,6 +144,8 @@ class Utility
             9 => "Version anglaise de la liste des projets",
             10 => "Version francaise d'un article des projets",
             11 => "Version anglaise d'un article des projets",
+            12 => "Version francaise de la liste des ressources",
+            13 => "Version anglaise de la liste des ressources",
         };
     }
 
@@ -230,20 +233,38 @@ class Utility
         else
             $lastReference = $this->enRessourceRepository->findOneBy([],['id'=>"DESC"]);
 
-        $date = date('ym');
-        if (!$lastReference) $ref = $date.'-'.$this->reference(1);
-        else $ref = $date.'-'.$this->reference($lastReference->getId());
+        //$date = date('ym');
+        if (!$lastReference) $ref = $this->reference(1);
+        else $ref = $this->reference($lastReference->getId());
+
+        return $entity->setReference($ref);
+    }
+
+    public function referenceJob($entity, string $lang)
+    {
+        if ($lang === 'fr') {
+            $lastReference = $this->frJobRepository->findOneBy([], ['id' => "DESC"]);
+            $lettre = 'F';
+        }
+        else {
+            $lastReference = [];
+            $lettre = 'E';
+        }
+
+        if (!$lastReference) $ref = $lettre.$this->reference(1);
+        else $ref = $lettre.$this->reference((int) $lastReference->getId());
 
         return $entity->setReference($ref);
     }
 
     protected function reference(int $id)
     {
+        $date = date('ym');
         if ($id < 10) $res = '00'.$id;
         elseif ($id < 100) $res = '0'.$id;
         else $res = $id;
 
-        return $res;
+        return $date.$res;
     }
 
 }

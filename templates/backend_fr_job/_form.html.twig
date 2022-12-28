@@ -1,0 +1,22 @@
+{{ form_start(form, {'attr':{'novalidate': 'novalidate'}}) }}
+<div class="row form-group">
+    <div class="col-6 mt-3">{{ form_row(form.contrat) }}</div>
+    <div class="col-6 mt-3">{{ form_row(form.titre) }}</div>
+    <div class="col-6 mt-3">{{ form_row(form.fin) }}</div>
+    <div class="col-6 mt-3">{{ form_row(form.lieu) }}</div>
+    <div class="col-12 mt-3">{{ form_row(form.contenu) }}</div>
+    <div class="col-6 mt-3">{{ form_row(form.media) }}</div>
+    <div class="col-6 mt-3">
+        {% if fr_job.media %}
+            <img src="{{ absolute_url(asset('uploads/job/' ~ fr_job.media)) }}" class="img-fluid">
+        {% endif %}
+    </div>
+    <div class="col-6 mt-3">{{ form_row(form.tags) }}</div>
+</div>
+<div class="text-end mt-5">
+    {{ form_widget(form) }}
+    <a href="{{ path('app_backend_fr_job_index') }}" class="btn btn-outline-secondary">Annuler</a>
+    <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+</div>
+
+{{ form_end(form) }}
