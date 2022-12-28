@@ -39,6 +39,14 @@ class FrJobRepository extends ServiceEntityRepository
         }
     }
 
+    public function findListActif()
+    {
+        return $this->createQueryBuilder('fj')
+            ->where('fj.pageIndex is null')
+            ->getQuery()->getResult()
+            ;
+    }
+
 //    /**
 //     * @return FrJob[] Returns an array of FrJob objects
 //     */

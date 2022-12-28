@@ -1,0 +1,126 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Recruitment management{% endblock %}
+
+{% block body %}
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h1 class="page-header-title">Recruitment management</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-end mb-5">
+                <a href="{{ path('app_backend_en_job_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add</a>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md">
+                                <h4 class="card-header-title">Recruitment list</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+
+                        <div class="table-responsive datatable-custom">
+                            <table id="liste" class="table table-borderless table-thead-bordered table-align-middle card-table" data-hs-datatables-options='{
+                   "columnDefs": [{
+                      "targets": [0, 4, 9],
+                      "width": "5%",
+                      "orderable": false
+                    }],
+                   "order": [],
+                   "info": {
+                     "totalQty": "#datatableWithPaginationInfoTotalQty"
+                   },
+                   "search": "#datatableSearch",
+                   "entries": "#datatableEntries",
+                   "pageLength": 12,
+                   "isResponsive": false,
+                   "isShowPaging": false,
+                   "pagination": "datatablePagination"
+                 }'>
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="table-column-pe-0">#</th>
+                                    <th class="text-center">REFERENCES</th>
+                                    <th class="text-center">TITLES</th>
+                                    <th class="text-center">CONTRACTS</th>
+                                    <th class="text-center">ENDS</th>
+                                    <th class="text-center">LOCATIONS</th>
+                                    <th class="text-center">STATUS</th>
+                                    <th class="text-center">ACTIONS</th>
+                                </thead>
+
+                                <tbody>
+                                {% for job in en_jobs %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ job.reference }}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+
+                                                <div class="flex-grow-1 ms-3">
+                                                    <h5 class="text-inherit mb-0">{{ job.titre }}</h5>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-justify">
+                                            {{ job.contrat}}
+                                        </td>
+                                        <td class="text-center">{{ job.fin|date('Y-m-d') }}</td>
+                                        <td>{{ job.lieu }}</td>
+                                        <td class="text-center">
+                                            {{ job.pageIndex ? '<span class="badge bg-success">ACTIF</span>' : '<span class="badge bg-danger">INACTIF</span>' }}
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ path('app_backend_en_job_show', {'id': job.id}) }}"><i class="fa fa-eye"></i></a>
+                                            &nbsp; | &nbsp;
+                                            <a href="{{ path('app_backend_en_job_edit', {'id': job.id}) }}"><i class="fa fa-edit"></i></a>
+                                        </td>
+                                    </tr>
+
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5" class="text-center"><em>No recruitment found</em></td>
+                                    </tr>
+                                {% endfor %}
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#liste').DataTable();
+        });
+    </script>
+{% endblock %}

@@ -124,6 +124,15 @@ class BackendFrJobController extends AbstractController
     public function delete(Request $request, FrJob $frJob, FrJobRepository $frJobRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$frJob->getId(), $request->request->get('_token'))) {
+            if ($frJob->getPageIndex()) {
+                $this->flasher
+                    ->create('sweetalert')
+                    ->icon('warning')
+                    ->addWarning("Cette offre '{$frJob->getTitre()}' est associée à une version anglaise donc veuillez supprimer d'abord la version anglaise");
+
+                return $this->redirectToRoute('app_backend_en_job_index',[],Response::HTTP_SEE_OTHER);
+            }
+
             $frJobRepository->remove($frJob, true);
             if ($frJob->getMedia())
                 $this->gestionMedia->removeUpload($frJob->getMedia(), 'job');

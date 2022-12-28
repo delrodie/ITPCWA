@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnInfoRepository;
+use App\Repository\EnJobRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnProjetRepository;
 use App\Repository\EnRessourceRepository;
@@ -31,7 +32,7 @@ class GestionCache
         private FrActualiteRepository $frActualiteRepository, private EnActualiteRepository $enActualiteRepository,
         private FrProjetRepository $frProjetRepository, private EnProjetRepository $enProjetRepository,
         private FrRessourceRepository $frRessourceRepository, private EnRessourceRepository $enRessourceRepository,
-        private FrJobRepository $frJobRepository,
+        private FrJobRepository $frJobRepository, private EnJobRepository $enJobRepository
     )
     {
     }
@@ -337,7 +338,7 @@ class GestionCache
             $item->expiresAfter(6048000);
 
             if ($lang === 'fr') $jobs = $this->frJobRepository->findBy([],['id'=>"DESC"]);
-            else $jobs = [];
+            else $jobs = $this->enJobRepository->findBy([],['id' => "DESC"]);
 
             return $jobs;
         });

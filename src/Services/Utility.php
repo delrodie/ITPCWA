@@ -6,6 +6,7 @@ use App\Entity\Traduction;
 use App\Entity\Visiteur;
 use App\Form\EnProjetType;
 use App\Repository\EnActualiteRepository;
+use App\Repository\EnJobRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnProjetRepository;
 use App\Repository\EnRessourceRepository;
@@ -37,6 +38,7 @@ class Utility
         private EnActualiteRepository $enActualiteRepository, private FrProjetRepository $frProjetRepository,
         private EnProjetRepository $enProjetRepository, private FrRessourceRepository $frRessourceRepository,
         private EnRessourceRepository $enRessourceRepository, private FrJobRepository $frJobRepository,
+        private EnJobRepository $enJobRepository
     )
     {
     }
@@ -207,6 +209,7 @@ class Utility
             'type' => $this->frTypeRepository->findOneBy(['pageIndex' => $pageIndex]),
             'actualite' => $this->frActualiteRepository->findOneBy(['pageIndex' => $pageIndex]),
             'projet' => $this->frProjetRepository->findOneBy(['pageIndex' => $pageIndex]),
+            'job' => $this->frJobRepository->findOneBy(['pageIndex' => $pageIndex]),
         };
     }
 
@@ -247,7 +250,7 @@ class Utility
             $lettre = 'F';
         }
         else {
-            $lastReference = [];
+            $lastReference = $this->enJobRepository->findOneBy([],['id'=>'DESC']);
             $lettre = 'E';
         }
 
