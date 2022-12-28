@@ -5,9 +5,11 @@ namespace App\Controller\Frontend;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnProjetRepository;
+use App\Repository\EnRessourceRepository;
 use App\Repository\FrActualiteRepository;
 use App\Repository\FrPresentationRepository;
 use App\Repository\FrProjetRepository;
+use App\Repository\FrRessourceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +25,9 @@ class SitemapController extends AbstractController
         EnActualiteRepository $enActualiteRepository,
         FrActualiteRepository $frActualiteRepository,
         EnProjetRepository $enProjetRepository,
-        FrProjetRepository $frProjetRepository
+        FrProjetRepository $frProjetRepository,
+        FrRessourceRepository $frRessourceRepository,
+        EnRessourceRepository $enRessourceRepository
     ): Response
     {
         $hostname = $request->getSchemeAndHttpHost(); // recuperation du nom de l'hôte depuis l'url
@@ -44,17 +48,20 @@ class SitemapController extends AbstractController
                 $presentations = $frPresentationRepository->findAll();
                 $actualites = $frActualiteRepository->findAll();
                 $projets = $frProjetRepository->findListActif();
+                $ressources = $frRessourceRepository->findAll();
                 $rubrique = 'actualites';
             }else{
                 $presentations = $enPresentationRepository->findAll();
                 $actualites = $enActualiteRepository->findAll();
                 $projets = $enProjetRepository->findListActif();
+                $ressources = $enRessourceRepository->findAll();
                 $rubrique = 'news';
             }
 
             $urls[] = ['loc' => $this->generateUrl('app_frontend_index',['_locale' => $loc])];
             $urls[] = ['loc' => $this->generateUrl('app_sitemap',['_locale' => $loc])];
             $urls[] = ['loc' => $this->generateUrl('app_frontend_actualite_index',['_locale'=> $loc, 'rubrique' => $rubrique])];
+            $urls[] = ['loc' => $this->generateUrl('app_frontend_ressource',['_locale' => $loc])];
             foreach ($presentations as $presentation){
                 $images = [
                     'loc' => '/uploads/presentation/'.$presentation->getMedia(),
