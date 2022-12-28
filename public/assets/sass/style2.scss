@@ -634,6 +634,16 @@ main{
                                     font-size: 2.3rem;
                                 }
                             }
+
+                            &.power-point{
+                                color: darkorange;
+
+                                &::before{
+                                    font: var(--fa-font-solid);
+                                    content: '\f1c4';
+                                    font-size: 2.3rem;
+                                }
+                            }
                         }
                     }
 
@@ -685,7 +695,7 @@ main{
                         cursor: pointer;
                         &::before{
                             font: var(--fa-font-solid);
-                            content: '\f34e';
+                            content: '\e0d2';
                             padding-right: 7px;  
                         }
                     }

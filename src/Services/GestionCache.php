@@ -312,7 +312,7 @@ class GestionCache
 
         return $this->cache->get('frRessource', function (ItemInterface $item){
             $item->expiresAfter(6048000);
-            return $this->frRessourceRepository->findListActif();
+            return $this->frRessourceRepository->findBy([],['id'=>"DESC"]);
         });
     }
 

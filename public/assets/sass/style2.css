@@ -512,6 +512,14 @@ main #page.page .contenu-page .jobs .ressources .icon span.file::before {
   content: "";
   font-size: 2.3rem;
 }
+main #page.page .contenu-page .jobs .ressources .icon span.power-point {
+  color: darkorange;
+}
+main #page.page .contenu-page .jobs .ressources .icon span.power-point::before {
+  font: var(--fa-font-solid);
+  content: "";
+  font-size: 2.3rem;
+}
 main #page.page .contenu-page .jobs .ressources:hover .icon {
   color: #4c0202;
 }
@@ -549,7 +557,7 @@ main #page.page .contenu-page .jobs .footer .temps {
 }
 main #page.page .contenu-page .jobs .footer .temps::before {
   font: var(--fa-font-solid);
-  content: "";
+  content: "";
   padding-right: 7px;
 }
 main #page.page .contenu-page .jobs .footer .localisation {

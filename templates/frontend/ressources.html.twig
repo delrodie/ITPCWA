@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Resources'|trans }}{% endblock %}
+
+{% block body %}
+    <main>
+        <section id="page" class="page">
+            <div class="breadcrumb">
+                <nav  style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_frontend_index', {'_locale': locale}) }}"><i class="fa-solid fa-house"></i></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ 'Resources'|trans }}</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 contenu-page p-lg-5">
+                    {% for ressource in ressources %}
+                        <div class="card mb-3 jobs" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="2500">
+                            <div class="row g-0 justify-content-center align-items-center">
+
+                                <div class="col-md-12">
+                                    <div class="card-body ressources">
+                                        <a href="{{ absolute_url(asset('uploads/ressources/' ~ ressource.media)) }}" target="_blank">
+                                            <div class="icon"> <span class="{{ ressource.extension ? icon(ressource.extension) : icon('file') }}"></span> </div>
+                                            <h4 class="card-title">{{ ressource.titre }} </h4>
+                                            <p class="card-text">{{ ressource.description|raw }}</p>
+                                        </a>
+                                        <div class="footer">
+                                            <div class="row row-cols-3">
+                                                <div class="col"><small class="text-muted" title="la référence"><span class="reference">{{ ressource.reference }}</span></small></div>
+                                                <div class="col"><small class="text-muted" title="La date limite"><span class="rebours">{{ ressource.createdAt|ago }}</span></small></div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                    {% if pagination %}
+                        <nav class="mt-5" aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link">Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    {% endif %}
+
+
+                </div>
+                <div class="col-lg-4 social"  data-aos="fade-left" data-aos-duration="2500">
+                    <div class="ressources text-center">
+                        <img src="{{ absolute_url(asset('assets/images/all/offre.jfif')) }}" class="img-fluid" >
+                        <a href="#" class="bouton btn-download">Télécharger</a>
+                    </div>
+                    <div class="zone-facebook d-none d-lg-block">
+                        <div
+                                class="fb-page"
+                                data-href="https://www.facebook.com/ItpcWestAfrica/"
+                                data-tabs="timeline, events, messages."
+                                data-height="850"
+                                data-small-header="false"
+                                data-adapt-container-width="true"
+                                data-hide-cover="false"
+                                data-show-facepile="true">
+                            <blockquote cite="https://www.facebook.com/ItpcWestAfrica/" class="fb-xfbml-parse-ignore">
+                                <a href="https://www.facebook.com/ItpcWestAfrica/">ITPC West Africa</a>
+                            </blockquote>
+                        </div>
+                        <div id="fb-root"></div>
+                    </div>
+                    <div class="newsletter">
+                        <h6>Newsletter</h6>
+                        <div class="description">
+                            Recevez en primeur toute l'actualités de l'ITPC West Africa
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Inscrivez-vous" aria-label="Inscrivez" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block translate %}
+    {% for locale in locales %}
+        {% if locale != app.request.locale %}
+            <a href="{{ absolute_url(path('app_frontend_ressource', {'_locale': locale})) }}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
