@@ -82,7 +82,7 @@ class BackendEnJobController extends AbstractController
         return $this->renderForm('backend_en_job/new.html.twig', [
             'en_job' => $enJob,
             'form' => $form,
-            'fr_jobs' => $this->frJobRepository->findListActif(),
+            'fr_jobs' => $this->frJobRepository->findListInactif(),
             'traduction' => null
         ]);
     }
@@ -101,9 +101,9 @@ class BackendEnJobController extends AbstractController
         $form = $this->createForm(EnJobType::class, $enJob);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) { //dd($request->request->get('_traduction'));
             // Version francaise
-            $frJob = $this->frJobRepository->findOneBy(['id'=>$request->request->get('_traduction')]);
+            $frJob = $this->frJobRepository->findOneBy(['pageIndex'=>$request->request->get('_traduction')]);
             if (!$frJob){
                 $this->flasher
                     ->create('sweetalert')

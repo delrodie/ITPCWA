@@ -42,6 +42,15 @@ class FrJobRepository extends ServiceEntityRepository
     public function findListActif()
     {
         return $this->createQueryBuilder('fj')
+            ->where('fj.pageIndex is not null')
+            ->orderBy('fj.fin', 'DESC')
+            ->getQuery()->getResult()
+            ;
+    }
+
+    public function findListInactif()
+    {
+        return $this->createQueryBuilder('fj')
             ->where('fj.pageIndex is null')
             ->getQuery()->getResult()
             ;

@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ recruitment.locale.titre }}
+{% endblock %}
+
+{% block body %}
+    <main>
+        <section id="page" class="page">
+            <div class="breadcrumb">
+                <nav  style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_frontend_index', {'_locale': locale})) }}"><i class="fa-solid fa-house"></i></a></li>
+                        <li class="breadcrumb-item " ><a href="{{ absolute_url(path('app_frontend_recruitment', {'_locale': locale})) }}">{{ 'Recruitments'|trans }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ recruitment.locale.titre }}</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 contenu-page p-lg-5">
+                    <div class=" mb-3 jobs" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="2500">
+                        <div class="row g-0 justify-content-center align-items-center job">
+
+                            <div class="col-lg-12">
+                                <div class="card-body">
+                                    <h4 class="card-title">{{ archive(recruitment.locale.fin|date('Y-m-d'))|raw }} {{ recruitment.locale.titre}} </h4>
+                                    <div class="footer">
+                                        <div class="row row-cols-3">
+                                            <div class="col"><small class="text-muted" title="la référence"><span class="reference">{{ recruitment.locale.reference }}</span></small></div>
+                                            <div class="col"><small class="text-muted" title="La date limite"><span class="rebours">{{ recruitment.locale.fin|date('Y-m-d') }}</span></small></div>
+                                            <div class="col"><small class="text-muted" title="La localisation"><span class="localisation">{{ recruitment.locale.lieu }}</span></small></div>
+                                        </div>
+
+                                        <div class="description">
+                                            {{ recruitment.locale.contenu|raw }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-12 formulaire">
+                                <form action="#" method="post">
+                                    <h3 class="">Postulez</h3>
+                                    <div class="row form-group input-group-sm">
+                                        <div class="col-md-6 mt-3">
+                                            <label for="">Nom</label>
+                                            <input type="text" class="form-control" placeholder="Nom de famille">
+                                        </div>
+                                        <div class="col-md-6 mt-3">
+                                            <label for="">Prenoms</label>
+                                            <input type="text" class="form-control" placeholder="Prénoms">
+                                        </div>
+                                        <div class="col-md-6 mt-3">
+                                            <label for="">Telephone</label>
+                                            <input type="text" class="form-control" placeholder="Telephone">
+                                        </div>
+                                        <div class="col-md-6 mt-3">
+                                            <label for="">Email</label>
+                                            <input type="text" class="form-control" placeholder="Email">
+                                        </div>
+                                        <div class="col-md-12 mt-3">
+                                            <label for="formFile" class="form-label">Lettre de motivation</label>
+                                            <input class="form-control" type="file" id="formFile">
+                                        </div>
+                                        <div class="col-md-12 mt-3">
+                                            <label for="formFile" class="form-label">CV</label>
+                                            <input class="form-control" type="file" id="formFile">
+                                        </div>
+                                        <div class="col-md-12 mt-5 mb-5 d-grid">
+                                            <button type="submit" class="btn btn-danger btn-sm">Envoyer</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-4 social"  data-aos="fade-left" data-aos-duration="2500">
+                    <div class="ressources text-center">
+                        <img src="assets/images/all//offre.jfif" class="img-fluid" >
+                        <a href="#" class="bouton btn-download">Télécharger</a>
+                    </div>
+                    <div class="zone-facebook d-none d-lg-block">
+                        <div
+                                class="fb-page"
+                                data-href="https://www.facebook.com/ItpcWestAfrica/"
+                                data-tabs="timeline, events, messages."
+                                data-height="850"
+                                data-small-header="false"
+                                data-adapt-container-width="true"
+                                data-hide-cover="false"
+                                data-show-facepile="true">
+                            <blockquote cite="https://www.facebook.com/ItpcWestAfrica/" class="fb-xfbml-parse-ignore">
+                                <a href="https://www.facebook.com/ItpcWestAfrica/">ITPC West Africa</a>
+                            </blockquote>
+                        </div>
+                        <div id="fb-root"></div>
+                    </div>
+                    <div class="newsletter">
+                        <h6>Newsletter</h6>
+                        <div class="description">
+                            Recevez en primeur toute l'actualités de l'ITPC West Africa
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Inscrivez-vous" aria-label="Inscrivez" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block translate %}
+    {% for locale in locales %}
+        {% if locale != app.request.locale %}
+            <a href="{{ absolute_url(path('app_frontend_recruitment_show', {'_locale': locale, 'slug' : recruitment.traduction.slug})) }}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+
+{% block metas %}
+    <link rel="alternate" href="{{ absolute_url(path('app_frontend_recruitment_show', {'slug': recruitment.locale.slug, '_locale': locale})) }}" hreflang="{{ locale }}">
+
+    <meta name="keywords" content="{{ recruitment.locale.tags }}">
+    <meta name="description" content="{{ recruitment.locale.resume|raw }}" />
+    <link rel="canonical" href="{{ absolute_url(path('app_frontend_recruitment_show', {'slug': recruitment.locale.slug, '_locale': locale})) }}" />
+    <link rel="next" href=" {{ absolute_url(path('app_frontend_recruitment', {'_locale': locale})) }}" />
+
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_GB" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ recruitment.locale.titre }}" />
+    <meta property="og:description" content="{{ recruitment.locale.resume|raw }}" />
+    <meta property="og:url" content="{{ absolute_url(path('app_frontend_recruitment_show', {'slug': recruitment.locale.slug, '_locale': locale})) }}" />
+    <meta property="og:site_name" content="ITPC West Africa" />
+    <meta property="article:created_time" content="{{ recruitment.locale.createdAt|date('Y-m-d') }}T{{ recruitment.locale.createdAt|date('H:i:s') }}+00:00" />
+    <meta property="og:image" content="{{ absolute_url(asset('uploads/job/'~ recruitment.locale.media)) }}" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="{{ recruitment.locale.resume|raw }}"/>
+    <meta name="twitter:title" content="{{ recruitment.locale.titre }}"/>
+    <meta name="twitter:domain" content="ITPC West Africa"/>
+    <meta name="twitter:image:src" content="{{ absolute_url(asset('uploads/job/' ~ recruitment.locale.media)) }}"/>
+{% endblock %}

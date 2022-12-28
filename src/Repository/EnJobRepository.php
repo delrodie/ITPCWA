@@ -39,6 +39,15 @@ class EnJobRepository extends ServiceEntityRepository
         }
     }
 
+    public function findListActif()
+    {
+        return $this->createQueryBuilder('ej')
+            ->where('ej.pageIndex is not null')
+            ->orderBy('ej.fin', 'DESC')
+            ->getQuery()->getResult()
+            ;
+    }
+
 //    /**
 //     * @return EnJob[] Returns an array of EnJob objects
 //     */

@@ -337,10 +337,38 @@ class GestionCache
         return $this->cache->get($cacheName, function (ItemInterface $item) use ($lang){
             $item->expiresAfter(6048000);
 
-            if ($lang === 'fr') $jobs = $this->frJobRepository->findBy([],['id'=>"DESC"]);
-            else $jobs = $this->enJobRepository->findBy([],['id' => "DESC"]);
+            if ($lang === 'fr') $jobs = $this->frJobRepository->findListActif();
+            else $jobs = $this->enJobRepository->findListActif();
 
             return $jobs;
+        });
+    }
+
+    public function cacheJobItem(string $lang, string $slug, bool $delete=false)
+    {
+        if ($delete) $this->cache->delete($slug);
+
+        return $this->cache->get($slug, function (ItemInterface $item) use ($slug, $lang){
+            $item->expiresAfter(6048000);
+            if ($lang === 'fr') {
+                $job = $this->frJobRepository->findOneBy(['slug' => $slug]);
+                if ($job)
+                    $traduction = $this->enJobRepository->findOneBy(['pageIndex'=>$job->getPageIndex()]);
+                else
+                    $traduction = [];
+            }
+            else {
+                $job = $this->enJobRepository->findOneBy(['slug' => $slug]);
+                if ($job)
+                    $traduction = $this->frJobRepository->findOneBy(['pageIndex' => $job->getPageIndex()]);
+                else
+                    $traduction = [];
+            }
+
+            return [
+                'locale' => $job,
+                'traduction' => $traduction
+            ];
         });
     }
 }
