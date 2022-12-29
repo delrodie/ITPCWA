@@ -125,6 +125,9 @@ class BackendEnJobController extends AbstractController
                 $enJob->setMedia($media);
             }
 
+            $this->utility->referenceJob($enJob, self::LANG);
+            $enJob->setSlug($enJob->getSlug().'-'.$enJob->getReference()); // Refactoration du slug 
+
             $enJobRepository->save($enJob, true);
 
             $this->gestionCache->cacheJob(self::LANG, true); // gestion des caches

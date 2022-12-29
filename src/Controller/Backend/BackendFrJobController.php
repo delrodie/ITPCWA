@@ -49,6 +49,7 @@ class BackendFrJobController extends AbstractController
             }
 
             $this->utility->referenceJob($frJob, 'fr'); // Generation de la reference
+            $frJob->setSlug($frJob->getSlug().'-'.$frJob->getReference()); // refactoration du slug
 
             $frJobRepository->save($frJob, true);
 
@@ -97,6 +98,8 @@ class BackendFrJobController extends AbstractController
 
                 $frJob->setMedia($media);
             }
+            
+            $frJob->setSlug($frJob->getSlug().'-'.$frJob->getReference()); // refactoration du slug
 
             $frJobRepository->save($frJob, true);
 
