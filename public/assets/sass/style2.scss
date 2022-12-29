@@ -840,6 +840,23 @@ main{
                 }
             }
 
+            .formulaire{
+                .help-text{
+                    color: darkred;
+                    font-style: italic;
+                    font-size: .85rem;
+                }
+
+                ul{
+                    list-style-type: none;
+                    li{
+                        font-style: italic;
+                        color: red;
+                        font-size: .8rem;
+                    }
+                }
+            }
+
             iframe{
                 min-width: 100%;
                 min-height: 500px;

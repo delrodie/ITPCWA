@@ -73,7 +73,7 @@ EnRessource (id, reference, titre, description, media, slug, extension, pageIdex
 
 # tables globales
 Slider (Id, titre, media, statut)
-Candidat (id, nom, prenoms, phone, email, mediaLettreMotivation, mediaCV, createdAt, updatedAt, #job)
+Candidat (id, matricule, nom, prenoms, phone, email, mediaLettreMotivation, mediaCV, jobReference, recaptcha, createdAt, updatedAt)
 Visiteur (Id, IP, IdSession, page, createdAt)
 Traduction (id, route, locale, page)
 User (id, username, pass, roles)

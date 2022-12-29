@@ -795,6 +795,22 @@ main #page.page .contenu-page .coordonees a:hover i {
   color: #4c0202;
 }
 
+main #page.page .contenu-page .formulaire .help-text {
+  color: darkred;
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+main #page.page .contenu-page .formulaire ul {
+  list-style-type: none;
+}
+
+main #page.page .contenu-page .formulaire ul li {
+  font-style: italic;
+  color: red;
+  font-size: 0.8rem;
+}
+
 main #page.page .contenu-page iframe {
   min-width: 100%;
   min-height: 500px;

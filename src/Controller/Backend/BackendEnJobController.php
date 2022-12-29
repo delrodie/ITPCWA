@@ -126,7 +126,7 @@ class BackendEnJobController extends AbstractController
             }
 
             $this->utility->referenceJob($enJob, self::LANG);
-            $enJob->setSlug($enJob->getSlug().'-'.$enJob->getReference()); // Refactoration du slug 
+            $enJob->setSlug($enJob->getSlug().'-'.$enJob->getReference()); // Refactoration du slug
 
             $enJobRepository->save($enJob, true);
 

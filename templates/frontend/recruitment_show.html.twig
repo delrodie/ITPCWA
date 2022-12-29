@@ -43,38 +43,25 @@
                         <div class="row">
 
                             <div class="col-lg-12 formulaire">
-                                <form action="#" method="post">
-                                    <h3 class="">Postulez</h3>
+
+                                    {{ form_start(form, {'attr':{'novalidate': 'novalidate'}}) }}
+                                    <h3 class="">{{ 'Postulate'|trans }}</h3>
                                     <div class="row form-group input-group-sm">
-                                        <div class="col-md-6 mt-3">
-                                            <label for="">Nom</label>
-                                            <input type="text" class="form-control" placeholder="Nom de famille">
-                                        </div>
-                                        <div class="col-md-6 mt-3">
-                                            <label for="">Prenoms</label>
-                                            <input type="text" class="form-control" placeholder="Prénoms">
-                                        </div>
-                                        <div class="col-md-6 mt-3">
-                                            <label for="">Telephone</label>
-                                            <input type="text" class="form-control" placeholder="Telephone">
-                                        </div>
-                                        <div class="col-md-6 mt-3">
-                                            <label for="">Email</label>
-                                            <input type="text" class="form-control" placeholder="Email">
-                                        </div>
-                                        <div class="col-md-12 mt-3">
-                                            <label for="formFile" class="form-label">Lettre de motivation</label>
-                                            <input class="form-control" type="file" id="formFile">
-                                        </div>
-                                        <div class="col-md-12 mt-3">
-                                            <label for="formFile" class="form-label">CV</label>
-                                            <input class="form-control" type="file" id="formFile">
-                                        </div>
+                                        <div class="col-md-6 mt-3">{{ form_row(form.prenoms) }}</div>
+                                        <div class="col-md-6 mt-3">{{ form_row(form.nom) }}</div>
+                                        <div class="col-md-6 mt-3">{{ form_row(form.phone) }}</div>
+                                        <div class="col-md-6 mt-3">{{ form_row(form.email) }}</div>
+                                        <div class="col-md-12 mt-3">{{ form_row(form.mediaLettre) }}</div>
+                                        <div class="col-md-12 mt-3">{{ form_row(form.mediaCV) }}</div>
+                                        {{ form_widget(form) }}
                                         <div class="col-md-12 mt-5 mb-5 d-grid">
+                                            <input type="hidden" name="_localeReference" value="{{ recruitment.locale.reference }}">
+                                            <input type="hidden" name="_locale" value="{{ locale }}">
                                             <button type="submit" class="btn btn-danger btn-sm">Envoyer</button>
                                         </div>
                                     </div>
-                                </form>
+                                    {{ form_end(form) }}
+
                             </div>
                         </div>
                     </div>
@@ -83,8 +70,8 @@
                 </div>
                 <div class="col-lg-4 social"  data-aos="fade-left" data-aos-duration="2500">
                     <div class="ressources text-center">
-                        <img src="assets/images/all//offre.jfif" class="img-fluid" >
-                        <a href="#" class="bouton btn-download">Télécharger</a>
+                        <img src="{{ absolute_url(asset('assets/images/all/offre.jfif')) }}" class="img-fluid" >
+                        <a href="#" class="bouton btn-download">{{ 'Download'|trans }}</a>
                     </div>
                     <div class="zone-facebook d-none d-lg-block">
                         <div

@@ -274,4 +274,12 @@ class Utility
         return $date.$res;
     }
 
+    public function postulerRequest($form)
+    {
+        $mediaCV = $form->get('mediaCV')->getData();
+        $mediaLettre = $form->get('mediaLettre')->getData();
+
+
+    }
+
 }
