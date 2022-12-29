@@ -3,10 +3,12 @@
 namespace App\Controller\Frontend;
 
 use App\Repository\EnActualiteRepository;
+use App\Repository\EnJobRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnProjetRepository;
 use App\Repository\EnRessourceRepository;
 use App\Repository\FrActualiteRepository;
+use App\Repository\FrJobRepository;
 use App\Repository\FrPresentationRepository;
 use App\Repository\FrProjetRepository;
 use App\Repository\FrRessourceRepository;
@@ -27,7 +29,9 @@ class SitemapController extends AbstractController
         EnProjetRepository $enProjetRepository,
         FrProjetRepository $frProjetRepository,
         FrRessourceRepository $frRessourceRepository,
-        EnRessourceRepository $enRessourceRepository
+        EnRessourceRepository $enRessourceRepository,
+        FrJobRepository $frJobRepository,
+        EnJobRepository $enJobRepository,
     ): Response
     {
         $hostname = $request->getSchemeAndHttpHost(); // recuperation du nom de l'hôte depuis l'url
@@ -49,12 +53,14 @@ class SitemapController extends AbstractController
                 $actualites = $frActualiteRepository->findAll();
                 $projets = $frProjetRepository->findListActif();
                 $ressources = $frRessourceRepository->findAll();
+                $jobs = $frJobRepository->findListActif();
                 $rubrique = 'actualites';
             }else{
                 $presentations = $enPresentationRepository->findAll();
                 $actualites = $enActualiteRepository->findAll();
                 $projets = $enProjetRepository->findListActif();
                 $ressources = $enRessourceRepository->findAll();
+                $jobs = $enJobRepository->findListActif();
                 $rubrique = 'news';
             }
 
@@ -62,6 +68,7 @@ class SitemapController extends AbstractController
             $urls[] = ['loc' => $this->generateUrl('app_sitemap',['_locale' => $loc])];
             $urls[] = ['loc' => $this->generateUrl('app_frontend_actualite_index',['_locale'=> $loc, 'rubrique' => $rubrique])];
             $urls[] = ['loc' => $this->generateUrl('app_frontend_ressource',['_locale' => $loc])];
+            $urls[] = ['loc' => $this->generateUrl('app_frontend_recruitment',['_locale'=>$loc])];
             foreach ($presentations as $presentation){
                 $images = [
                     'loc' => '/uploads/presentation/'.$presentation->getMedia(),
@@ -105,6 +112,18 @@ class SitemapController extends AbstractController
                     ]),
                     'lastmod' => $date->format('Y-m-d'),
                     'image' => $images
+                ];
+            }
+
+            foreach ($jobs as $job){
+                if ($job->getUpdatedAt()) $date = $job->getUpdatedAt();
+                else $date = $job->getCreatedAt();
+                $urls[]=[
+                    'loc' => $this->generateUrl('app_frontend_recruitment_show',[
+                        '_locale' => $loc,
+                        'slug' => $job->getSlug()
+                    ]),
+                    'lastmod' => $date->format('Y-m-d')
                 ];
             }
         }

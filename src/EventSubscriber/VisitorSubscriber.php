@@ -100,6 +100,9 @@ class VisitorSubscriber implements EventSubscriberInterface
                 'app_frontend_actualite_show' =>6,
                 'app_frontend_projet_index' =>8,
                 'app_frontend_projet_show' =>10,
+                'app_frontend_ressource' =>12,
+                'app_frontend_recruitment' =>14,
+                'app_frontend_recruitment_show' =>16,
                 default => throw new \Exception('Non supporter')
             };
         else{
@@ -110,6 +113,9 @@ class VisitorSubscriber implements EventSubscriberInterface
                 'app_frontend_actualite_show' => 7,
                 'app_frontend_projet_index' => 9,
                 'app_frontend_projet_show' => 11,
+                'app_frontend_ressource' => 13,
+                'app_frontend_recruitment' => 15,
+                'app_frontend_recruitment_show' => 17,
                 default => throw new \Exception('Unexpected match value')
             };
         }
@@ -125,6 +131,8 @@ class VisitorSubscriber implements EventSubscriberInterface
                 'app_frontend_actualite_show' => true,
                 'app_frontend_projet_index' => true,
                 'app_frontend_projet_show' => true,
+                'app_frontend_recruitment' => true,
+                'app_frontend_recruitment_show' => true,
                 default => false,
             };
     }

@@ -148,6 +148,10 @@ class Utility
             11 => "Version anglaise d'un article des projets",
             12 => "Version francaise de la liste des ressources",
             13 => "Version anglaise de la liste des ressources",
+            14 => "version francaise de la liste des recruitements",
+            15 => "Version anglaise de la liste des recruitements",
+            16 => "Version francaise d'un article de recruitement",
+            17 => "Version anglaise d'un article de recruitement",
         };
     }
 
