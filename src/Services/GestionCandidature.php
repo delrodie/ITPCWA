@@ -95,7 +95,7 @@ class GestionCandidature
      */
     protected function matricule(): string
     {
-        $candidat = $this->candidatRepository->findOneBy(['id'=>"DESC"]);
+        $candidat = $this->candidatRepository->findOneBy([],['id'=>"DESC"]);
         if (!$candidat) $id = 1;
         else $id = (int) $candidat->getId() + 1;
 

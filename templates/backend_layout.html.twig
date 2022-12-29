@@ -233,24 +233,9 @@
                                     <a class="nav-link " href="{{ path('app_backend_fr_presentation_index') }}">Présentation</a>
                                     <a class="nav-link " href="{{ path('app_backend_fr_actualite_index') }}">Actualités</a>
                                     <a class="nav-link " href="{{ path('app_backend_fr_projet_index') }}">Projets</a>
-                                    <div id="navbarVerticalMenuPagesMenuJobs">
-
-                                        <!-- Jobs -->
-                                        <div class="nav-item">
-                                            <a class="nav-link dropdown-toggle" href="#navbarVerticalMenuPagesJobMenu" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesJobMenu" aria-expanded="false" aria-controls="navbarVerticalMenuPagesJobMenu">
-                                                Jobs
-                                            </a>
-
-                                            <div id="navbarVerticalMenuPagesJobMenu" class="nav-collapse collapse " data-bs-parent="#navbarVerticalMenuPagesMenuEcommerce">
-                                                <a class="nav-link " href="{{ path('app_backend_fr_job_index') }}">Appel</a>
-                                                <a class="nav-link " href="#">Candidats</a>
-                                            </div>
-                                        </div>
-                                        <!-- End Jobs -->
-
-                                        <a class="nav-link " href="{{ path('app_backend_fr_ressource_index') }}">Ressources</a>
-                                        <a class="nav-link " href="#">Galerie</a>
-                                    </div>
+                                    <a class="nav-link " href="{{ path('app_backend_fr_job_index') }}">Recruitements</a>
+                                    <a class="nav-link " href="{{ path('app_backend_fr_ressource_index') }}">Ressources</a>
+                                    <a class="nav-link " href="#">Galerie</a>
                                 </div>
                                 <!-- End Francais -->
 
@@ -267,23 +252,7 @@
                                         <a class="nav-link " href="{{ path('app_backend_en_presentation_index') }}">Presentation</a>
                                         <a class="nav-link " href="{{ path('app_backend_en_actualite_index') }}">News</a>
                                         <a class="nav-link " href="{{ path('app_backend_en_projet_index') }}">Projects</a>
-
-                                        <div id="navbarVerticalMenuPagesMenuJobs">
-                                            <!-- Jobs -->
-                                            <div class="nav-item">
-                                                <a class="nav-link dropdown-toggle" href="#navbarVerticalMenuPagesJobMenu" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesJobMenu" aria-expanded="false" aria-controls="navbarVerticalMenuPagesJobMenu">
-                                                    Jobs
-                                                </a>
-
-                                                <div id="navbarVerticalMenuPagesJobMenu" class="nav-collapse collapse " data-bs-parent="#navbarVerticalMenuPagesMenuEcommerce">
-                                                    <a class="nav-link " href="{{ path('app_backend_en_job_index') }}">Tender</a>
-                                                    <a class="nav-link " href="#">Candidate</a>
-                                                </div>
-                                            </div>
-                                            <!-- End Jobs -->
-
-                                        </div>
-
+                                        <a class="nav-link " href="{{ path('app_backend_en_job_index') }}">Recruitments</a>
                                         <a class="nav-link " href="{{ path('app_backend_en_ressource_index') }}">Resources</a>
                                         <a class="nav-link " href="#">Gallery</a>
                                     </div>
@@ -294,6 +263,13 @@
                                     <a class="nav-link " href="{{ path('app_backend_slide_index') }}" data-placement="left">
                                         <i class="bi-images nav-icon"></i>
                                         <span class="nav-link-title">Slider </span>
+                                    </a>
+                                </div>
+
+                                <div class="nav-item">
+                                    <a class="nav-link " href="{{ path('app_backend_candidat_index') }}" data-placement="left">
+                                        <i class="bi-images nav-icon"></i>
+                                        <span class="nav-link-title">Candidats </span>
                                     </a>
                                 </div>
 
