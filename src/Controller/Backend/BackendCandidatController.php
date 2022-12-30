@@ -23,7 +23,7 @@ class BackendCandidatController extends AbstractController
     #[Route('/', name: 'app_backend_candidat_index')]
     public function index(): Response
     {
-        return $this->render('frontend/candidats.html.twig',[
+        return $this->render('backend/candidats.html.twig',[
             'candidats' => $this->candidatRepository->findBy([],['createdAt' => "DESC"])
         ]);
     }
@@ -35,7 +35,7 @@ class BackendCandidatController extends AbstractController
         if ($fr === 'F') $job = $this->frJobRepository->findOneBy(['reference' => $jobReference]);
         else $job = $this->enJobRepository->findOneBy(['reference' => $jobReference]);
 
-        return $this->render('frontend/candidat.html.twig',[
+        return $this->render('backend/candidat.html.twig',[
             'candidats' => $this->candidatRepository->findBy(['jobReference' => $jobReference]),
             'job' => $job
         ]);

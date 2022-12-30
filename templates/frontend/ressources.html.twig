@@ -39,7 +39,10 @@
 
                             </div>
                         </div>
-
+                    {% else %}
+                        <div class="text-center">
+                            <h5><em>{{ 'Page being edited'|trans }}</em></h5>
+                        </div>
                     {% endfor %}
 
                     {% if pagination %}

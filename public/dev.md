@@ -77,6 +77,9 @@ Candidat (id, matricule, nom, prenoms, phone, email, mediaLettreMotivation, medi
 Visiteur (Id, IP, IdSession, page, createdAt)
 Traduction (id, route, locale, page)
 Contact( Id, nom, email, localisation, message, statut, createdAt, updatedAt)
+Album(Id, titre, description, media, slug, createdAt, updatedAt)
+Video(Id, titre, description, lien, slug, createdAt, updatedAt)
+Image(id, media, #album)
 User (id, username, pass, roles)
 ``` 
 </p>

@@ -1,0 +1,90 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} {{ 'Candidates management'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h1 class="page-header-title">{{ 'Candidates management'|trans }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md">
+                                <h4 class="card-header-title">{{ 'List of candidates for the post of'|trans }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+
+                        <div class="table-responsive datatable-custom">
+                            <table id="newsletter" class="table">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="text-center">EMAILS</th>
+                                    <th class="text-center">STATUS</th>
+                                    <th class="text-center">DATES</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for newsletter in newsletters %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ newsletter.email }}</td>#                                                                                                       #
+                                        <td class="text-center">
+                                            {{ newsletter.statut ? '<span class="badge bg-success">ACTIF</span>':'<span class="badge bg-danger">INACTIF</span>' }}
+                                        </td>
+                                        <td class="text-center">{{ newsletter.createdAt|date('Y-m-d H:i:s') }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+    <script src="   https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#newsletter').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+        });
+    </script>
+{% endblock %}

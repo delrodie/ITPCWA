@@ -31,7 +31,8 @@ class FrontendActualiteController extends AbstractController
         return $this->render('frontend/actualites.html.twig',[
             'actualites' => $actualites,
             'locale' => $_locale,
-            'traduction' => $traduction
+            'traduction' => $traduction,
+            'pagination' => false
         ]);
     }
 

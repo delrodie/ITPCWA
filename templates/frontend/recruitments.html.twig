@@ -42,7 +42,10 @@
 
                             </div>
                         </div>
-
+                    {% else %}
+                        <div class="text-center">
+                            <h5><em>{{ 'Page being edited'|trans }}</em></h5>
+                        </div>
                     {% endfor %}
                     {% if pagination %}
                         <nav class="mt-5" aria-label="Page navigation example">
