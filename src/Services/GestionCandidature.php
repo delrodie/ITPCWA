@@ -28,7 +28,8 @@ class GestionCandidature
     {
         // Gestion des appels d'offres
         $localeReference = $request->request->get('_localeReference');
-        if (!$localeReference){
+        $reCaptcha = $request->request->get('g-recaptcha-response'); //dd($reCaptcha);
+        if (!$localeReference || !$reCaptcha){
             $this->flasher
                 ->create('sweetalert')
                 ->icon('error')

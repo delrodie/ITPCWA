@@ -44,7 +44,7 @@
 
                             <div class="col-lg-12 formulaire">
 
-                                    {{ form_start(form, {'attr':{'novalidate': 'novalidate'}}) }}
+                                    {{ form_start(form, {'attr':{'novalidate': 'novalidate', 'id':'candidat'}}) }}
                                     <h3 class="">{{ 'Postulate'|trans }}</h3>
                                     <div class="row form-group input-group-sm">
                                         <div class="col-md-6 mt-3">{{ form_row(form.prenoms) }}</div>
@@ -57,7 +57,9 @@
                                         <div class="col-md-12 mt-5 mb-5 d-grid">
                                             <input type="hidden" name="_localeReference" value="{{ recruitment.locale.reference }}">
                                             <input type="hidden" name="_locale" value="{{ locale }}">
-                                            <button type="submit" class="btn btn-danger btn-sm">Envoyer</button>
+                                            <button type="submit" class="btn btn-danger btn-sm g-recaptcha" data-sitekey="6LebkLkjAAAAAIGqAtiicVY7uQsLJTKPqc7Tv0iN" data-callback='onSubmit' data-action='submit'>
+                                                Envoyer
+                                            </button>
                                         </div>
                                     </div>
                                     {{ form_end(form) }}
@@ -139,4 +141,14 @@
     <meta name="twitter:title" content="{{ recruitment.locale.titre }}"/>
     <meta name="twitter:domain" content="ITPC West Africa"/>
     <meta name="twitter:image:src" content="{{ absolute_url(asset('uploads/job/' ~ recruitment.locale.media)) }}"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        function onSubmit(token) {
+            document.getElementById("candidat").submit();
+        }
+    </script>
 {% endblock %}
