@@ -42,38 +42,7 @@
                  </div>
              </div>
              <div class="col-lg-4 social"  data-aos="fade-left" data-aos-duration="2500">
-                 <div class="ressources text-center">
-                     <img src="{{ absolute_url(asset('assets/images/all/offre.jfif')) }}" class="img-fluid" >
-                     <a href="#" class="bouton btn-download">{{'Download'|trans}}</a>
-                 </div>
-                 <div class="zone-facebook d-none d-lg-block">
-                     <div
-                             class="fb-page"
-                             data-href="https://www.facebook.com/ItpcWestAfrica/"
-                             data-tabs="timeline, events, messages."
-                             data-height="850"
-                             data-small-header="false"
-                             data-adapt-container-width="true"
-                             data-hide-cover="false"
-                             data-show-facepile="true">
-                         <blockquote cite="https://www.facebook.com/ItpcWestAfrica/" class="fb-xfbml-parse-ignore">
-                             <a href="https://www.facebook.com/ItpcWestAfrica/">ITPC West Africa</a>
-                         </blockquote>
-                     </div>
-                     <div id="fb-root"></div>
-                 </div>
-                 <div class="newsletter">
-                     <h6>Newsletter</h6>
-                     <div class="description">
-                         {{ 'Be the first to receive all the news from ITPC West Africa'|trans }}
-                     </div>
-                     <div class="input-group mb-3">
-                         <input type="text" class="form-control" placeholder="{{ 'Sign up'|trans }}" aria-label="Inscrivez" aria-describedby="button-addon2">
-                         <button class="btn btn-outline-secondary" type="button" id="button-addon2">
-                             <i class="fa-solid fa-paper-plane"></i>
-                         </button>
-                     </div>
-                 </div>
+                 {{ render(path('app_frontend_newsletter',{'_locale': locale})) }}
              </div>
          </div>
      </section>
