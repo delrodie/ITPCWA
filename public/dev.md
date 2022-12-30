@@ -76,6 +76,7 @@ Slider (Id, titre, media, statut)
 Candidat (id, matricule, nom, prenoms, phone, email, mediaLettreMotivation, mediaCV, jobReference, recaptcha, createdAt, updatedAt)
 Visiteur (Id, IP, IdSession, page, createdAt)
 Traduction (id, route, locale, page)
+Contact( Id, nom, email, localisation, message, statut, createdAt, updatedAt)
 User (id, username, pass, roles)
 ``` 
 </p>
