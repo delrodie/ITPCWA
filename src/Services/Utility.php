@@ -7,6 +7,7 @@ use App\Entity\Visiteur;
 use App\Form\EnProjetType;
 use App\Repository\AlbumRepository;
 use App\Repository\EnActualiteRepository;
+use App\Repository\EnAlbumRepository;
 use App\Repository\EnJobRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnProjetRepository;
@@ -39,7 +40,8 @@ class Utility
         private EnActualiteRepository $enActualiteRepository, private FrProjetRepository $frProjetRepository,
         private EnProjetRepository $enProjetRepository, private FrRessourceRepository $frRessourceRepository,
         private EnRessourceRepository $enRessourceRepository, private FrJobRepository $frJobRepository,
-        private EnJobRepository $enJobRepository, private AlbumRepository $albumRepository
+        private EnJobRepository $enJobRepository, private AlbumRepository $albumRepository,
+        private EnAlbumRepository $enAlbumRepository
     )
     {
     }
@@ -215,6 +217,7 @@ class Utility
             'actualite' => $this->frActualiteRepository->findOneBy(['pageIndex' => $pageIndex]),
             'projet' => $this->frProjetRepository->findOneBy(['pageIndex' => $pageIndex]),
             'job' => $this->frJobRepository->findOneBy(['pageIndex' => $pageIndex]),
+            'album' => $this->albumRepository->findOneBy(['pageIndex' => $pageIndex]),
         };
     }
 

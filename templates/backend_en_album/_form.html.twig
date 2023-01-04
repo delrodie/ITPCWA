@@ -1,0 +1,36 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-10 offset-1">
+        <div class="row form-group">
+            <div class="col-6 mt-3">
+                <label for="traduction" class="">French correspondence</label>
+                <select name="_traduction" id="traduction" class="form-select" required="required">
+                    {% if traduction %}
+                        <option value="{{ traduction.pageIndex }}">{{ traduction.titre }}</option>
+                        <option value=""></option>
+                    {% else %}
+                        <option value=""></option>
+                    {% endif %}
+                    {% for album in fr_albums %}
+                        <option value="{{ album.id }}">{{ album.titre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-6 mt-3">{{ form_row(form.titre) }}</div>
+            <div class="col-12 mt-3">{{ form_row(form.description) }}</div>
+            <div class="col-8 mt-3">{{ form_row(form.media) }}</div>
+            {% if album.media %}
+                <div class="col-4 mt-5">
+                    <img src="{{ asset('/uploads/multimedia/' ~ album.media) }}" alt="{{ album.titre }}" class="img-fluid">
+                </div>
+            {% endif %}
+        </div>
+        <div class="text-end mt-5">
+            {{ form_widget(form) }}
+            <a href="{{ path('app_backend_en_album_index') }}" class="btn btn-outline-secondary">Cancel</a>
+            <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+        </div>
+    </div>
+</div>
+
+{{ form_end(form) }}

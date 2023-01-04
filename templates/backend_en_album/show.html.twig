@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EnAlbum{% endblock %}
+
+{% block body %}
+    <h1>EnAlbum</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ en_album.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ en_album.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ en_album.description }}</td>
+            </tr>
+            <tr>
+                <th>Media</th>
+                <td>{{ en_album.media }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ en_album.slug }}</td>
+            </tr>
+            <tr>
+                <th>PageIndex</th>
+                <td>{{ en_album.pageIndex }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ en_album.createdAt ? en_album.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ en_album.updatedAt ? en_album.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_en_album_index') }}">back to list</a>
+
+    <a href="{{ path('app_backend_en_album_edit', {'id': en_album.id}) }}">edit</a>
+
+    {{ include('backend_en_album/_delete_form.html.twig') }}
+{% endblock %}

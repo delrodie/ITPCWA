@@ -39,6 +39,18 @@ class AlbumRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Liste des albums non traduits
+     *
+     * @return float|int|mixed|string
+     */
+    public function findListInactif(): mixed
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.pageIndex IS NULL')
+            ->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Album[] Returns an array of Album objects
 //     */
