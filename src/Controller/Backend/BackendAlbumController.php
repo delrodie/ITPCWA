@@ -119,6 +119,14 @@ class BackendAlbumController extends AbstractController
                 // Redirection a modifier
                 return $this->redirectToRoute("app_backend_album_index",[], Response::HTTP_SEE_OTHER);
             }
+
+            if ($album->getPhotos()){
+                $this->flasher
+                    ->create('sweetalert')
+                    ->addError("Veuillez supprimer les photos de cet album avant de pouvoir le supprimer");
+
+                return $this->redirectToRoute("app_backend_photo_index",['slug_album' => $album->getSlug()],Response::HTTP_SEE_OTHER);
+            }
             $albumRepository->remove($album, true);
 
             if ($album->getMedia())

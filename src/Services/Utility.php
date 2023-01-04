@@ -210,7 +210,7 @@ class Utility
      * Recherche du type d'entité concerné par la traduction pour suppression
      *
      */
-    protected function traductionRoute($route, int $pageIndex)
+    public function traductionRoute($route, int $pageIndex)
     {
         return match ($route){
             'type' => $this->frTypeRepository->findOneBy(['pageIndex' => $pageIndex]),
