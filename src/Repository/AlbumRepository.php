@@ -51,6 +51,14 @@ class AlbumRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+    public function findListActif()
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.pageIndex IS NOT NULL')
+            ->getQuery()->getResult();
+    }
+
+
 //    /**
 //     * @return Album[] Returns an array of Album objects
 //     */

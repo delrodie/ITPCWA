@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ album.locale.titre }}{% endblock %}
+
+{% block body %}
+    <main>
+        <section id="page" class="page">
+            <div class="breadcrumb">
+                <nav  style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_frontend_index', {'_locale': locale})) }}"><i class="fa-solid fa-house"></i></a></li>
+                        <li class="breadcrumb-item"><a href="{{ absolute_url(path('app_frontend_multimedia', {'rubrique': 'photos'|trans, '_locale': locale})) }}">{{ 'Gallery'|trans }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ album.locale.titre }}</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="row">
+                <div class="col-12 contenu-page p-lg-5">
+                    <div class="row row-cols-1 row-cols-lg-4 row-cols-md-2 galerie">
+                        {% for photo in album.images %}
+                            <div class="col"  data-aos="zoom-in" data-aos-duration="2500">
+                                <a href="{{ absolute_url(asset('uploads/multimedia/' ~ photo.image)) }}" data-fancybox="group" data-caption="{{ photo.album.titre }}">
+                                    <img src="{{ absolute_url(asset('uploads/multimedia/' ~ photo.image)) }}" class="img-fluid" />
+                                </a>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+
+
+{% block translate %}
+    {% for locale in locales %}
+        {% if locale != app.request.locale %}
+            <a href="{{ path('app_frontend_multimedia_show', {'rubrique': 'photos'|trans, 'slug': album.traduction.slug, '_locale': locale}) }}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block metas %}
+    <link rel="alternate" href="{{ absolute_url(path('app_frontend_multimedia_show', {'slug': album.locale.slug, '_locale': locale, 'rubrique': 'photos'|trans})) }}" hreflang="{{ locale }}">
+
+    <meta name="keywords" content="">
+    <meta name="description" content="{{ album.locale.description|raw }}" />
+    <link rel="canonical" href="{{ absolute_url(path('app_frontend_multimedia_show', {'slug': album.locale.slug, '_locale': locale, 'rubrique': 'photos'|trans})) }}" />
+    <link rel="next" href="{{ path('app_frontend_multimedia', {'rubrique': 'photos'|trans, '_locale': locale}) }}" />
+
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_GB" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ album.locale.titre }}" />
+    <meta property="og:description" content="{{ album.locale.description|raw }}" />
+    <meta property="og:url" content="{{ absolute_url(path('app_frontend_multimedia_show', {'slug': album.locale.slug, '_locale': locale, 'rubrique': 'photos'|trans})) }}" />
+    <meta property="og:site_name" content="ITPC West Africa" />
+    <meta property="article:created_time" content="{{ album.locale.createdAt|date('Y-m-d') }}T{{ album.locale.createdAt|date('H:i:s') }}+00:00" />
+    <meta property="og:image" content="{{ absolute_url(asset('uploads/multimedia/'~ album.locale.media)) }}" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="{{ album.locale.description|raw }}"/>
+    <meta name="twitter:title" content="{{ album.locale.titre }}"/>
+    <meta name="twitter:domain" content="ITPC West Africa"/>
+    <meta name="twitter:image:src" content="{{ absolute_url(asset('uploads/multimedia/' ~ album.locale.media)) }}"/>
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script async defer src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <script>
+        $('[data-fancybox]').fancybox({
+            // Options will go here
+            buttons : [
+                'close'
+            ],
+            wheel : false,
+            transitionEffect: "slide",
+            // thumbs          : false,
+            // hash            : false,
+            loop            : true,
+            // keyboard        : true,
+            toolbar         : false,
+            // animationEffect : false,
+            // arrows          : true,
+            clickContent    : false
+        });
+    </script>
+{% endblock %}

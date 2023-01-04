@@ -18,6 +18,7 @@ use App\Repository\FrPresentationRepository;
 use App\Repository\FrProjetRepository;
 use App\Repository\FrRessourceRepository;
 use App\Repository\FrTypeRepository;
+use App\Repository\PhotoRepository;
 use App\Repository\SlideRepository;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Cache\Adapter\FilesystemTagAwareAdapter;
@@ -35,7 +36,8 @@ class GestionCache
         private FrProjetRepository $frProjetRepository, private EnProjetRepository $enProjetRepository,
         private FrRessourceRepository $frRessourceRepository, private EnRessourceRepository $enRessourceRepository,
         private FrJobRepository $frJobRepository, private EnJobRepository $enJobRepository,
-        private AlbumRepository $albumRepository, private EnAlbumRepository $enAlbumRepository
+        private AlbumRepository $albumRepository, private EnAlbumRepository $enAlbumRepository,
+        private PhotoRepository $photoRepository
     )
     {
     }
@@ -377,14 +379,52 @@ class GestionCache
 
     public function cacheAlbum(string $lang, bool $delete=false)
     {
-        if ($delete) $this->cache->delete('album');
+        if ($delete) $this->cache->delete($lang);
 
-        return $this->cache->get('album', function (ItemInterface $item) use ($lang){
+        return $this->cache->get($lang, function (ItemInterface $item) use ($lang){
             $item->expiresAfter(6048000);
-            if ($lang === 'fr') $album = $this->albumRepository->findAll();
-            else $album = $this->enAlbumRepository->findAll();
+
+            if ($lang === 'fr') $album = $this->albumRepository->findListActif();
+            else $album = $this->enAlbumRepository->findListActif();
 
             return $album;
         });
     }
+
+    public function cacheAlbumItem(string $lang, string $slug, bool $delete=false)
+    {
+        if ($delete) $this->cache->delete($slug); //dd($lang);
+
+        return $this->cache->get($slug, function (ItemInterface $item) use ($slug, $lang){
+            $item->expiresAfter(6048000);
+            if ($lang === 'fr') { //dd('francaise');
+                $album = $this->albumRepository->findOneBy(['slug' => $slug]); //dd($album);
+                if (!$album)
+                    return ['locale' => [], 'traduction' => []];
+
+                //dd($this->photoRepository->findByAlbumSlug($album->getSlug()));
+
+                return [
+                    'locale' => $album,
+                    'traduction' => $this->enAlbumRepository->findOneBy(['pageIndex' => $album->getPageIndex()]),
+                    'images' => $this->photoRepository->findByAlbumSlug($album->getSlug())
+                ];
+                //dd('fr');
+            }else{ //dd('anglaise');
+                $album = $this->enAlbumRepository->findOneBy(['slug' => $slug]); //dd($album);
+                if (!$album)
+                    return ['locale' => [], 'traduction' => [] ];
+
+                $traduction = $this->albumRepository->findOneBy(['pageIndex' => $album->getPageIndex()]);
+                return [
+                    'locale' => $album,
+                    'traduction' => $traduction,
+                    'images' => $this->photoRepository->findByAlbumSlug($traduction->getSlug())
+                ];
+
+            }
+        });
+    }
+
+
 }

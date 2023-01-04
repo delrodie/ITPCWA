@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Multimédia{% endblock %}
+
+{% block body %}
+    <main>
+        <section id="page" class="page">
+            <div class="breadcrumb">
+                <nav  style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_frontend_index', {'_locale': locale}) }}"><i class="fa-solid fa-house"></i></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Multimédias</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="row">
+                <div class="col contenu-page p-lg-5">
+                    <div class="row row-cols-1 row-cols-md-3 g-4" id="albums">
+                        {% for album in albums %}
+                            <div class="col">
+                                <a href="{{ path('app_frontend_multimedia_show', {'rubrique': 'photos'|trans, 'slug': album.slug, '_locale': locale}) }}">
+                                    <div class="card h-100">
+                                        <figure>
+                                            <img src="{{ absolute_url(asset('uploads/multimedia/' ~ album.media)) }}" class="card-img-top" alt="{{ album.titre }}">
+                                        </figure>
+                                        <div class="card-body">
+                                            <p class="card-text">{{ album.titre }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+
+{% block translate %}
+    {% for locale in locales %}
+        {% if locale != app.request.locale %}
+            <a href="{{ absolute_url(path('app_frontend_multimedia', {'_locale': locale, 'rubrique': 'photos'|trans})) }}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

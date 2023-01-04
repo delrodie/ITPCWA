@@ -112,7 +112,7 @@
                                                 {{ 'Gallery'|trans }}
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                <li><a class="dropdown-item" href="#">{{ 'Pictures'|trans }}</a></li>
+                                                <li><a class="dropdown-item" href="{{ path('app_frontend_multimedia', {'_locale': locale, 'rubrique': 'picture'|trans}) }}">{{ 'Pictures'|trans }}</a></li>
                                                 <li><a class="dropdown-item" href="#">{{ 'Videos'|trans }}</a></li>
                                             </ul>
                                         </li>

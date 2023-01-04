@@ -39,6 +39,13 @@ class EnAlbumRepository extends ServiceEntityRepository
         }
     }
 
+    public function findListActif()
+    {
+        return $this->createQueryBuilder('ea')
+            ->where('ea.pageIndex IS NOT NULL')
+            ->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return EnAlbum[] Returns an array of EnAlbum objects
 //     */
