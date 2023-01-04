@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repository\AlbumRepository;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnInfoRepository;
 use App\Repository\EnJobRepository;
@@ -32,7 +33,8 @@ class GestionCache
         private FrActualiteRepository $frActualiteRepository, private EnActualiteRepository $enActualiteRepository,
         private FrProjetRepository $frProjetRepository, private EnProjetRepository $enProjetRepository,
         private FrRessourceRepository $frRessourceRepository, private EnRessourceRepository $enRessourceRepository,
-        private FrJobRepository $frJobRepository, private EnJobRepository $enJobRepository
+        private FrJobRepository $frJobRepository, private EnJobRepository $enJobRepository,
+        private AlbumRepository $albumRepository
     )
     {
     }
@@ -369,6 +371,19 @@ class GestionCache
                 'locale' => $job,
                 'traduction' => $traduction
             ];
+        });
+    }
+
+    public function cacheAlbum(string $lang, bool $delete=false)
+    {
+        if ($delete) $this->cache->delete('album');
+
+        return $this->cache->get('album', function (ItemInterface $item) use ($lang){
+            $item->expiresAfter(6048000);
+            if ($lang === 'fr') $album = $this->albumRepository->findAll();
+            else $album = [];
+
+            return $album;
         });
     }
 }

@@ -37,3 +37,4 @@ services:
             $ressourceDirectory: '%kernel.project_dir%/public/uploads/ressources'
             $jobDirectory: '%kernel.project_dir%/public/uploads/job'
             $candidatDirectory: '%kernel.project_dir%/public/uploads/candidat'
+            $multimediaDirectory: '%kernel.project_dir%/public/uploads/multimedia'

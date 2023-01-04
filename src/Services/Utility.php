@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Entity\Traduction;
 use App\Entity\Visiteur;
 use App\Form\EnProjetType;
+use App\Repository\AlbumRepository;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnJobRepository;
 use App\Repository\EnPresentationRepository;
@@ -38,7 +39,7 @@ class Utility
         private EnActualiteRepository $enActualiteRepository, private FrProjetRepository $frProjetRepository,
         private EnProjetRepository $enProjetRepository, private FrRessourceRepository $frRessourceRepository,
         private EnRessourceRepository $enRessourceRepository, private FrJobRepository $frJobRepository,
-        private EnJobRepository $enJobRepository
+        private EnJobRepository $enJobRepository, private AlbumRepository $albumRepository
     )
     {
     }

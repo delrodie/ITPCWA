@@ -33,6 +33,9 @@ class Album
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $pageIndex = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,5 +123,17 @@ class Album
     public function setUpdatedAtValue(): \DateTime
     {
         return $this->updatedAt = new \DateTime();
+    }
+
+    public function getPageIndex(): ?int
+    {
+        return $this->pageIndex;
+    }
+
+    public function setPageIndex(?int $pageIndex): self
+    {
+        $this->pageIndex = $pageIndex;
+
+        return $this;
     }
 }
