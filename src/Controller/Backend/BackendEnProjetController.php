@@ -63,7 +63,7 @@ class BackendEnProjetController extends AbstractController
 
             $this->utility->traductionSave($frProjet, $enProjet, 'projet');
 
-            $this->gestionCache->cacheEnProjet(true);
+            $this->gestionCache->cacheProjets('en',true);
 
             $this->flasher
                 ->create('notyf')
@@ -110,7 +110,7 @@ class BackendEnProjetController extends AbstractController
 
             $enProjetRepository->save($enProjet, true);
 
-            $this->gestionCache->cacheEnProjet(true); // gestion des caches
+            $this->gestionCache->cacheProjets('en',true); // gestion des caches
 
             $this->flasher
                 ->create('notyf')
@@ -145,7 +145,7 @@ class BackendEnProjetController extends AbstractController
 
             $traduction = $this->frProjetRepository->findOneBy(['pageIndex'=>$enProjet->getPageIndex()]);
 
-            $this->gestionCache->cacheEnProjet(true);
+            $this->gestionCache->cacheProjets('en',true);
 
             if ($traduction){
                 $this->flasher

@@ -78,31 +78,30 @@
                 </div>
             </div>
         </section>
-        <section id="campagne" class="campagne">
-            <div class="contenu">
-                <div class="row">
-                    <div class="col-12">
-                        <h1>{{ "Projects"|trans }}</h1>
-                    </div>
-                </div>
-                <div class="row d-flex align-items-center">
-                    <div class="col-lg-5 description" data-aos="flip-left" data-aos-duration="2500" data-aos-easing="ease-out-cubic">
-                        <div class="circle">
-                            <img src="assets/images/slide/01.jpg" alt="">
+        {% if projet %}
+            <section id="campagne" class="campagne">
+                <div class="contenu">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1>{{ "Projects"|trans }}</h1>
                         </div>
-                        <div class="reume"></div>
                     </div>
-                    <div class="col-lg-7">
-                        <h3>Titre de la campagne</h3>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, asperiores laudantium enim et sit obcaecati iusto explicabo nostrum qui recusandae repellat quaerat esse modi nisi, doloribus ut tenetur, ipsam fugiat?
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto iste, repellat maiores nisi sapiente aspernatur numquam est asperiores blanditiis inventore cum eius qui quaerat, nesciunt nulla consequatur quod voluptatum totam?
-                        </p>
-                        <a href="#" class="bouton btn-noir">{{ "Read more"|trans }}</a>
+                    <div class="row d-flex align-items-center">
+                        <div class="col-lg-5 description" data-aos="flip-left" data-aos-duration="2500" data-aos-easing="ease-out-cubic">
+                            <div class="circle">
+                                <img src="assets/images/slide/01.jpg" alt="" class="img-fluid">
+                            </div>
+                            <div class="reume"></div>
+                        </div>
+                        <div class="col-lg-7">
+                            <h3>{{ projet.titre }}</h3>
+                            <p>{{ projet.resume|raw }}</p>
+                            <a href="{{ path('app_frontend_projet_show', {'slug': projet.slug, '_locale': locale}) }}" class="bouton btn-noir">{{ "Read more"|trans }}</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        {% endif %}
         {% if actualites %}
             <section id="actualites" class="actualites">
                 <div class="contenu">

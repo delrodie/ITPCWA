@@ -247,23 +247,19 @@ class GestionCache
         });
     }
 
-    public function cacheFrProjet(bool $delete=false)
+    // Requete cache de projets
+
+    public function cacheProjets(string $lang, bool $delete=false)
     {
-        if ($delete) $this->cache->delete('frProjet');
+        $cacheName = $lang.'Projet';
+        if ($delete) $this->cache->delete($cacheName);
 
-        return $this->cache->get('frProjet', function (ItemInterface $item){
+        return $this->cache->get($cacheName, function (ItemInterface $item) use ($lang){
             $item->expiresAfter(6048000);
-            return $this->frProjetRepository->findListActif();
-        });
-    }
+            if ($lang === 'fr') $resultat = $this->frProjetRepository->findListActif();
+            else $resultat = $this->enProjetRepository->findListActif();
 
-    public function cacheEnProjet(bool $delete=false)
-    {
-        if ($delete) $this->cache->delete('enProjet');
-
-        return $this->cache->get('enProjet', function (ItemInterface $item){
-            $item->expiresAfter(6048000);
-            return $this->enProjetRepository->findListActif();
+            return $resultat;
         });
     }
 
@@ -304,6 +300,18 @@ class GestionCache
                 ];
             }else
                 return [];
+        });
+    }
+
+    public function cacheLastProjet(string $lang, bool $delete=false)
+    {
+        $cacheName = $lang.'LastProjet';
+        if ($delete) $this->cache->delete($cacheName);
+
+        return $this->cache->get($cacheName, function (ItemInterface $item) use($lang){
+            $item->expiresAfter(6048000);
+            if ($lang==='fr') return $this->frProjetRepository->findLastActif();
+            else return $this->enProjetRepository->findLastActif();
         });
     }
 

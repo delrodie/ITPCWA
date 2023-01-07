@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\FrProjet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -53,6 +54,18 @@ class FrProjetRepository extends ServiceEntityRepository
             ->where('fp.pageIndex is not null')
             ->orderBy('fp.id', 'DESC')
             ->getQuery()->getResult()
+            ;
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findLastActif()
+    {
+        return $this->createQueryBuilder('fp')
+            ->where('fp.pageIndex IS NOT NULL')
+            ->orderBy('fp.id', 'DESC')
+            ->getQuery()->getOneOrNullResult()
             ;
     }
 

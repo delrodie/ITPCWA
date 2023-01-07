@@ -49,7 +49,7 @@ class BackendFrProjetController extends AbstractController
             }
             $frProjetRepository->save($frProjet, true);
 
-            $this->gestionCache->cacheFrProjet(true);
+            $this->gestionCache->cacheProjets('fr', true);
 
             $this->flasher
                 ->create('sweetalert')
@@ -96,7 +96,7 @@ class BackendFrProjetController extends AbstractController
 
             $frProjetRepository->save($frProjet, true);
 
-            $this->gestionCache->cacheFrProjet(true); // Suppression du cache
+            $this->gestionCache->cacheProjets('fr',true); // Suppression du cache
 
             $this->flasher
                 ->create('sweetalert')
@@ -131,7 +131,7 @@ class BackendFrProjetController extends AbstractController
 
             $frProjetRepository->remove($frProjet, true);
 
-            $this->gestionCache->cacheFrProjet(true); // suppression du cache
+            $this->gestionCache->cacheProjets('fr',true); // suppression du cache
 
             if ($frProjet->getMedia())
                 $this->gestionMedia->removeUpload($frProjet->getMedia(), "projet");

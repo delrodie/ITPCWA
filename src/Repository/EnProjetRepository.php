@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\EnProjet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -45,6 +46,18 @@ class EnProjetRepository extends ServiceEntityRepository
             ->where('ep.pageIndex is not null')
             ->orderBy('ep.id', 'DESC')
             ->getQuery()->getResult()
+            ;
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findLastActif()
+    {
+        return $this->createQueryBuilder('ep')
+            ->where('ep.pageIndex IS NOT NULL')
+            ->orderBy('ep.id', "DESC")
+            ->getQuery()->getOneOrNullResult()
             ;
     }
 

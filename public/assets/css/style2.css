@@ -350,10 +350,6 @@ main #campagne.campagne .description div:last-child {
 }
 
 main #campagne.campagne .circle {
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  border: #4c0202 solid 3px;
   background: rgba(56, 1, 1, 0.6);
   overflow: hidden;
   display: inline-block;

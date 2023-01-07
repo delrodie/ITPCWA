@@ -23,16 +23,9 @@ class FrontendProjectController extends AbstractController
     #[Route('/{_locale}', name: 'app_frontend_projet_index')]
     public function index($_locale): Response
     {
-        if ($_locale === 'fr'){
-            // liste des projets en francais mis en cache
-            $projets = $this->gestionCache->cacheFrProjet();
-        }else{
-            // liste des projets en anglais mis en cache
-            $projets = $this->gestionCache->cacheEnProjet();
-        }
 
         return $this->render("frontend/projets.html.twig", [
-            'projets' => $projets,
+            'projets' => $this->gestionCache->cacheProjets($_locale),
             'locale' => $_locale
         ]);
     }

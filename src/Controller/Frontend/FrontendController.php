@@ -25,7 +25,8 @@ class FrontendController extends AbstractController
         return $this->render('frontend/index.html.twig', [
             'slides' => $this->gestionCache->cacheSlides(),
             'locale' => $_locale,
-            'actualites' => $this->gestionCache->cacheActualites($_locale)
+            'actualites' => $this->gestionCache->cacheActualites($_locale),
+            'projet' => $this->gestionCache->cacheLastProjet($_locale)
         ]);
     }
 
