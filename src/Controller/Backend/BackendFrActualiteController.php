@@ -49,6 +49,8 @@ class BackendFrActualiteController extends AbstractController
             }
             $frActualiteRepository->save($frActualite, true);
 
+            $this->gestionCache->cacheActualites('fr', true);
+
             $this->flasher
                 ->create('sweetalert')
                 ->icon('warning')
@@ -99,6 +101,8 @@ class BackendFrActualiteController extends AbstractController
 
             $frActualiteRepository->save($frActualite, true);
 
+            $this->gestionCache->cacheActualites('fr', true);
+
             $this->flasher
                 ->create('sweetalert')
                 ->icon('warning')
@@ -122,6 +126,15 @@ class BackendFrActualiteController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$frActualite->getId(), $request->request->get('_token'))) {
             $frActualiteRepository->remove($frActualite, true);
+
+            if ($frActualite->getMedia())
+                $this->gestionMedia->removeUpload($frActualite->getMedia(), 'actualite');
+
+            $this->gestionCache->cacheActualites('fr', true);
+
+            $this->flasher
+                ->create('notyf')
+                ->addSuccess("L'article '{$frActualite->getTitre()}' a été supprimé avec succès!");
         }
 
         return $this->redirectToRoute('app_backend_fr_actualite_index', [], Response::HTTP_SEE_OTHER);

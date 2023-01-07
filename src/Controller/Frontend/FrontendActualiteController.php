@@ -6,12 +6,13 @@ use App\Services\GestionCache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/page')]
 class FrontendActualiteController extends AbstractController
 {
     public function __construct(
-        private GestionCache $gestionCache
+        private GestionCache $gestionCache, private TranslatorInterface $translator
     )
     {
     }
@@ -19,17 +20,11 @@ class FrontendActualiteController extends AbstractController
     #[Route('/{_locale}/{rubrique}', name: 'app_frontend_actualite_index')]
     public function index($_locale): Response
     {
-        if ($_locale === 'fr') {
-            $actualites = $this->gestionCache->cacheFrActualites(true);
-            $traduction = 'news';
-        }
-        else {
-            $actualites = $this->gestionCache->cacheEnActualites(true);
-            $traduction = 'actualites';
-        }
+        if ($_locale === 'fr')$traduction = 'news';
+        else $traduction = 'actualites';
 
         return $this->render('frontend/actualites.html.twig',[
-            'actualites' => $actualites,
+            'actualites' => $this->gestionCache->cacheActualites($_locale),
             'locale' => $_locale,
             'traduction' => $traduction,
             'pagination' => false

@@ -103,64 +103,34 @@
                 </div>
             </div>
         </section>
-        <section id="actualites" class="actualites">
-            <div class="contenu">
-                <h1>{{ 'News'|trans }}</h1>
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <div class="col">
-                        <div class="card h-100">
-                            <figure>
-                                <img src="assets/images/all/01.jpg" class="card-img-top" alt="...">
-                            </figure>
+        {% if actualites %}
+            <section id="actualites" class="actualites">
+                <div class="contenu">
+                    <h1>{{ 'News'|trans }}</h1>
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        {% for actualite in actualites|slice(0,3) %}
+                            <div class="col">
+                                <div class="card h-100">
+                                    <figure>
+                                        <img src="{{ absolute_url(asset('uploads/actualite/'~ actualite.media)) }}" class="card-img-top" alt="{{ actualite.titre }}">
+                                    </figure>
 
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">
-                                    This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ actualite.titre }}</h5>
+                                        <p class="card-text">{{ actualite.resume|raw }}</p>
+                                        <a href="{{ path('app_frontend_actualite_show', {'rubrique': 'news', 'slug': actualite.slug, '_locale': locale}) }}" class="btn-detail">{{ 'Read more'|trans }}</a>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">{{ actualite.updatedAt ? actualite.updatedAt|ago : actualite.createdAt|ago}} </small>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
 
-                                </p>
-                                <a href="page.html" class="btn-detail">Lire plus</a>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">samedi 07 avril 2022 </small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <figure>
-                                <img src="assets/images/all/01.jpg" class="card-img-top" alt="...">
-                            </figure>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                                <a href="page.html" class="btn-detail">Lire plus</a>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">Last updated 3 mins ago</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <figure>
-                                <img src="assets/images/all/01.jpg" class="card-img-top" alt="...">
-                            </figure>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                                <a href="page.html" class="btn-detail">Lire plus</a>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">01/04/2022</small>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        {% endif %}
     </main>
 {% endblock %}
 

@@ -73,6 +73,8 @@ class BackendEnActualiteController extends AbstractController
 
             $this->utility->traductionSave($fractualite, $enActualite, self::TRADUCTION_ENTITY);
 
+            $this->gestionCache->cacheActualites('en', true);
+
             return $this->redirectToRoute('app_backend_en_actualite_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -112,6 +114,8 @@ class BackendEnActualiteController extends AbstractController
 
             $enActualiteRepository->save($enActualite, true);
 
+            $this->gestionCache->cacheActualites('en', true);
+
             $this->flasher
                 ->create('notyf')
                 ->addSuccess("Item '{$enActualite->getTitre()}' has been successfully updated:");
@@ -132,6 +136,11 @@ class BackendEnActualiteController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$enActualite->getId(), $request->request->get('_token'))) {
             $enActualiteRepository->remove($enActualite, true);
+
+            if ($enActualite->getMedia())
+                $this->gestionMedia->removeUpload($enActualite->getMedia(), 'actualite');
+
+            $this->gestionCache->cacheActualites('en', true);
         }
 
         return $this->redirectToRoute('app_backend_en_actualite_index', [], Response::HTTP_SEE_OTHER);

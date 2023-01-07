@@ -190,27 +190,20 @@ class GestionCache
         });
     }
 
-    public function cacheFrActualites(bool $delete=false)
+    // Actualites
+    public function cacheActualites(string $lang, bool $delete=false)
     {
-        if ($delete) $this->cache->delete('frActualites');
+        $cacheName = $lang.'Actualites';
+        if ($delete) $this->cache->delete($cacheName);
 
-        return $this->cache->get('frActualites', function (ItemInterface $item){
-            $item->expiresAfter(6048000);
-            return $this->frActualiteRepository->findListActif();
+        return $this->cache->get($cacheName, function (ItemInterface $item) use ($lang){
+            $item->expiresAfter(4068000);
+            if ($lang === 'fr') $actualites = $this->frActualiteRepository->findListActif();
+            else $actualites = $this->enActualiteRepository->findListActif();
+
+            return $actualites;
         });
     }
-
-
-    public function cacheEnActualites(bool $delete=false)
-    {
-        if ($delete) $this->cache->delete('enActualites');
-
-        return $this->cache->get('enActualites', function (ItemInterface $item){
-            $item->expiresAfter(6048000);
-            return $this->enActualiteRepository->findListActif();
-        });
-    }
-
 
     public function cacheFrActualiteItem($slug, bool $delete=false)
     {
