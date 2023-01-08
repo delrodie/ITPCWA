@@ -52,7 +52,7 @@ class BackendFrRessourceController extends AbstractController
 
             $frRessourceRepository->save($frRessource, true);
 
-            $this->gestionCache->cacheFrRessource(true); // Gestion du cache
+            $this->gestionCache->cacheRessource('fr',true); // Gestion du cache
 
             $this->flasher
                 ->create('sweetalert')
@@ -103,7 +103,7 @@ class BackendFrRessourceController extends AbstractController
 
             $frRessourceRepository->save($frRessource, true);
 
-            $this->gestionCache->cacheFrRessource(true);
+            $this->gestionCache->cacheRessource('fr',true);
 
             $this->flasher
                 ->create('notyf')
@@ -126,6 +126,8 @@ class BackendFrRessourceController extends AbstractController
 
             if ($frRessource->getMedia())
                 $this->gestionMedia->removeUpload($frRessource->getMedia(), 'ressource');
+
+            $this->gestionCache->cacheRessource('fr', true);
 
             $this->flasher
                 ->create('notyf')

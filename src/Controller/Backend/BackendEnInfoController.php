@@ -31,7 +31,7 @@ class BackendEnInfoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $enInfoRepository->save($enInfo, true);
 
-            $this->gestionCache->cacheEnMessage(true);
+            $this->gestionCache->cacheMessages('en',true);
 
             $this->flasher
                 ->create('sweetalert')
@@ -88,7 +88,7 @@ class BackendEnInfoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $enInfoRepository->save($enInfo, true);
 
-            $this->gestionCache->cacheEnMessage(true);
+            $this->gestionCache->cacheMessages('en',true);
 
             $this->flasher
                 ->create('sweetalert')
@@ -114,6 +114,8 @@ class BackendEnInfoController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$enInfo->getId(), $request->request->get('_token'))) {
             $enInfoRepository->remove($enInfo, true);
+
+            $this->gestionCache->cacheMessages('en', true);
 
             $this->flasher
                 ->create('sweetalert')

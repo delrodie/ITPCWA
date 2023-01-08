@@ -59,32 +59,22 @@ class GestionCache
     }
 
     /**
-     * Mise en cache des message en francais
+     * Mise en cache des messages
      *
+     * @param string $lang
+     * @param bool $delete
+     * @return mixed
      * @throws InvalidArgumentException
      */
-    public function cacheFrMessages(bool $delete=false)
+    public function cacheMessages(string $lang, bool $delete=false): mixed
     {
-        if ($delete) $this->cache->delete('frInfos');
+        $cacheName = "{$lang}Message";
+        if ($delete) $this->cache->delete($cacheName);
 
-        return $this->cache->get('frInfos', function (ItemInterface $item){
-            $item->expiresAfter(604800);
-            return $this->frInfoRepository->findListActif();
-        });
-    }
-
-    /**
-     * Mise en cache des messages en Anglais
-     *
-     * @throws InvalidArgumentException
-     */
-    public function cacheEnMessage(bool $delete=false)
-    {
-        if ($delete) $this->cache->delete('enInfos');
-
-        return $this->cache->get('enInfos', function (ItemInterface $item){
-            $item->expiresAfter(604800);
-            return $this->enInfoRepository->findListActif();
+        return $this->cache->get($cacheName, function (ItemInterface $item) use($lang){
+            $item->expiresAfter(6048000);
+            if ($lang === 'fr') return $this->frInfoRepository->findListActif();
+            else return $this->enInfoRepository->findListActif();
         });
     }
 
@@ -97,19 +87,6 @@ class GestionCache
             $item->expiresAfter(6048000);
             if ($lang === 'fr') return $this->frTypeRepository->findListActif();
             else return  $this->enTypeRepository->findListActif();
-        });
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    public function cacheEnType(bool $delete=false)
-    {
-        if ($delete) $this->cache->delete('enType');
-
-        return $this->cache->get('enType', function (ItemInterface $item){
-            $item->expiresAfter(6048000);
-            return $this->enTypeRepository->findListActif();
         });
     }
 
@@ -191,7 +168,7 @@ class GestionCache
 
     public function cacheItemPresentation(string $lang, string $term, bool $delete=false)
     {
-        $cacheName = $lang.'Item';
+        $cacheName = $lang.'Item'.$term;
         if ($delete) $this->cache->delete($cacheName);
 
         return $this->cache->get($cacheName, function (ItemInterface $item) use ($lang, $term){
@@ -326,23 +303,15 @@ class GestionCache
         });
     }
 
-    public function cacheFrRessource(bool $delete=false)
+    public function cacheRessource(string $lang, bool $delete=false)
     {
-        if ($delete) $this->cache->delete('frRessource');
+        $cacheName = "{$lang}Ressource";
+        if ($delete) $this->cache->delete($cacheName);
 
-        return $this->cache->get('frRessource', function (ItemInterface $item){
+        return $this->cache->get($cacheName, function (ItemInterface $item) use ($lang){
             $item->expiresAfter(6048000);
-            return $this->frRessourceRepository->findBy([],['id'=>"DESC"]);
-        });
-    }
-
-    public function cacheEnRessource(bool $delete=false)
-    {
-        if ($delete) $this->cache->delete('enRessource');
-
-        return $this->cache->get('enRessource', function (ItemInterface $item){
-            $item->expiresAfter(6048000);
-            return $this->enRessourceRepository->findBy([],['id'=>"DESC"]);
+            if ($lang==='fr') return $this->frRessourceRepository->findBy([],['id' => 'DESC']);
+            else return $this->enRessourceRepository->findOneBy([],['id'=>'DESC']);
         });
     }
 

@@ -37,7 +37,7 @@ class BackendFrInfoController extends AbstractController
             $frInfoRepository->save($frInfo, true);
 
             // Suppression du cache des messages flash
-            $this->gestionCache->cacheFrMessages(true);
+            $this->gestionCache->cacheMessages('fr', true);
 
             $this->flasher
                 ->create('sweetalert')
@@ -99,8 +99,8 @@ class BackendFrInfoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $frInfoRepository->save($frInfo, true);
 
-            // Suppression du cache des message en francais
-            $this->gestionCache->cacheFrMessages(true);
+            // Suppression du cache des messages en francais
+            $this->gestionCache->cacheMessages('fr',true);
 
             $this->flasher
                 ->create('sweetalert')
@@ -127,6 +127,8 @@ class BackendFrInfoController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$frInfo->getId(), $request->request->get('_token'))) {
             $frInfoRepository->remove($frInfo, true);
+
+            $this->gestionCache->cacheMessages('fr', true);
 
             $this->flasher
                 ->create('sweetalert')

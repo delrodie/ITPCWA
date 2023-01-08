@@ -51,7 +51,7 @@ class BackendEnRessourceController extends AbstractController
             $this->utility->getReference($enRessource, 'en');
             $enRessourceRepository->save($enRessource, true);
 
-            $this->gestionCache->cacheEnRessource(true);
+            $this->gestionCache->cacheRessource('en',true);
 
             $this->flasher
                 ->create('notyf')
@@ -94,7 +94,7 @@ class BackendEnRessourceController extends AbstractController
 
             $enRessourceRepository->save($enRessource, true);
 
-            $this->gestionCache->cacheEnRessource(true);
+            $this->gestionCache->cacheRessource('en',true);
 
             $this->flasher
                 ->create('notyf')
@@ -116,6 +116,8 @@ class BackendEnRessourceController extends AbstractController
             $enRessourceRepository->remove($enRessource, true);
             if ($enRessource->getMedia())
                 $this->gestionMedia->removeUpload($enRessource->getMedia(), 'ressource');
+
+            $this->gestionCache->cacheRessource('en', true);
 
             $this->flasher
                 ->create('sweetalert')

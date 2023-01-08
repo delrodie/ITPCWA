@@ -39,13 +39,8 @@ class FrontendController extends AbstractController
     #[Route('/{_locale}/message', name: 'app_frontend_message')]
     public function message($_locale)
     {
-        if ($_locale === 'fr')
-            $messages = $this->gestionCache->cacheFrMessages();
-        else
-            $messages = $this->gestionCache->cacheEnMessage();
-
         return $this->render('frontend/messages.html.twig',[
-            'messages' => $messages
+            'messages' => $this->gestionCache->cacheMessages($_locale)
         ]);
     }
 

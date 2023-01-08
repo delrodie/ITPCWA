@@ -19,14 +19,9 @@ class FrontendRessourceController extends AbstractController
 
     #[Route('/{_locale}', name: 'app_frontend_ressource')]
     public function index($_locale): Response
-    { //dd($_locale);
-        if ($_locale === 'fr')
-            $ressources = $this->gestionCache->cacheFrRessource(true);
-        else
-            $ressources = $this->gestionCache->cacheEnRessource(true);
-
+    {
         return $this->render('frontend/ressources.html.twig',[
-            'ressources' => $ressources,
+            'ressources' => $this->gestionCache->cacheRessource($_locale),
             'locale' => $_locale,
             'pagination' => false
         ]);
