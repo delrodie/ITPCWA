@@ -85,10 +85,10 @@
                                 <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                                     <ul class="navbar-nav justify-content-between align-items-center">
                                         <li class="nav-item">
-                                            <a class="nav-link active" aria-current="page" href="{{ absolute_url(path('app_frontend_index', {'_locale': locale})) }}"><span>{{ 'Home'|trans }}</span></a>
+                                            <a class="nav-link {% if active == 'accueil' %}active{% endif %}" aria-current="page" href="{{ absolute_url(path('app_frontend_index', {'_locale': locale})) }}"><span>{{ 'Home'|trans }}</span></a>
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <a class="nav-link {% if active == 'presentation' %}active{% endif %} dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 {{ 'Who are we?'|trans }}
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -96,19 +96,19 @@
                                             </ul>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ absolute_url(path('app_frontend_actualite_index', {'rubrique': 'news'|trans, '_locale': locale})) }}"><span>{{ 'News'|trans }}</span></a>
+                                            <a class="nav-link {% if active == 'actualite' %}active{% endif %}" href="{{ absolute_url(path('app_frontend_actualite_index', {'rubrique': 'news'|trans, '_locale': locale})) }}"><span>{{ 'News'|trans }}</span></a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ absolute_url(path('app_frontend_projet_index', {'_locale': locale})) }}"><span>{{ 'Projects'|trans}} </span></a>
+                                            <a class="nav-link {% if active == 'projet' %}active{% endif %}" href="{{ absolute_url(path('app_frontend_projet_index', {'_locale': locale})) }}"><span>{{ 'Projects'|trans}} </span></a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ absolute_url(path('app_frontend_ressource', {'_locale': locale})) }}"><span>{{ 'Resources'|trans }}</span>   </a>
+                                            <a class="nav-link {% if active == 'ressource' %}active{% endif %}" href="{{ absolute_url(path('app_frontend_ressource', {'_locale': locale})) }}"><span>{{ 'Resources'|trans }}</span>   </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ absolute_url(path('app_frontend_recruitment', {'_locale': locale})) }}"><span>{{ 'Recruitments'|trans }}</span>   </a>
+                                            <a class="nav-link {% if active == 'recruitement' %}active{% endif %}" href="{{ absolute_url(path('app_frontend_recruitment', {'_locale': locale})) }}"><span>{{ 'Recruitments'|trans }}</span>   </a>
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <a class="nav-link {% if active == 'galerie' %}active{% endif %} dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 {{ 'Gallery'|trans }}
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -116,11 +116,11 @@
                                                 <li><a class="dropdown-item" href="#">{{ 'Videos'|trans }}</a></li>
                                             </ul>
                                         </li>
-                                        <li class="nav-item">
+                                        <!--<li class="nav-item">
                                             <a class="nav-link" href="#"><span>{{ 'Datas'|trans }}</span></a>
-                                        </li>
+                                        </li>-->
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ absolute_url(path('app_frontend_contact', {'_locale': locale})) }}"><span>{{ 'Contact'|trans }}</span></a>
+                                            <a class="nav-link {% if active == 'contact' %}active{% endif %}" href="{{ absolute_url(path('app_frontend_contact', {'_locale': locale})) }}"><span>{{ 'Contact'|trans }}</span></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -137,15 +137,12 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <img src="{{ absolute_url(asset('assets/images/logo_bw.svg')) }}" alt="Logo ITPCWA">
-                                    <p>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex repellendus dolore dolores neque, consectetur,
-                                        porro voluptates obcaecati unde ipsum quae ut cumque expedita suscipit minus inventore, adipisci iusto reiciendis animi.
-                                    </p>
+                                    {{ render(url('app_frontend_footer', {'_locale': locale})) }}
                                 </div>
                                 <div class="col-md-8 rubriques">
                                     <div class="row">
                                         <div class="col-lg-4">
-                                            {{ render(url('app_footer_menu',{'_locale': locale})) }}
+                                            {{ render(url('app_frontend_footer_menu',{'_locale': locale})) }}
                                         </div>
                                         <div class="col-lg-4">
                                             <a href="#">{{ 'Projects'|trans }}</a>

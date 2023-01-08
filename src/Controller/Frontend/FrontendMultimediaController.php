@@ -23,7 +23,8 @@ class FrontendMultimediaController extends AbstractController
     {
         return $this->render('frontend/multimedias.html.twig',[
             'locale' => $_locale,
-            'albums' => $this->gestionCache->cacheAlbum($_locale)
+            'albums' => $this->gestionCache->cacheAlbum($_locale),
+            'active' => "galerie"
         ]);
     }
 
@@ -32,7 +33,8 @@ class FrontendMultimediaController extends AbstractController
     {
         return $this->render('frontend/multimedia.html.twig',[
             'locale' => $_locale,
-            'album' => $this->gestionCache->cacheAlbumItem($_locale, $slug)
+            'album' => $this->gestionCache->cacheAlbumItem($_locale, $slug),
+            'active' => "galerie"
         ]);
     }
 }

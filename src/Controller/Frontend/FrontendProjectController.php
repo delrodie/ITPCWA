@@ -26,7 +26,8 @@ class FrontendProjectController extends AbstractController
 
         return $this->render("frontend/projets.html.twig", [
             'projets' => $this->gestionCache->cacheProjets($_locale),
-            'locale' => $_locale
+            'locale' => $_locale,
+            'active' => 'projet'
         ]);
     }
 
@@ -42,7 +43,8 @@ class FrontendProjectController extends AbstractController
 
         return $this->render("frontend/projet_show.html.twig",[
             'projet' => $projet,
-            'locale' => $_locale
+            'locale' => $_locale,
+            'active' => 'projet'
         ]);
     }
 }

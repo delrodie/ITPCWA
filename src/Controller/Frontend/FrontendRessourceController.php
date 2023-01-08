@@ -23,7 +23,8 @@ class FrontendRessourceController extends AbstractController
         return $this->render('frontend/ressources.html.twig',[
             'ressources' => $this->gestionCache->cacheRessource($_locale),
             'locale' => $_locale,
-            'pagination' => false
+            'pagination' => false,
+            'active' => "ressource"
         ]);
     }
 }

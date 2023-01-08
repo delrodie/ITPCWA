@@ -38,7 +38,8 @@ class FrontendContactController extends AbstractController
 
         return $this->renderForm('frontend/contact.html.twig',[
             'locale' => $_locale,
-            'form' => $form
+            'form' => $form,
+            'active' => "contact"
         ]);
     }
 }

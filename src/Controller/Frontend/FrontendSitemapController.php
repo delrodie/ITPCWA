@@ -23,7 +23,8 @@ class FrontendSitemapController extends AbstractController
 
         return $this->render('frontend/sitemap.html.twig',[
             'locale' => $_locale,
-            'rubriques' => $this->gestionCache->cacheType($_locale)
+            'rubriques' => $this->gestionCache->cacheType($_locale),
+            'active' => 'accueil'
         ]);
     }
 }

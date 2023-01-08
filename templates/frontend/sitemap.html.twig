@@ -32,12 +32,12 @@
                          <li>
                              <span>{{ 'Gallery'|trans }}</span>
                              <ul>
-                                 <li><a href="#"><span>{{ 'Pictures'|trans }}</span></a></li>
+                                 <li><a href="{{ path('app_frontend_multimedia', {'rubrique': 'picture'|trans, '_locale': locale}) }}"><span>{{ 'Pictures'|trans }}</span></a></li>
                                  <li><a href="#"><span>{{ 'Videos'|trans }}</span></a></li>
                              </ul>
                          </li>
                          <li><a href="#"><span>{{ 'Datas'|trans }}</span></a></li>
-                         <li><a href="#"><span>{{ 'Contact'|trans }}</span></a></li>
+                         <li><a href="{{ path('app_frontend_contact', {'_locale': locale}) }}"><span>{{ 'Contact'|trans }}</span></a></li>
                      </ul>
                  </div>
              </div>

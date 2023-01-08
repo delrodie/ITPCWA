@@ -27,7 +27,8 @@ class FrontendActualiteController extends AbstractController
             'actualites' => $this->gestionCache->cacheActualites($_locale),
             'locale' => $_locale,
             'traduction' => $traduction,
-            'pagination' => false
+            'pagination' => false,
+            'active' => 'actualite'
         ]);
     }
 
@@ -39,13 +40,14 @@ class FrontendActualiteController extends AbstractController
             $traduction = 'news';
         }else{
             $actualite = $this->gestionCache->cacheEnActualiteItem($slug, true);
-            $traduction = 'actaulites';
+            $traduction = 'actualites';
         }
 
         return $this->render('frontend/actualite_show.html.twig',[
             'actualite' => $actualite,
             'locale' => $_locale,
             'traduction' => $traduction,
+            'active' => "actualite"
         ]);
     }
 }

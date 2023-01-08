@@ -31,7 +31,8 @@ class FrontendRecruitmentController extends AbstractController
         return $this->render('frontend/recruitments.html.twig',[
             'locale' => $_locale,
             'recruitments' => $this->gestionCache->cacheJob($_locale, true),
-            'pagination' => false
+            'pagination' => false,
+            'active' => 'recruitement'
         ]);
     }
 
@@ -51,6 +52,7 @@ class FrontendRecruitmentController extends AbstractController
             'locale' => $_locale,
             'recruitment' => $this->gestionCache->cacheJobItem($_locale, $slug),
             'form' => $form,
+            'active' => 'recruitement'
         ]);
     }
 }

@@ -50,7 +50,8 @@ class FrontendNewsletterController extends AbstractController
         }
         return $this->renderForm('frontend/newsletter.html.twig',[
             'locale' => $_locale,
-            'form' => $form
+            'form' => $form,
+            'active' => "newsletter"
         ]);
     }
 }
