@@ -1,0 +1,3 @@
+{% for rubrique in rubriques %}
+    <a href="{{ path('app_frontend_presentation', {'slug': rubrique.slug, '_locale': locale}) }}">{{ rubrique.titre }}</a>
+{% endfor %}

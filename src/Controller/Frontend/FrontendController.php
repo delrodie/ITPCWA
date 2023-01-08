@@ -57,4 +57,13 @@ class FrontendController extends AbstractController
         ]);
     }
 
+    #[Route('/{_locale}/footer/type/menu', name: 'app_footer_menu')]
+    public function footer($_locale)
+    {
+        return $this->render('frontend/footer.html.twig',[
+            'rubriques' => $this->gestionCache->cacheType($_locale),
+            'locale' => $_locale
+        ]);
+    }
+
 }

@@ -145,10 +145,7 @@
                                 <div class="col-md-8 rubriques">
                                     <div class="row">
                                         <div class="col-lg-4">
-                                            <a href="{{ path('app_frontend_presentation', {'slug': 'x', '_locale': 'x'}) }}">Présentation</a>
-                                            <a href="#">Vision et mission</a>
-                                            <a href="#">Axes stratégiques</a>
-                                            <a href="#">Zone d'intervention</a>
+                                            {{ render(url('app_footer_menu',{'_locale': locale})) }}
                                         </div>
                                         <div class="col-lg-4">
                                             <a href="#">{{ 'Projects'|trans }}</a>
