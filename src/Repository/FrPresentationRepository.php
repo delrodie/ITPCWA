@@ -57,6 +57,20 @@ class FrPresentationRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findByTerm($string)
+    { //dd($string);
+        return $this->createQueryBuilder('fp')
+            ->addSelect('t')
+            ->leftJoin('fp.type', 't')
+            ->where('t.titre LIKE :string')
+            ->setParameter('string', '%'.$string.'%')
+            //->setMaxResults(1)
+            ->getQuery()->getOneOrNullResult()
+            ;
+    }
 //    /**
 //     * @return FrPresentation[] Returns an array of FrPresentation objects
 //     */

@@ -55,6 +55,19 @@ class EnPresentationRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findByTerm($string)
+    {
+        return $this->createQueryBuilder('ep')
+            ->where('ep.titre LIKE :string')
+            ->setParameter('string', '%'.$string.'%')
+            //->setMaxResults(1)
+            ->getQuery()->getOneOrNullResult()
+            ;
+    }
+
 //    /**
 //     * @return EnPresentation[] Returns an array of EnPresentation objects
 //     */

@@ -88,16 +88,15 @@ class GestionCache
         });
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    public function cacheFrType(bool $delete=false)
+    public function cacheType(string $lang, bool $delete=false)
     {
-        if ($delete) $this->cache->delete('frType');
+        $cacheName = $lang.'Type';
+        if ($delete) $this->cache->delete($cacheName);
 
-        return $this->cache->get('frType', function (ItemInterface $item){
-            $item->expiresAfter(604800);
-            return $this->frTypeRepository->findListActif();
+        return $this->cache->get($cacheName, function (ItemInterface $item) use ($lang){
+            $item->expiresAfter(6048000);
+            if ($lang === 'fr') return $this->frTypeRepository->findListActif();
+            else return  $this->enTypeRepository->findListActif();
         });
     }
 
@@ -187,6 +186,18 @@ class GestionCache
 
             return $resultat;
 
+        });
+    }
+
+    public function cacheItemPresentation(string $lang, string $term, bool $delete=false)
+    {
+        $cacheName = $lang.'Item';
+        if ($delete) $this->cache->delete($cacheName);
+
+        return $this->cache->get($cacheName, function (ItemInterface $item) use ($lang, $term){
+            $item->expiresAfter(4068000);
+            if ($lang === 'fr') return $this->frPresentationRepository->findByTerm($term);
+            else return $this->enPresentationRepository->findByTerm($term);
         });
     }
 

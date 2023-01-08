@@ -41,43 +41,47 @@
                 </div>
             </div>
         </section>
-        <section id="axes" class="axes">
-            <div class="row">
-                <div class="col-12 contenu">
-                    <h1>{{ "Intervention's axes"|trans }}</h1>
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 intervention d-flex align-items-center" data-aos="zoom-in-down" data-aos-duration="2500" data-aos-easing="linear">
-                        <div class="col">
-                            <a href="page.html">
-                                <div class="rond">
-                                    <h3>Plaidoyer</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a href="page.html">
-                                <div class="rond">
-                                    <h3>Mobilisation communautaire</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a href="page.html">
-                                <div class="rond">
-                                    <h3>Réduction de la stigmatisation et de la discrimination</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a href="page.html">
-                                <div class="rond">
-                                    <h3>Promotion de la l'éducation sanitaire</h3>
-                                </div>
-                            </a>
+        {% if axe %}
+            <section id="axes" class="axes">
+                <div class="row">
+                    <div class="col-12 contenu">
+                        <h1>{{ "Intervention's axes"|trans }}</h1>
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 intervention d-flex align-items-center" data-aos="zoom-in-down" data-aos-duration="2500" data-aos-easing="linear">
+                            <div class="col">
+                                <a href="{{ absolute_url(path('app_frontend_presentation', {'slug': axe.type.slug, '_locale': locale})) }}">
+                                    <div class="rond text-center">
+                                        <h3><span style="color: transparent">Plaidoyer </span>
+                                            {{ 'Plea'|trans }}
+                                        </h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="{{ absolute_url(path('app_frontend_presentation', {'slug': axe.type.slug, '_locale': locale})) }}">
+                                    <div class="rond">
+                                        <h3>{{ 'Community mobilisation'|trans }}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="{{ absolute_url(path('app_frontend_presentation', {'slug': axe.type.slug, '_locale': locale})) }}">
+                                    <div class="rond">
+                                        <h3>{{ 'Reduction of the stigmatization and the discrimination'|trans }}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="{{ absolute_url(path('app_frontend_presentation', {'slug': axe.type.slug, '_locale': locale})) }}">
+                                    <div class="rond">
+                                        <h3>{{ 'Promotion of the sanitary education'|trans }}</h3>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        {% endif %}
         {% if projet %}
             <section id="campagne" class="campagne">
                 <div class="contenu">

@@ -51,7 +51,7 @@ class BackendEnTypeController extends AbstractController
             $this->utility->slug($enType, 'enType');
             $enTypeRepository->save($enType, true);
 
-            $this->gestionCache->cacheEnType(true);
+            $this->gestionCache->cacheType('en',true);
 
             $this->utility->traductionSave($frtype, $enType, self::TRADUCTION_ENTITY);
 
@@ -85,7 +85,7 @@ class BackendEnTypeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->utility->slug($enType, 'enType');
             $enTypeRepository->save($enType, true);
-            $this->gestionCache->cacheEnType(true);
+            $this->gestionCache->cacheType('en',true);
 
             $this->flasher
                 ->create('notyf')
@@ -130,7 +130,7 @@ class BackendEnTypeController extends AbstractController
             $this->utility->slug($enType, 'enType');
             $enTypeRepository->save($enType, true);
 
-            $this->gestionCache->cacheEnType(true);
+            $this->gestionCache->cacheType('en',true);
 
             //$this->utility->traductionSave($frtype, $enType, self::TRADUCTION_ENTITY);
 
@@ -163,7 +163,7 @@ class BackendEnTypeController extends AbstractController
             $enTypeRepository->remove($enType, true);
             $this->utility->traductionDelete($enType, self::TRADUCTION_ENTITY);
 
-            $this->gestionCache->cacheEnType(true);
+            $this->gestionCache->cacheType('en',true);
 
             $this->flasher
                 ->create('sweetalert')

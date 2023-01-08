@@ -26,7 +26,8 @@ class FrontendController extends AbstractController
             'slides' => $this->gestionCache->cacheSlides(),
             'locale' => $_locale,
             'actualites' => $this->gestionCache->cacheActualites($_locale),
-            'projet' => $this->gestionCache->cacheLastProjet($_locale)
+            'projet' => $this->gestionCache->cacheLastProjet($_locale),
+            'axe' => $this->gestionCache->cacheItemPresentation($_locale, 'axe', true),
         ]);
     }
 
@@ -52,14 +53,10 @@ class FrontendController extends AbstractController
     #[Route('/{_locale}/menu/type', name: 'app_frontend_menu')]
     public function menu($_locale)
     {
-        if ($_locale === 'fr')
-            $rubriques = $this->gestionCache->cacheFrType();
-        else
-            $rubriques = $this->gestionCache->cacheEnType();
 
         return $this->render('frontend/menu.html.twig',[
-            'rubriques' => $rubriques,
-            'locale' => $_locale
+            'rubriques' => $this->gestionCache->cacheType($_locale),
+            'locale' => $_locale,
         ]);
     }
 

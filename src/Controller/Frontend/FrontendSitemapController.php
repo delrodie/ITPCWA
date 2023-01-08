@@ -20,14 +20,10 @@ class FrontendSitemapController extends AbstractController
     #[Route('/{_locale}', name: 'app_sitemap')]
     public function index($_locale): Response
     {
-        if ($_locale === 'fr')
-            $rubriques = $this->gestionCache->cacheFrType();
-        else
-            $rubriques = $this->gestionCache->cacheEnType();
 
         return $this->render('frontend/sitemap.html.twig',[
             'locale' => $_locale,
-            'rubriques' => $rubriques
+            'rubriques' => $this->gestionCache->cacheType($_locale)
         ]);
     }
 }

@@ -275,7 +275,7 @@ main #axes.axes .contenu .intervention a .rond h3 {
   align-content: center;
   align-items: center;
 }
-main #axes.axes .contenu .intervention a .rond h3:nth-of-type(1) {
+main #axes.axes .contenu .intervention a .rond h3:nth-of-type(1), main #axes.axes .contenu .intervention a .rond h3:nth-of-type(0), main #axes.axes .contenu .intervention a .rond h3:first-of-type {
   text-align: center;
 }
 main #axes.axes .contenu .intervention a .rond:hover {

@@ -34,7 +34,7 @@ class BackendFrTypeController extends AbstractController
             $this->utility->slug($frType, 'frType');
             $frTypeRepository->save($frType, true);
 
-            $this->gestionCache->cacheFrType(true);
+            $this->gestionCache->cacheType('fr', true);
 
             $this->flasher
                 ->create('sweetalert')
@@ -93,7 +93,7 @@ class BackendFrTypeController extends AbstractController
             $this->utility->slug($frType, 'frType');
             $frTypeRepository->save($frType, true);
 
-            $this->gestionCache->cacheFrType(true);
+            $this->gestionCache->cacheType('fr', true);
 
             $this->flasher
                 ->create('sweetalert')
@@ -131,7 +131,7 @@ class BackendFrTypeController extends AbstractController
             }
             $frTypeRepository->remove($frType, true);
 
-            $this->gestionCache->cacheFrType(true);
+            $this->gestionCache->cacheType('fr',true);
 
             $this->flasher
                 ->create('notyf')
