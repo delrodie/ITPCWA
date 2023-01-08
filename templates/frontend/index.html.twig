@@ -15,14 +15,14 @@
                 </div>
                 <div class="col-lg-7 tuile">
                     <div class="row">
-                        <div class="col-sm-6 tuile-presentation">
-                            <h6>{{ 'Who are we?'|trans }}?</h6>
-                            <h2>ITPC West Africa</h2>
-                            <p>
-                                La Coalition internationale pour la préparation au traitement – Afrique de l’Ouest (ITPC WEST AFRICA)
-                            </p>
-                            <a href="page.html" class="bouton btn-noir">{{ 'Discover us'|trans }}</a>
-                        </div>
+                        {% if presentation %}
+                            <div class="col-sm-6 tuile-presentation">
+                                <h6>{{ 'Who are we?'|trans }}?</h6>
+                                <h2>ITPC West Africa</h2>
+                                <p>{{ presentation.resume|raw }}...</p>
+                                <a href="{{ absolute_url(path('app_frontend_presentation', {'slug': presentation.type.slug, '_locale': locale})) }}" class="bouton btn-noir">{{ 'Discover us'|trans }}</a>
+                            </div>
+                        {% endif %}
                         <div class="col-sm-6"  data-aos="fade-left" data-aos-duration="2500">
                             <div class="row">
                                 <div class="col-12 tuile-rubrique">

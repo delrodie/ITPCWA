@@ -66,6 +66,7 @@ class FrPresentationRepository extends ServiceEntityRepository
             ->addSelect('t')
             ->leftJoin('fp.type', 't')
             ->where('t.titre LIKE :string')
+            ->andWhere('t.pageIndex IS NOT NULL')
             ->setParameter('string', '%'.$string.'%')
             //->setMaxResults(1)
             ->getQuery()->getOneOrNullResult()

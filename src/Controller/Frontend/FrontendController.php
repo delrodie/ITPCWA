@@ -28,6 +28,7 @@ class FrontendController extends AbstractController
             'actualites' => $this->gestionCache->cacheActualites($_locale),
             'projet' => $this->gestionCache->cacheLastProjet($_locale),
             'axe' => $this->gestionCache->cacheItemPresentation($_locale, 'axe', true),
+            'presentation' => $this->gestionCache->cacheItemPresentation($_locale, 'presentation', true)
         ]);
     }
 

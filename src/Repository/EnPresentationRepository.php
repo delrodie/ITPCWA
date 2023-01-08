@@ -61,7 +61,10 @@ class EnPresentationRepository extends ServiceEntityRepository
     public function findByTerm($string)
     {
         return $this->createQueryBuilder('ep')
-            ->where('ep.titre LIKE :string')
+            ->addSelect('t')
+            ->leftJoin('ep.type', 't')
+            ->where('t.titre LIKE :string')
+            ->andWhere('t.pageIndex IS NOT NULL')
             ->setParameter('string', '%'.$string.'%')
             //->setMaxResults(1)
             ->getQuery()->getOneOrNullResult()
