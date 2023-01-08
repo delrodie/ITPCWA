@@ -23,20 +23,17 @@
                                 <a href="{{ absolute_url(path('app_frontend_presentation', {'slug': presentation.type.slug, '_locale': locale})) }}" class="bouton btn-noir">{{ 'Discover us'|trans }}</a>
                             </div>
                         {% endif %}
-                        <div class="col-sm-6"  data-aos="fade-left" data-aos-duration="2500">
-                            <div class="row">
-                                <div class="col-12 tuile-rubrique">
-                                    <a href="page.html">
-                                        <h2>Vision / mission</h2>
+                        {% if zone %}
+                            <div class="col-sm-6"  data-aos="fade-left" data-aos-duration="2500">
+                                <figure>
+                                    <a href="{{ absolute_url(path('app_frontend_presentation', {'slug': zone.type.slug, '_locale': locale})) }}">
+                                        {% if zone.media %}
+                                            <img src="{{ absolute_url(asset('uploads/presentation/' ~ zone.media)) }}" alt="zone.titre" class="img-fluid">
+                                        {% endif %}
                                     </a>
-                                </div>
-                                <div class="col-122 tuile-rubrique">
-                                    <a href="page.html">
-                                        <h2>Zone d'intervention</h2>
-                                    </a>
-                                </div>
+                                </figure>
                             </div>
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -297,6 +297,15 @@ main{
                     background: $couleur-secondaire;
                 }
             }
+
+            figure{
+                &:hover{
+                    img{
+                        transform: scale(1.5);
+                        transition: .3s ease-in;
+                    }
+                }
+            }
         }
     }
 

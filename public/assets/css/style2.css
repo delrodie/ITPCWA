@@ -284,6 +284,11 @@ main #bienvenue.bienvenue .tuile-rubrique:hover {
   background: #4c0202;
 }
 
+main #bienvenue.bienvenue .tuile figure:hover img {
+  transform: scale(1.5);
+  transition: 0.3s ease-in;
+}
+
 main #axes.axes {
   background: rgba(76, 2, 2, 0.1);
   margin: 50px auto;
