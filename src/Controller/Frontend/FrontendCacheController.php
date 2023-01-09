@@ -40,7 +40,8 @@ class FrontendCacheController extends AbstractController
     public function index(Request $request): Response
     {
         $this->gestionCache->cacheSlides(true);
-        $langs = ['fr','en']; $i=0;
+        $langs = ['fr','en'];
+        $itemPresentations = ['axe','presentation','intervention'];
 
         foreach ($langs as $lang){
             $this->gestionCache->cacheMessages($lang, true);
@@ -51,6 +52,10 @@ class FrontendCacheController extends AbstractController
             $this->gestionCache->cacheJob($lang, true);
             $this->gestionCache->cacheAlbum($lang, true);
             $this->gestionCache->cacheBienvenue($lang, true);
+
+            foreach ($itemPresentations as $str){
+                $this->gestionCache->cacheItemPresentation($lang, $str, true);
+            }
 
             if ($lang === 'fr'){
                 $frPresentations = $this->frPresentationRepository->findAll();

@@ -158,6 +158,7 @@ class Utility
             15 => "Version anglaise de la liste des recruitements",
             16 => "Version francaise d'un article de recruitement",
             17 => "Version anglaise d'un article de recruitement",
+            default => 'Dashboard'
         };
     }
 

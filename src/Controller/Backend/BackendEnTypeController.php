@@ -52,6 +52,7 @@ class BackendEnTypeController extends AbstractController
             $enTypeRepository->save($enType, true);
 
             $this->gestionCache->cacheType('en',true);
+            $this->gestionCache->cacheType('fr',true);
 
             $this->utility->traductionSave($frtype, $enType, self::TRADUCTION_ENTITY);
 
@@ -84,8 +85,11 @@ class BackendEnTypeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->utility->slug($enType, 'enType');
+
             $enTypeRepository->save($enType, true);
+
             $this->gestionCache->cacheType('en',true);
+            $this->gestionCache->cacheType('fr',true);
 
             $this->flasher
                 ->create('notyf')

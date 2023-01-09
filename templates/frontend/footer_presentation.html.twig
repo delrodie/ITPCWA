@@ -1,1 +1,3 @@
-<p>{{ presentation.resume|raw }}</p>
+{% if presentation %}
+    <p>{{ presentation.resume|raw }}</p>
+{% endif %}
