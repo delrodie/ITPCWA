@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Entity\FrBienvenue;
 use App\Repository\AlbumRepository;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnAlbumRepository;
@@ -12,6 +13,7 @@ use App\Repository\EnProjetRepository;
 use App\Repository\EnRessourceRepository;
 use App\Repository\EnTypeRepository;
 use App\Repository\FrActualiteRepository;
+use App\Repository\FrBienvenueRepository;
 use App\Repository\FrInfoRepository;
 use App\Repository\FrJobRepository;
 use App\Repository\FrPresentationRepository;
@@ -37,7 +39,7 @@ class GestionCache
         private FrRessourceRepository $frRessourceRepository, private EnRessourceRepository $enRessourceRepository,
         private FrJobRepository $frJobRepository, private EnJobRepository $enJobRepository,
         private AlbumRepository $albumRepository, private EnAlbumRepository $enAlbumRepository,
-        private PhotoRepository $photoRepository
+        private PhotoRepository $photoRepository, private FrBienvenueRepository $frBienvenueRepository,
     )
     {
     }
@@ -407,5 +409,16 @@ class GestionCache
         });
     }
 
+    public function cacheBienvenue(string $lang, bool $delete=false)
+    {
+        $cacheName = "{$lang}Bienvenue";
+        if ($delete) $this->cache->delete($cacheName);
+
+        return $this->cache->get($cacheName, function (ItemInterface $item) use ($lang){
+            $item->expiresAfter(6048000);
+            if ($lang==='fr') return $this->frBienvenueRepository->findOneOrNull();
+            else return [];
+        });
+    }
 
 }

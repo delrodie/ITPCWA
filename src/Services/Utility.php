@@ -14,6 +14,7 @@ use App\Repository\EnProjetRepository;
 use App\Repository\EnRessourceRepository;
 use App\Repository\EnTypeRepository;
 use App\Repository\FrActualiteRepository;
+use App\Repository\FrBienvenueRepository;
 use App\Repository\FrJobRepository;
 use App\Repository\FrPresentationRepository;
 use App\Repository\FrProjetRepository;
@@ -41,7 +42,7 @@ class Utility
         private EnProjetRepository $enProjetRepository, private FrRessourceRepository $frRessourceRepository,
         private EnRessourceRepository $enRessourceRepository, private FrJobRepository $frJobRepository,
         private EnJobRepository $enJobRepository, private AlbumRepository $albumRepository,
-        private EnAlbumRepository $enAlbumRepository
+        private EnAlbumRepository $enAlbumRepository, private FrBienvenueRepository $frBienvenueRepository
     )
     {
     }

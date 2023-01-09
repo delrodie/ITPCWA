@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_backend_fr_bienvenue_delete', {'id': fr_bienvenue.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer ce message de bienvenue?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ fr_bienvenue.id) }}">
+    <button class="btn btn-danger">Supprimer</button>
+</form>

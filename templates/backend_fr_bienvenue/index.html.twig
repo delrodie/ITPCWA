@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FrBienvenue index{% endblock %}
+
+{% block body %}
+    <h1>FrBienvenue index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Resume</th>
+                <th>Contenu</th>
+                <th>Media</th>
+                <th>Slug</th>
+                <th>Tags</th>
+                <th>PageIndex</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fr_bienvenue in fr_bienvenues %}
+            <tr>
+                <td>{{ fr_bienvenue.id }}</td>
+                <td>{{ fr_bienvenue.titre }}</td>
+                <td>{{ fr_bienvenue.resume }}</td>
+                <td>{{ fr_bienvenue.contenu }}</td>
+                <td>{{ fr_bienvenue.media }}</td>
+                <td>{{ fr_bienvenue.slug }}</td>
+                <td>{{ fr_bienvenue.tags }}</td>
+                <td>{{ fr_bienvenue.pageIndex }}</td>
+                <td>{{ fr_bienvenue.createdAt ? fr_bienvenue.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ fr_bienvenue.updatedAt ? fr_bienvenue.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_backend_fr_bienvenue_show', {'id': fr_bienvenue.id}) }}">show</a>
+                    <a href="{{ path('app_backend_fr_bienvenue_edit', {'id': fr_bienvenue.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_fr_bienvenue_new') }}">Create new</a>
+{% endblock %}

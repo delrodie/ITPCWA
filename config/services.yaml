@@ -38,3 +38,4 @@ services:
             $jobDirectory: '%kernel.project_dir%/public/uploads/job'
             $candidatDirectory: '%kernel.project_dir%/public/uploads/candidat'
             $multimediaDirectory: '%kernel.project_dir%/public/uploads/multimedia'
+            $bienvenueDirectory: '%kernel.project_dir%/public/uploads/bienvenue'
