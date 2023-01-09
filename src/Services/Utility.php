@@ -8,6 +8,7 @@ use App\Form\EnProjetType;
 use App\Repository\AlbumRepository;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnAlbumRepository;
+use App\Repository\EnBienvenueRepository;
 use App\Repository\EnJobRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnProjetRepository;
@@ -42,7 +43,8 @@ class Utility
         private EnProjetRepository $enProjetRepository, private FrRessourceRepository $frRessourceRepository,
         private EnRessourceRepository $enRessourceRepository, private FrJobRepository $frJobRepository,
         private EnJobRepository $enJobRepository, private AlbumRepository $albumRepository,
-        private EnAlbumRepository $enAlbumRepository, private FrBienvenueRepository $frBienvenueRepository
+        private EnAlbumRepository $enAlbumRepository, private FrBienvenueRepository $frBienvenueRepository,
+        private EnBienvenueRepository $enBienvenueRepository
     )
     {
     }

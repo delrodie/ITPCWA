@@ -6,6 +6,7 @@ use App\Entity\FrBienvenue;
 use App\Repository\AlbumRepository;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnAlbumRepository;
+use App\Repository\EnBienvenueRepository;
 use App\Repository\EnInfoRepository;
 use App\Repository\EnJobRepository;
 use App\Repository\EnPresentationRepository;
@@ -40,6 +41,7 @@ class GestionCache
         private FrJobRepository $frJobRepository, private EnJobRepository $enJobRepository,
         private AlbumRepository $albumRepository, private EnAlbumRepository $enAlbumRepository,
         private PhotoRepository $photoRepository, private FrBienvenueRepository $frBienvenueRepository,
+        private EnBienvenueRepository $enBienvenueRepository
     )
     {
     }
@@ -417,7 +419,7 @@ class GestionCache
         return $this->cache->get($cacheName, function (ItemInterface $item) use ($lang){
             $item->expiresAfter(6048000);
             if ($lang==='fr') return $this->frBienvenueRepository->findOneOrNull();
-            else return [];
+            else return $this->enBienvenueRepository->findOneOrNull();
         });
     }
 

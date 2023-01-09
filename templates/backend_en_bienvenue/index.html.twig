@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EnBienvenue index{% endblock %}
+
+{% block body %}
+    <h1>EnBienvenue index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Rresume</th>
+                <th>Contenu</th>
+                <th>Media</th>
+                <th>Slug</th>
+                <th>Tags</th>
+                <th>PageIndex</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for en_bienvenue in en_bienvenues %}
+            <tr>
+                <td>{{ en_bienvenue.id }}</td>
+                <td>{{ en_bienvenue.titre }}</td>
+                <td>{{ en_bienvenue.rresume }}</td>
+                <td>{{ en_bienvenue.contenu }}</td>
+                <td>{{ en_bienvenue.media }}</td>
+                <td>{{ en_bienvenue.slug }}</td>
+                <td>{{ en_bienvenue.tags }}</td>
+                <td>{{ en_bienvenue.pageIndex }}</td>
+                <td>{{ en_bienvenue.createdAt ? en_bienvenue.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ en_bienvenue.updatedAt ? en_bienvenue.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_backend_en_bienvenue_show', {'id': en_bienvenue.id}) }}">show</a>
+                    <a href="{{ path('app_backend_en_bienvenue_edit', {'id': en_bienvenue.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_en_bienvenue_new') }}">Create new</a>
+{% endblock %}
