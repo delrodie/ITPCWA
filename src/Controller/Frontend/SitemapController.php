@@ -2,7 +2,9 @@
 
 namespace App\Controller\Frontend;
 
+use App\Repository\AlbumRepository;
 use App\Repository\EnActualiteRepository;
+use App\Repository\EnAlbumRepository;
 use App\Repository\EnJobRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnProjetRepository;
@@ -32,6 +34,8 @@ class SitemapController extends AbstractController
         EnRessourceRepository $enRessourceRepository,
         FrJobRepository $frJobRepository,
         EnJobRepository $enJobRepository,
+        AlbumRepository $albumRepository,
+        EnAlbumRepository $enAlbumRepository
     ): Response
     {
         $hostname = $request->getSchemeAndHttpHost(); // recuperation du nom de l'hôte depuis l'url
@@ -55,6 +59,7 @@ class SitemapController extends AbstractController
                 $ressources = $frRessourceRepository->findAll();
                 $jobs = $frJobRepository->findListActif();
                 $rubrique = 'actualites';
+                $albums = $albumRepository->findListActif();
             }else{
                 $presentations = $enPresentationRepository->findAll();
                 $actualites = $enActualiteRepository->findAll();
@@ -62,6 +67,7 @@ class SitemapController extends AbstractController
                 $ressources = $enRessourceRepository->findAll();
                 $jobs = $enJobRepository->findListActif();
                 $rubrique = 'news';
+                $albums = $enAlbumRepository->findListActif();
             }
 
             $urls[] = ['loc' => $this->generateUrl('app_frontend_index',['_locale' => $loc])];
@@ -69,6 +75,9 @@ class SitemapController extends AbstractController
             $urls[] = ['loc' => $this->generateUrl('app_frontend_actualite_index',['_locale'=> $loc, 'rubrique' => $rubrique])];
             $urls[] = ['loc' => $this->generateUrl('app_frontend_ressource',['_locale' => $loc])];
             $urls[] = ['loc' => $this->generateUrl('app_frontend_recruitment',['_locale'=>$loc])];
+            $urls[] = ['loc' => $this->generateUrl('app_frontend_bienvenue',['_locale'=>$loc])];
+            $urls[] = ['loc' => $this->generateUrl('app_frontend_contact',['_locale'=>$loc])];
+            $urls[] = ['loc' => $this->generateUrl('app_frontend_multimedia',['_locale'=>$loc, 'rubrique' => 'picture'])];
             foreach ($presentations as $presentation){
                 $images = [
                     'loc' => '/uploads/presentation/'.$presentation->getMedia(),
@@ -124,6 +133,25 @@ class SitemapController extends AbstractController
                         'slug' => $job->getSlug()
                     ]),
                     'lastmod' => $date->format('Y-m-d')
+                ];
+            }
+
+            foreach ($albums as $album){
+                if ($album->getUpdatedAt()) $date = $album->getUpdatedAt();
+                else $date = $album->getCreatedAt();
+
+                $images = [
+                    'loc' => '/uploads/multimedia/'.$album->getMedia(),
+                    'title' => $album->getTitre()
+                ];
+                $urls[] = [
+                    'loc' => $this->generateUrl('app_frontend_multimedia_show',[
+                        '_locale' => $loc,
+                        'slug' => $album->getSlug(),
+                        'rubrique' => "picture"
+                    ]),
+                    'lastmod' => $date->format('Y-m-d'),
+                    'image' => $images
                 ];
             }
         }

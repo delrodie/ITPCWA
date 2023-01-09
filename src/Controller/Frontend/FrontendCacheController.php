@@ -5,10 +5,12 @@ namespace App\Controller\Frontend;
 use App\Repository\AlbumRepository;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnAlbumRepository;
+use App\Repository\EnBienvenueRepository;
 use App\Repository\EnJobRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnProjetRepository;
 use App\Repository\FrActualiteRepository;
+use App\Repository\FrBienvenueRepository;
 use App\Repository\FrJobRepository;
 use App\Repository\FrPresentationRepository;
 use App\Repository\FrProjetRepository;
@@ -28,7 +30,8 @@ class FrontendCacheController extends AbstractController
         private EnActualiteRepository $enActualiteRepository, private FrProjetRepository $frProjetRepository,
         private EnPresentationRepository $enPresentationRepository, private FrJobRepository $frJobRepository,
         private EnJobRepository $enJobRepository, private AlbumRepository $albumRepository,
-        private EnAlbumRepository $enAlbumRepository
+        private EnAlbumRepository $enAlbumRepository, private FrBienvenueRepository $frBienvenueRepository,
+        private EnBienvenueRepository $enBienvenueRepository
     )
     {
     }
@@ -47,6 +50,7 @@ class FrontendCacheController extends AbstractController
             $this->gestionCache->cacheRessource($lang, true);
             $this->gestionCache->cacheJob($lang, true);
             $this->gestionCache->cacheAlbum($lang, true);
+            $this->gestionCache->cacheBienvenue($lang, true);
 
             if ($lang === 'fr'){
                 $frPresentations = $this->frPresentationRepository->findAll();

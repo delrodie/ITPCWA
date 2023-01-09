@@ -30,7 +30,8 @@ class FrontendController extends AbstractController
             'axe' => $this->gestionCache->cacheItemPresentation($_locale, 'axe'),
             'presentation' => $this->gestionCache->cacheItemPresentation($_locale, 'presentation'),
             'zone' => $this->gestionCache->cacheItemPresentation($_locale, 'intervention'),
-            'active' => 'accueil'
+            'bienvenue' => $this->gestionCache->cacheBienvenue($_locale),
+            'active' => 'accueil',
         ]);
     }
 

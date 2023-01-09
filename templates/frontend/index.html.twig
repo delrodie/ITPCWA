@@ -7,11 +7,11 @@
         <section id="bienvenue" class="bienvenue">
             <div class="row">
                 <div class="col-lg-5 bienvenue-description"  data-aos="fade-right" data-aos-duration="2500">
-                    <h1>{{ 'welcome'|trans }}</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis quia aspernatur, soluta repudiandae minus veniam beatae sequi quasi esse optio, corporis voluptates dolore quae blanditiis quidem ut neque nihil nostrum.
-                    </p>
-                    <a href="#" class="bouton btn-noir">{{ 'Read more'|trans }}</a>
+                    {% if bienvenue %}
+                        <h1>{{ 'welcome'|trans }}</h1>
+                        <p>{{ bienvenue.resume|raw}}</p>
+                        <a href="{{ path('app_frontend_bienvenue', {'_locale': locale}) }}" class="bouton btn-noir">{{ 'Read more'|trans }}</a>
+                    {% endif %}
                 </div>
                 <div class="col-lg-7 tuile">
                     <div class="row">
