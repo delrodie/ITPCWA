@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Backend;
 
 use App\Entity\EnBienvenue;
 use App\Form\EnBienvenueType;

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MaintenanceExcept{% endblock %}
+
+{% block body %}
+    <h1>MaintenanceExcept</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ maintenance_except.id }}</td>
+            </tr>
+            <tr>
+                <th>Ip</th>
+                <td>{{ maintenance_except.ip }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ maintenance_except.statut ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_maintenance_except_index') }}">back to list</a>
+
+    <a href="{{ path('app_backend_maintenance_except_edit', {'id': maintenance_except.id}) }}">edit</a>
+
+    {{ include('backend_maintenance_except/_delete_form.html.twig') }}
+{% endblock %}

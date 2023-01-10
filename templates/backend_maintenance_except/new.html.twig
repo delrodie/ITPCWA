@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New MaintenanceExcept{% endblock %}
+
+{% block body %}
+    <h1>Create new MaintenanceExcept</h1>
+
+    {{ include('backend_maintenance_except/_form.html.twig') }}
+
+    <a href="{{ path('app_backend_maintenance_except_index') }}">back to list</a>
+{% endblock %}
