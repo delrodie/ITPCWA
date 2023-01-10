@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+    <div class="row">
+        <div class="col-4 offset-4 mb-5 text-center">
+            {{ form_widget(form) }}
+            <button class="btn btn-primary mt-5">{{ button_label|default('Valider') }}</button>
+        </div>
+    </div>
+
+{{ form_end(form) }}

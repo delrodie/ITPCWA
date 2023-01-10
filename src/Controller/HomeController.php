@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\MaintenanceRepository;
 use App\Repository\SlideRepository;
 use App\Services\GestionCache;
 use App\Services\Utility;
@@ -16,7 +17,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 class HomeController extends AbstractController
 {
     public function __construct(
-        private SlideRepository $slideRepository, private Utility $utility, private GestionCache $gestionCache
+        private MaintenanceRepository $maintenanceRepository
     )
     {
     }
@@ -25,7 +26,6 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(Request $request): Response
     {
-
         return $this->redirectToRoute('app_frontend_index',['_locale' => $request->getLocale()], Response::HTTP_SEE_OTHER);
 
     }

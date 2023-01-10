@@ -2,6 +2,7 @@
 
 namespace App\Controller\Frontend;
 
+use App\Repository\MaintenanceRepository;
 use App\Services\GestionCache;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FrontendController extends AbstractController
 {
     public function __construct(
-        private GestionCache $gestionCache
+        private GestionCache $gestionCache, private MaintenanceRepository $maintenanceRepository
     )
     {
     }
@@ -22,6 +23,9 @@ class FrontendController extends AbstractController
     #[Route('/{_locale<en|fr>}', name: 'app_frontend_index')]
     public function index($_locale): Response
     {
+        if ($this->maintenanceRepository->findOneBy(['statut' => true],['id'=>"DESC"]))
+            return $this->redirectToRoute('app_maintenance');
+
         return $this->render('frontend/index.html.twig', [
             'slides' => $this->gestionCache->cacheSlides(),
             'locale' => $_locale,
