@@ -103,7 +103,7 @@ class VisitorSubscriber implements EventSubscriberInterface
                 'app_frontend_ressource' =>12,
                 'app_frontend_recruitment' =>14,
                 'app_frontend_recruitment_show' =>16,
-                default => throw new \Exception('Non supporter')
+                default => 0
             };
         else{
             $resultat = match ($route){
@@ -116,7 +116,7 @@ class VisitorSubscriber implements EventSubscriberInterface
                 'app_frontend_ressource' => 13,
                 'app_frontend_recruitment' => 15,
                 'app_frontend_recruitment_show' => 17,
-                default => throw new \Exception('Unexpected match value')
+                default => 0
             };
         }
 
