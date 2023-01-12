@@ -41,10 +41,15 @@ class FrBienvenueRepository extends ServiceEntityRepository
 
     public function findOneOrNull()
     {
-        return $this->createQueryBuilder('fb')
+        $query = $this->createQueryBuilder('fb')
             ->orderBy('fb.id', 'DESC')
-            ->getQuery()->getOneOrNullResult()
+            ->setMaxResults(1)
+            ->getQuery()->getResult()
             ;
+        if ($query) {
+            return $query[0];
+        }
+        return null;
     }
 
 //    /**

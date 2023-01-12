@@ -41,34 +41,41 @@ class EnPresentationRepository extends ServiceEntityRepository
     }
 
     /**
-     * @throws NonUniqueResultException
+     * @param $slug
+     * @return array|mixed
      */
-    public function findByType($slug)
+    public function findByType($slug): mixed
     {
-        return $this->createQueryBuilder('ep')
+        $query = $this->createQueryBuilder('ep')
             ->addSelect('t')
             ->leftJoin('ep.type', 't')
             ->where('t.slug = :type')
-            //->setMaxResults(1)
+            ->setMaxResults(1)
             ->setParameter('type', $slug)
-            ->getQuery()->getOneOrNullResult()
+            ->getQuery()->getResult()
             ;
+        if (count($query) > 0)  return $query[0];
+
+        return [];
     }
 
-    /**
-     * @throws NonUniqueResultException
-     */
+
     public function findByTerm($string)
     {
-        return $this->createQueryBuilder('ep')
+        $query = $this->createQueryBuilder('ep')
             ->addSelect('t')
             ->leftJoin('ep.type', 't')
             ->where('t.titre LIKE :string')
             ->andWhere('t.pageIndex IS NOT NULL')
             ->setParameter('string', '%'.$string.'%')
-            //->setMaxResults(1)
-            ->getQuery()->getOneOrNullResult()
+            ->setMaxResults(1)
+            ->getQuery()->getResult()
             ;
+        if ($query) {
+            return $query[0];
+        }
+
+        return [];
     }
 
 //    /**

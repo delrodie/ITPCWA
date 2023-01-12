@@ -42,35 +42,43 @@ class FrPresentationRepository extends ServiceEntityRepository
     }
 
     /**
-     * @throws NonUniqueResultException
-     * @throws NoResultException
+     * @param $slug
+     * @return mixed|null
      */
-    public function findByType($slug)
+    public function findByType($slug): mixed
     {
-        return $this->createQueryBuilder('fp')
+        $query =  $this->createQueryBuilder('fp')
             ->addSelect('t')
             ->leftJoin('fp.type', 't')
             ->where('t.slug = :type')
-            //->setMaxResults(1)
+            ->setMaxResults(1)
             ->setParameter('type', $slug)
-            ->getQuery()->getOneOrNullResult()
+            ->getQuery()->getResult()
             ;
+        if (count($query) > 0) return $query[0];
+
+        return null;
     }
 
     /**
-     * @throws NonUniqueResultException
+     * @param $string
+     * @return array|mixed
      */
-    public function findByTerm($string)
+    public function findByTerm($string): mixed
     { //dd($string);
-        return $this->createQueryBuilder('fp')
+        $query = $this->createQueryBuilder('fp')
             ->addSelect('t')
             ->leftJoin('fp.type', 't')
             ->where('t.titre LIKE :string')
             ->andWhere('t.pageIndex IS NOT NULL')
             ->setParameter('string', '%'.$string.'%')
-            //->setMaxResults(1)
-            ->getQuery()->getOneOrNullResult()
+            ->setMaxResults(1)
+            ->getQuery()->getResult()
             ;
+
+        if ($query) return $query[0];
+
+        return [];
     }
 //    /**
 //     * @return FrPresentation[] Returns an array of FrPresentation objects

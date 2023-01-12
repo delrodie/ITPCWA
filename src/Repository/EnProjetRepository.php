@@ -54,11 +54,17 @@ class EnProjetRepository extends ServiceEntityRepository
      */
     public function findLastActif()
     {
-        return $this->createQueryBuilder('ep')
+        $query = $this->createQueryBuilder('ep')
             ->where('ep.pageIndex IS NOT NULL')
             ->orderBy('ep.id', "DESC")
-            ->getQuery()->getOneOrNullResult()
+            ->setMaxResults(1)
+            ->getQuery()->getResult()
             ;
+        if ($query) {
+            return $query[0];
+        }
+
+        return null;
     }
 
 //    /**

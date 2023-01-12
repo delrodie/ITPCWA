@@ -57,16 +57,20 @@ class FrProjetRepository extends ServiceEntityRepository
             ;
     }
 
-    /**
-     * @throws NonUniqueResultException
-     */
+
     public function findLastActif()
     {
-        return $this->createQueryBuilder('fp')
+        $query =  $this->createQueryBuilder('fp')
             ->where('fp.pageIndex IS NOT NULL')
             ->orderBy('fp.id', 'DESC')
-            ->getQuery()->getOneOrNullResult()
+            ->setMaxResults(1)
+            ->getQuery()->getResult()
             ;
+
+        if ($query) {
+            return $query[0];
+        }
+        return null;
     }
 
 
