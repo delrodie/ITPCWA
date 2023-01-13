@@ -9,6 +9,7 @@
                 <div class="col-lg-5 bienvenue-description"  data-aos="fade-right" data-aos-duration="2500">
                     {% if bienvenue %}
                         <h1>{{ 'welcome'|trans }}</h1>
+                        <h5>{{ bienvenue.titre }}</h5>
                         <p>{{ bienvenue.resume|raw}}</p>
                         <a href="{{ path('app_frontend_bienvenue', {'_locale': locale}) }}" class="bouton btn-noir">{{ 'Read more'|trans }}</a>
                     {% endif %}
@@ -24,7 +25,7 @@
                             </div>
                         {% endif %}
                         {% if zone %}
-                            <div class="col-sm-6"  data-aos="fade-left" data-aos-duration="2500">
+                            <div class="col-sm-6 tuile-zone"  data-aos="fade-left" data-aos-duration="2500">
                                 <figure>
                                     <a href="{{ absolute_url(path('app_frontend_presentation', {'slug': zone.type.slug, '_locale': locale})) }}">
                                         {% if zone.media %}
@@ -109,7 +110,7 @@
             <section id="actualites" class="actualites">
                 <div class="contenu">
                     <h1>{{ 'News'|trans }}</h1>
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="row row-cols-1 row-cols-md-3 g-md-4">
                         {% for actualite in actualites|slice(0,3) %}
                             <div class="col">
                                 <div class="card h-100">

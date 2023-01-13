@@ -197,6 +197,11 @@ main #bienvenue.bienvenue {
   padding: 10px 50px;
   position: relative;
 }
+main #bienvenue.bienvenue h5 {
+  margin-top: 0;
+  padding-top: 0;
+  font-style: italic;
+}
 main #bienvenue.bienvenue a.bouton {
   margin: 25px auto;
 }

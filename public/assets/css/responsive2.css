@@ -1,14 +1,36 @@
 @media screen and (max-width: 425px) {
   main #bienvenue.bienvenue {
-    margin-top: 200px;
+    margin-top: 250px;
+    padding: 10px;
   }
   main #bienvenue.bienvenue .tuile-rubrique {
     margin-left: 0;
     margin-top: 10px;
   }
+  main #bienvenue.bienvenue .tuile-zone {
+    margin-top: 10px;
+  }
+  main #campagne.campagne .contenu {
+    padding: 10px 10px;
+    text-align: justify;
+  }
+  main #campagne.campagne .description {
+    padding: 0 50px;
+  }
   main #campagne.campagne .circle {
     width: 230px;
     height: 230px;
+  }
+  main #axes.axes .contenu .col {
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+  main #actualites.actualites .contenu {
+    padding: 10px 0 50px 0;
+  }
+  main #actualites.actualites .contenu .col {
+    margin-top: 5px;
+    margin-bottom: 10px;
   }
 }
 @media screen and (min-width: 426px) and (max-width: 767px) {
@@ -19,9 +41,23 @@
     margin-left: 0;
     margin-top: 10px;
   }
-  #campagne.campagne .circle {
+  main #bienvenue.bienvenue .tuile-zone {
+    margin-top: 10px;
+  }
+  main #campagne.campagne .circle {
     width: 230px;
     height: 230px;
+  }
+  main #axes.axes .contenu .col {
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+  main #actualites .actualites .contenu {
+    padding: 10px 0 50px 0;
+  }
+  main #actualites .actualites .contenu .col {
+    margin-top: 5px;
+    margin-bottom: 10px;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {
@@ -37,6 +73,5 @@
     height: 200px;
   }
 }
-/*# sourceMappingURL=responsive2.css.map */
 
 /*# sourceMappingURL=responsive2.css.map */
