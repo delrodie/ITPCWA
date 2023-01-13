@@ -99,9 +99,10 @@ class GestionCache
      */
     public function cacheFrPresentation($slug, bool $delete=false)
     {
-        if($delete) $this->cache->delete($slug);
+        $cacheName = 'fr-'.$slug;
+        if($delete) $this->cache->delete($cacheName);
 
-        return $this->cache->get($slug, function (ItemInterface $item) use ($slug){
+        return $this->cache->get($cacheName, function (ItemInterface $item) use ($slug){
             $item->expiresAfter(6048000);
             $presentation =$this->frPresentationRepository->findByType($slug) ; //dd($presentation);
             if ($presentation){
@@ -137,9 +138,10 @@ class GestionCache
      */
     public function cacheEnPresentation($slug, bool $delete=false)
     {
-        if ($delete) $this->cache->delete($slug);
+        $cacheName='en-'.$slug;
+        if ($delete) $this->cache->delete($cacheName);
 
-        return $this->cache->get($slug, function (ItemInterface $item) use ($slug){
+        return $this->cache->get($cacheName, function (ItemInterface $item) use ($slug){
             $item->expiresAfter(6048000);
             $presentation =$this->enPresentationRepository->findByType($slug) ; //dd($presentation);
             if ($presentation){
