@@ -90,7 +90,9 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-lg-5 description" data-aos="flip-left" data-aos-duration="2500" data-aos-easing="ease-out-cubic">
                             <div class="circle">
-                                <img src="assets/images/slide/01.jpg" alt="" class="img-fluid">
+                                {% if projet.media %}
+                                    <img src="{{ absolute_url(asset('uploads/projet/' ~ projet.media)) }}" alt="" class="img-fluid">
+                                {% endif %}
                             </div>
                             <div class="reume"></div>
                         </div>
