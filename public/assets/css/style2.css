@@ -75,7 +75,7 @@ section {
 
 .bouton:hover::after {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\f061";
   padding-left: 10px;
 }
 
@@ -419,7 +419,7 @@ main #actualites.actualites .contenu a.btn-detail::before {
 
 main #actualites.actualites .contenu a.btn-detail::after {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\f061";
   padding-left: 5px;
 }
 
@@ -429,14 +429,14 @@ main #actualites.actualites .contenu a.btn-detail:hover {
 
 main #actualites.actualites .contenu a.btn-detail:hover::after {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\f061";
   padding-left: 25px;
 }
 
 main #page.page .breadcrumb {
   padding-left: 20px;
   margin-top: 50px;
-  --bs-breadcrumb-divider:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E");
+  --bs-breadcrumb-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E");
 }
 
 main #page.page .breadcrumb a {
@@ -476,7 +476,7 @@ main #page.page .contenu-page .publication {
 
 main #page.page .contenu-page .publication::before {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\f073";
   padding-right: 7px;
 }
 
@@ -576,7 +576,7 @@ main #page.page .contenu-page .jobs .ressources .icon span.word {
 
 main #page.page .contenu-page .jobs .ressources .icon span.word::before {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\f1c2";
   font-size: 2.3rem;
 }
 
@@ -586,7 +586,7 @@ main #page.page .contenu-page .jobs .ressources .icon span.excel {
 
 main #page.page .contenu-page .jobs .ressources .icon span.excel::before {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\f1c3";
   font-size: 2.3rem;
 }
 
@@ -596,7 +596,7 @@ main #page.page .contenu-page .jobs .ressources .icon span.pdf {
 
 main #page.page .contenu-page .jobs .ressources .icon span.pdf::before {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\f1c1";
   font-size: 2.3rem;
 }
 
@@ -606,7 +606,7 @@ main #page.page .contenu-page .jobs .ressources .icon span.file {
 
 main #page.page .contenu-page .jobs .ressources .icon span.file::before {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\f15b";
   font-size: 2.3rem;
 }
 
@@ -616,7 +616,7 @@ main #page.page .contenu-page .jobs .ressources .icon span.power-point {
 
 main #page.page .contenu-page .jobs .ressources .icon span.power-point::before {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\f1c4";
   font-size: 2.3rem;
 }
 
@@ -639,7 +639,7 @@ main #page.page .contenu-page .jobs .footer .reference {
 
 main #page.page .contenu-page .jobs .footer .reference::before {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\f02a";
   padding-right: 7px;
 }
 
@@ -653,7 +653,7 @@ main #page.page .contenu-page .jobs .footer .rebours {
 
 main #page.page .contenu-page .jobs .footer .rebours::before {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\f254";
   padding-right: 7px;
 }
 
@@ -667,7 +667,7 @@ main #page.page .contenu-page .jobs .footer .temps {
 
 main #page.page .contenu-page .jobs .footer .temps::before {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\e0d2";
   padding-right: 7px;
 }
 
@@ -677,7 +677,7 @@ main #page.page .contenu-page .jobs .footer .localisation {
 
 main #page.page .contenu-page .jobs .footer .localisation::before {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\f3c5";
   padding-right: 7px;
 }
 
@@ -892,7 +892,7 @@ main #page.page .social .ressources .bouton {
 
 main #page.page .social .ressources .bouton::after {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\f019";
   padding-left: 10px;
 }
 
@@ -904,7 +904,7 @@ main #page.page .social .ressources .bouton:hover {
 
 main #page.page .social .ressources .bouton:hover::after {
   font: var(--fa-font-solid);
-  content: "";
+  content: "\f175";
   padding-left: 10px;
 }
 
