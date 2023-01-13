@@ -293,38 +293,40 @@
                                         <a class="nav-link " href="{{ path('app_backend_newsletter') }}">Comptes</a>
                                         <a class="nav-link " href="#">Messages</a>
                                     </div>
+
+                                    <div class="nav-item">
+                                        <a class="nav-link " href="{{ path('app_frontend_cache') }}" data-placement="left">
+                                            <i class="bi-layers nav-icon"></i>
+                                            <span class="nav-link-title">Cache</span>
+                                        </a>
+                                    </div>
                                 </div>
 
-                                <span class="dropdown-header mt-4">Administrateur</span>
-                                <small class="bi-three-dots nav-subtitle-replacer"></small>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <span class="dropdown-header mt-4">Administrateur</span>
+                                    <small class="bi-three-dots nav-subtitle-replacer"></small>
 
-                                <div class="nav-item">
-                                    <a class="nav-link " href="#" data-placement="left">
-                                        <i class="bi-book nav-icon"></i>
-                                        <span class="nav-link-title">Utilisateurs </span>
-                                    </a>
-                                </div>
+                                    <div class="nav-item">
+                                        <a class="nav-link " href="{{ path('app_admin_user_index') }}" data-placement="left">
+                                            <i class="bi-book nav-icon"></i>
+                                            <span class="nav-link-title">Utilisateurs </span>
+                                        </a>
+                                    </div>
 
-                                <div class="nav-item">
-                                    <a class="nav-link " href="#" data-placement="left">
-                                        <i class="bi-layers nav-icon"></i>
-                                        <span class="nav-link-title">Monitoring</span>
-                                    </a>
-                                </div>
+                                    <div class="nav-item">
+                                        <a class="nav-link " href="#" data-placement="left">
+                                            <i class="bi-layers nav-icon"></i>
+                                            <span class="nav-link-title">Monitoring</span>
+                                        </a>
+                                    </div>
 
-                                <div class="nav-item">
-                                    <a class="nav-link " href="{{ path('app_frontend_cache') }}" data-placement="left">
-                                        <i class="bi-layers nav-icon"></i>
-                                        <span class="nav-link-title">Cache</span>
-                                    </a>
-                                </div>
-
-                                <div class="nav-item">
-                                    <a class="nav-link " href="{{ path('app_backend_maintenance_new') }}" data-placement="left">
-                                        <i class="bi-layers nav-icon"></i>
-                                        <span class="nav-link-title">Maintenance</span>
-                                    </a>
-                                </div>
+                                    <div class="nav-item">
+                                        <a class="nav-link " href="{{ path('app_backend_maintenance_new') }}" data-placement="left">
+                                            <i class="bi-layers nav-icon"></i>
+                                            <span class="nav-link-title">Maintenance</span>
+                                        </a>
+                                    </div>
+                                {% endif %}
                             </div>
 
                         </div>

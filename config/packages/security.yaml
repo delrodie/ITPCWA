@@ -1,7 +1,8 @@
 security:
     role_hierarchy:
         ROLE_CLIENT: ROLE_USER
-        ROLE_ADMIN: ROLE_CLIENT
+        ROLE_EDIT: ROLE_USER
+        ROLE_ADMIN: ROLE_EDIT
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
@@ -41,8 +42,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/dashboard, roles: ROLE_ADMIN }
-        - { path: ^/backend/, roles: ROLE_ADMIN }
+        - { path: ^/dashboard, roles: ROLE_EDIT }
+        - { path: ^/backend/, roles: ROLE_EDIT }
         - { path: ^/efconnect, roles: ROLE_USER }
         - { path: ^/elfinder, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
