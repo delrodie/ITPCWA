@@ -34,7 +34,7 @@
                             {% endfor %}
                         {% endfor %}
 
-                        <div class="table-responsive datatable-custom">
+                        <div class="">
                             <table id="liste" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
                    "columnDefs": [{
                       "targets": [0, 4, 9],
@@ -48,8 +48,8 @@
                    "search": "#datatableSearch",
                    "entries": "#datatableEntries",
                    "pageLength": 12,
-                   "isResponsive": false,
-                   "isShowPaging": false,
+                   "isResponsive": true,
+                   "isShowPaging": true,
                    "pagination": "datatablePagination"
                  }'>
                                 <thead class="thead-light">
@@ -58,6 +58,7 @@
                                     <th class="text-center">TITRES</th>
                                     <th class="text-center">STATUTS</th>
                                     <th class="text-center">ACTIONS</th>
+                                </tr>
                                 </thead>
 
                                 <tbody>
@@ -86,7 +87,7 @@
 
                                 {% else %}
                                     <tr>
-                                        <td colspan="3" class="text-center"><em>Aucune actualité enregistrée</em></td>
+                                        <td colspan="4" class="text-center"><em>Aucune actualité enregistrée</em></td>
                                     </tr>
                                 {% endfor %}
 
