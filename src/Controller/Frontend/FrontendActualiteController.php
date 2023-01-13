@@ -3,7 +3,9 @@
 namespace App\Controller\Frontend;
 
 use App\Services\GestionCache;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -12,22 +14,30 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class FrontendActualiteController extends AbstractController
 {
     public function __construct(
-        private GestionCache $gestionCache, private TranslatorInterface $translator
+        private GestionCache $gestionCache, private TranslatorInterface $translator,
+        private PaginatorInterface $paginator
     )
     {
     }
 
     #[Route('/{_locale}/{rubrique}', name: 'app_frontend_actualite_index')]
-    public function index($_locale): Response
+    public function index(Request $request, $_locale): Response
     {
         if ($_locale === 'fr')$traduction = 'news';
         else $traduction = 'actualites';
 
+        $datas = $this->gestionCache->cacheActualites($_locale);
+
+        $actualites = $this->paginator->paginate(
+            $datas,
+            $request->query->getInt('page', 1),
+            6
+        );
+
         return $this->render('frontend/actualites.html.twig',[
-            'actualites' => $this->gestionCache->cacheActualites($_locale),
+            'actualites' => $actualites,
             'locale' => $_locale,
             'traduction' => $traduction,
-            'pagination' => false,
             'active' => 'actualite'
         ]);
     }

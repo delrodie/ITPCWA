@@ -13,6 +13,7 @@
         "doctrine/orm": "^2.13",
         "friendsofsymfony/ckeditor-bundle": "^2.4",
         "helios-ag/fm-elfinder-bundle": "^12.2",
+        "knplabs/knp-paginator-bundle": "^6.0",
         "knplabs/knp-time-bundle": "^1.20",
         "liip/imagine-bundle": "^2.10",
         "php-flasher/flasher-notyf-symfony": "^1.8",

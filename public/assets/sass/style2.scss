@@ -994,6 +994,27 @@ main{
             }
 
         }
+
+        .pagination{
+            ul.pagination{
+                a{
+                    color: $couleur-principale;
+                }
+
+                .page-item{
+                    &.active{
+                        background: $couleur-secondaire;
+
+                        span{
+                            &.page-link{
+                                background: $couleur-secondaire;
+                                border: $couleur-secondaire;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
 

@@ -5,8 +5,10 @@ namespace App\Controller\Frontend;
 use App\Repository\EnProjetRepository;
 use App\Repository\FrProjetRepository;
 use App\Services\GestionCache;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,17 +17,23 @@ class FrontendProjectController extends AbstractController
 {
     public function __construct(
         private GestionCache $gestionCache, private EnProjetRepository $enProjetRepository,
-        private FrProjetRepository $frProjetRepository
+        private FrProjetRepository $frProjetRepository, private PaginatorInterface $paginator
     )
     {
     }
 
     #[Route('/{_locale}', name: 'app_frontend_projet_index')]
-    public function index($_locale): Response
+    public function index(Request $request, $_locale): Response
     {
+        $datas = $this->gestionCache->cacheProjets($_locale);
+        $projets = $this->paginator->paginate(
+          $datas,
+          $request->query->getInt('page', 1),
+          6
+        );
 
         return $this->render("frontend/projets.html.twig", [
-            'projets' => $this->gestionCache->cacheProjets($_locale),
+            'projets' => $projets,
             'locale' => $_locale,
             'active' => 'projet'
         ]);

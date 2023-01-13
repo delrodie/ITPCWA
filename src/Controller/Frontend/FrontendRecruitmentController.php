@@ -8,6 +8,7 @@ use App\Services\GestionCache;
 use App\Services\GestionCandidature;
 use App\Services\Utility;
 use Flasher\Prime\Flasher;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,18 +20,25 @@ class FrontendRecruitmentController extends AbstractController
 {
     public function __construct(
         private GestionCache $gestionCache, private Utility $utility, private Flasher $flasher,
-        private TranslatorInterface $translator, private GestionCandidature $candidature
+        private TranslatorInterface $translator, private GestionCandidature $candidature,
+        private PaginatorInterface $paginator
     )
     {
     }
 
     #[Route('/{_locale}', name: 'app_frontend_recruitment')]
-    public function index($_locale): Response
+    public function index(Request $request, $_locale): Response
     {
+        $datas = $this->gestionCache->cacheJob($_locale, true);
+        $jobs = $this->paginator->paginate(
+            $datas,
+            $request->query->getInt('page', 1),
+            6
+        );
 
         return $this->render('frontend/recruitments.html.twig',[
             'locale' => $_locale,
-            'recruitments' => $this->gestionCache->cacheJob($_locale, true),
+            'recruitments' => $jobs,
             'pagination' => false,
             'active' => 'recruitement'
         ]);
