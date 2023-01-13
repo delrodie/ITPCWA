@@ -147,9 +147,9 @@
                 {% for slide in slides %}
                     <div class="carousel-item {% if loop.first %} active {% endif %}">
                         {% if slide.media %}
-                            <img src="{{ absolute_url(asset('uploads/slide/' ~ slide.media)) | imagine_filter('slides') }}" class="d-block w-100" alt="{{ slide.titre }}">
+                            <img src="{{ absolute_url(asset('uploads/slide/' ~ slide.media)) }}" class="d-block w-100" alt="{{ slide.titre }}">
                         {% else %}
-                            <img src="{{ absolute_url(asset('assets/images/slide/default.png')) | imagine_filter('slides') }}" class="d-block w-100" alt="{{ slide.titre }}">
+                            <img src="{{ absolute_url(asset('assets/images/slide/default.png'))  }}" class="d-block w-100" alt="{{ slide.titre }}">
                         {% endif %}
                     </div>
                 {% endfor %}
