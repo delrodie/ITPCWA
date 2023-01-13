@@ -45,7 +45,7 @@ class FrontendController extends AbstractController
             'projet' => $this->gestionCache->cacheLastProjet($_locale),
             'axe' => $this->gestionCache->cacheItemPresentation($_locale, 'axe'),
             'presentation' => $this->gestionCache->cacheItemPresentation($_locale, 'presentation'),
-            'zone' => $this->gestionCache->cacheItemPresentation($_locale, 'intervention'),
+            'zone' => $this->gestionCache->cacheItemPresentation($_locale, 'zone'),
             'bienvenue' => $this->gestionCache->cacheBienvenue($_locale),
             'active' => 'accueil',
         ]);
