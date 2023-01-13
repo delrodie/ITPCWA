@@ -164,8 +164,8 @@ class FrProjet
     }
 
     #[ORM\PreUpdate]
-    public function setUpdatedAtValue(): DateTime
+    public function setUpdatedAtValue(): \DateTime
     {
-        return $this->updatedAt = new DateTime();
+        return $this->updatedAt = new \DateTime();
     }
 }
