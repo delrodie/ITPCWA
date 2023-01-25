@@ -14,10 +14,13 @@
 }
 
 /*$couleur-rg2: rgb(56, 1, 1);*/
-$couleur-rg2: #380101;
+//$couleur-rg2: #380101;
+$couleur-rg2: #ba0606;
 $couleur-principale: #e6322d;
 /*$couleur-secondaire: rgb(76, 2, 2);*/
-$couleur-secondaire: #4c0202;
+//$couleur-secondaire: #4c0202;
+$couleur-footer: #4c0202;
+$couleur-secondaire: #ba0606;
 $couleur-menu: #ba0606;
 
 $facebook: #073391;
@@ -1029,7 +1032,7 @@ main{
 
 footer{
     .footer{
-        background: $couleur-rg2;
+        background: $couleur-footer;
         color: rgb(230, 202, 202);
         padding: 50px 0 10px;    
     }

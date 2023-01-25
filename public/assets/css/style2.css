@@ -82,7 +82,7 @@ h1 {
   text-transform: uppercase;
   font-size: 1.9rem;
   font-weight: bold;
-  color: #4c0202;
+  color: #ba0606;
   cursor: pointer;
 }
 h1:hover {
@@ -99,7 +99,7 @@ header {
   width: 100%;
 }
 header #topbar.topbar {
-  background: #380101;
+  background: #ba0606;
   color: white;
   margin: 0;
   padding: 0;
@@ -160,7 +160,7 @@ header #navlogo.navlogo .logo img {
 }
 header #navlogo.navlogo .coordonnees a {
   text-decoration: none;
-  color: #4c0202;
+  color: #ba0606;
   font-weight: bold;
 }
 header #navlogo.navlogo .coordonnees a i {
@@ -172,7 +172,7 @@ header #navlogo.navlogo .coordonnees a:hover {
   color: #e6322d;
 }
 header #navlogo.navlogo .coordonnees a:hover i {
-  color: #4c0202;
+  color: #ba0606;
 }
 header #menu.menu {
   background: #ba0606;
@@ -209,7 +209,7 @@ main #bienvenue.bienvenue .tuile {
   color: white;
 }
 main #bienvenue.bienvenue .tuile-presentation {
-  background: #4c0202;
+  background: #ba0606;
   padding: 25px 10px;
   height: 60vh;
   display: flex;
@@ -251,14 +251,14 @@ main #bienvenue.bienvenue .tuile-rubrique a {
   color: white;
 }
 main #bienvenue.bienvenue .tuile-rubrique:hover {
-  background: #4c0202;
+  background: #ba0606;
 }
 main #bienvenue.bienvenue .tuile figure:hover img {
   transform: scale(1.5);
   transition: 0.3s ease-in;
 }
 main #axes.axes {
-  background: rgba(76, 2, 2, 0.1);
+  background: rgba(186, 6, 6, 0.1);
   margin: 50px auto;
 }
 main #axes.axes .contenu {
@@ -311,7 +311,7 @@ main #campagne.campagne .description div:last-child {
   align-content: center;
 }
 main #campagne.campagne .circle {
-  background: rgba(56, 1, 1, 0.6);
+  background: rgba(186, 6, 6, 0.6);
   overflow: hidden;
   display: inline-block;
   vertical-align: middle;
@@ -322,7 +322,7 @@ main #campagne.campagne .circle img {
   transition: 0.3s ease-in-out;
 }
 main #campagne.campagne .circle:hover {
-  background: #380101;
+  background: #ba0606;
   border: #e6322d solid 3px;
 }
 main #campagne.campagne .circle:hover img {
@@ -330,14 +330,14 @@ main #campagne.campagne .circle:hover img {
   filter: sepia(100%);
 }
 main #actualites.actualites {
-  background: rgba(76, 2, 2, 0.03);
+  background: rgba(186, 6, 6, 0.03);
 }
 main #actualites.actualites .contenu {
   padding: 10px 50px 50px;
 }
 main #actualites.actualites .contenu .card {
   background: inherit;
-  box-shadow: 1px 10px 5px rgba(56, 1, 1, 0.2);
+  box-shadow: 1px 10px 5px rgba(186, 6, 6, 0.2);
   overflow: hidden;
   transition: 0.5s ease-in-out;
 }
@@ -354,7 +354,7 @@ main #actualites.actualites .contenu img:hover {
 main #actualites.actualites .contenu a.btn-detail {
   bottom: 0;
   text-decoration: none;
-  color: #4c0202;
+  color: #ba0606;
   font-style: italic;
 }
 main #actualites.actualites .contenu a.btn-detail::before {
@@ -381,7 +381,7 @@ main #page.page .breadcrumb {
 }
 main #page.page .breadcrumb a {
   text-decoration: none;
-  color: #380101;
+  color: #ba0606;
 }
 main #page.page .breadcrumb a:hover {
   color: #e6322d;
@@ -400,7 +400,7 @@ main #page.page .contenu-page h5 {
   margin-bottom: 10px;
 }
 main #page.page .contenu-page h5:hover {
-  color: #4c0202;
+  color: #ba0606;
 }
 main #page.page .contenu-page .publication {
   font-size: 0.8rem;
@@ -423,7 +423,7 @@ main #page.page .contenu-page .card.actualites,
 main #page.page .contenu-page .card.jobs {
   background: inherit;
   border: 0;
-  border-bottom: solid 1px rgba(76, 2, 2, 0.1);
+  border-bottom: solid 1px rgba(186, 6, 6, 0.1);
 }
 main #page.page .contenu-page .card.actualites h5.card-title,
 main #page.page .contenu-page .card.jobs h5.card-title {
@@ -432,7 +432,7 @@ main #page.page .contenu-page .card.jobs h5.card-title {
 }
 main #page.page .contenu-page .card.actualites:hover,
 main #page.page .contenu-page .card.jobs:hover {
-  box-shadow: 5px 5px 5px rgba(76, 2, 2, 0.3);
+  box-shadow: 5px 5px 5px rgba(186, 6, 6, 0.3);
 }
 main #page.page .contenu-page .card.actualites a.lire-plus,
 main #page.page .contenu-page .card.jobs a.lire-plus {
@@ -442,7 +442,7 @@ main #page.page .contenu-page .card.jobs a.lire-plus {
 }
 main #page.page .contenu-page .card.actualites a.lire-plus:hover,
 main #page.page .contenu-page .card.jobs a.lire-plus:hover {
-  color: #4c0202;
+  color: #ba0606;
 }
 main #page.page .contenu-page .card.actualites a.lire-plus::before,
 main #page.page .contenu-page .card.jobs a.lire-plus::before {
@@ -476,7 +476,7 @@ main #page.page .contenu-page .jobs .mode.consultant {
   background: #000;
 }
 main #page.page .contenu-page .jobs .mode.cdi {
-  background: #4c0202;
+  background: #ba0606;
 }
 main #page.page .contenu-page .jobs .ressources .icon {
   float: left;
@@ -526,10 +526,10 @@ main #page.page .contenu-page .jobs .ressources .icon span.power-point::before {
   font-size: 2.3rem;
 }
 main #page.page .contenu-page .jobs .ressources:hover .icon {
-  color: #4c0202;
+  color: #ba0606;
 }
 main #page.page .contenu-page .jobs .ressources:hover .card-title {
-  color: #4c0202;
+  color: #ba0606;
 }
 main #page.page .contenu-page .jobs .footer {
   font-size: 0.9rem;
@@ -585,14 +585,14 @@ main #page.page .contenu-page .jobs .description {
 main #page.page .contenu-page .jobs form {
   padding: 20px;
   margin-top: 50px;
-  border-top: solid 1px rgba(56, 1, 1, 0.2);
+  border-top: solid 1px rgba(186, 6, 6, 0.2);
 }
 main #page.page .contenu-page .jobs form h3 {
   font-size: 1.3rem;
   text-transform: uppercase;
   font-weight: bold;
   text-decoration: underline;
-  color: #4c0202;
+  color: #ba0606;
 }
 main #page.page .contenu-page .jobs form label {
   font-style: italic;
@@ -606,7 +606,7 @@ main #page.page .contenu-page .autres-articles h4 {
   font-size: 1.2rem;
   margin-bottom: 30px;
   font-weight: bold;
-  color: #4c0202;
+  color: #ba0606;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -619,14 +619,14 @@ main #page.page .contenu-page .autres-articles h4:hover {
 }
 main #page.page .contenu-page .autres-articles .card.actualites a {
   text-decoration: none;
-  color: #4c0202;
+  color: #ba0606;
 }
 main #page.page .contenu-page .galerie .col {
   margin: 7px 0;
 }
 main #page.page .contenu-page #albums a {
   text-decoration: none;
-  color: #380101;
+  color: #ba0606;
 }
 main #page.page .contenu-page #albums a:hover {
   color: #e6322d;
@@ -644,8 +644,8 @@ main #page.page .contenu-page .formulaire h4,
 main #page.page .contenu-page .coordonees h4 {
   cursor: pointer;
   font-weight: bold;
-  color: #380101;
-  border-bottom: 3px solid #380101;
+  color: #ba0606;
+  border-bottom: 3px solid #ba0606;
 }
 main #page.page .contenu-page .formulaire h4:hover,
 main #page.page .contenu-page .coordonees h4:hover {
@@ -654,7 +654,7 @@ main #page.page .contenu-page .coordonees h4:hover {
 main #page.page .contenu-page .coordonees a {
   text-decoration: none;
   font-weight: bold;
-  color: #4c0202;
+  color: #ba0606;
 }
 main #page.page .contenu-page .coordonees a i {
   color: #e6322d;
@@ -664,7 +664,7 @@ main #page.page .contenu-page .coordonees a:hover {
   color: #e6322d;
 }
 main #page.page .contenu-page .coordonees a:hover i {
-  color: #4c0202;
+  color: #ba0606;
 }
 main #page.page .contenu-page .formulaire .help-text {
   color: darkred;
@@ -764,7 +764,7 @@ main #page.page .social .newsletter {
 }
 main #page.page .social .newsletter h6 {
   text-transform: uppercase;
-  color: #4c0202;
+  color: #ba0606;
 }
 main #page.page .social .newsletter .description {
   font-style: italic;
@@ -774,15 +774,15 @@ main #page.page .pagination ul.pagination a {
   color: #e6322d;
 }
 main #page.page .pagination ul.pagination .page-item.active {
-  background: #4c0202;
+  background: #ba0606;
 }
 main #page.page .pagination ul.pagination .page-item.active span.page-link {
-  background: #4c0202;
-  border: #4c0202;
+  background: #ba0606;
+  border: #ba0606;
 }
 
 footer .footer {
-  background: #380101;
+  background: #4c0202;
   color: rgb(230, 202, 202);
   padding: 50px 0 10px;
 }
