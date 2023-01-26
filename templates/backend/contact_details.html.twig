@@ -1,0 +1,52 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Management presentation{% endblock %}
+
+{% block body %}
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h1 class="page-header-title">Management presentation</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h3>{{ contact.nom }} "{{ contact.email }}"</h3>
+                <div class="mt-5">
+                    {{ contact.message|raw }}
+                </div>
+                <div class="input-form-group mt-5">
+                    <label for="tags">Localisation</label>
+                    <input type="text" class="form-control" data-role="tagsinput" value="{{ contact.localisation }}">
+                </div>
+            </div>
+            <div class="col-12 text-center mt-5">
+                <a href="{{ path('app_backend_contact_index') }}" class="btn btn-outline-secondary"><i class="fa fa-reply"></i> Retour à la liste</a>
+
+                <a href="mailto:{{ contact.email }}" class="btn btn-primary"><i class="fa fa-envelope"></i> Repondre</a>
+
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/css/app.css')) }}">
+    <style>
+        .bootstrap-tagsinput{
+        //width: 50%;
+            box-shadow: none;
+            border: none;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+{% endblock %}

@@ -284,6 +284,16 @@
                                 </div>
 
                                 <div class="nav-item">
+                                    <a class="nav-link dropdown-toggle " href="#navbarVerticalMenuContact" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuContact" aria-expanded="false" aria-controls="navbarVerticalMenuContact">
+                                        <i class="bi-envelope nav-icon"></i>
+                                        <span class="nav-link-title">Contact</span>
+                                    </a>
+
+                                    <div id="navbarVerticalMenuContact" class="nav-collapse collapse " data-bs-parent="#navbarVerticalMenuPagesMenu">
+                                        <a class="nav-link " href="{{ path('app_backend_newsletter') }}">Coordonnées</a>
+                                        <a class="nav-link " href="{{ path('app_backend_contact_index') }}">Messages</a>
+                                    </div>
+
                                     <a class="nav-link dropdown-toggle " href="#navbarVerticalMenuNewsletter" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuNewsletter" aria-expanded="false" aria-controls="navbarVerticalMenuNewsletter">
                                         <i class="bi-envelope nav-icon"></i>
                                         <span class="nav-link-title">Newsletter</span>
