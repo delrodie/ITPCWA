@@ -94,9 +94,10 @@
 
                     <div class="card-body">
 
+
                         <ul class="list-group list-group-flush list-group-no-gutters">
                             <!-- Liste des articles -->
-                            {% for page in pages %}
+                            {% for page in pages|slice(0,10) %}
                                 <li class="list-group-item">
                                     <a href="{{ page.url }}" target="_blank">
                                         <div class="d-flex">
@@ -114,7 +115,11 @@
                             {% endfor %}
                             <!-- End Liste des articles -->
 
-                            <li class="list-group-item"><span class="small text-muted">Liste de toutes les  <a class="link" href="#">pages</a> visitées.</span></li>
+                            <li class="list-group-item">
+                                <span class="small text-muted">Liste de toutes les
+                                    <a class="link" href="{{ path('app_backend_log_visiteur') }}">pages</a> visitées.
+                                </span>
+                            </li>
                         </ul>
                     </div>
                 </div>
