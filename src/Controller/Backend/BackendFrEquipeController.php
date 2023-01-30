@@ -5,6 +5,7 @@ namespace App\Controller\Backend;
 use App\Entity\FrEquipe;
 use App\Form\FrEquipeType;
 use App\Repository\FrEquipeRepository;
+use App\Services\GestionCache;
 use App\Services\GestionMedia;
 use App\Services\Utility;
 use Flasher\Prime\Flasher;
@@ -17,7 +18,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class BackendFrEquipeController extends AbstractController
 {
     public function __construct(
-        private GestionMedia $gestionMedia, private Utility $utility, private Flasher $flasher
+        private GestionMedia $gestionMedia, private Utility $utility, private Flasher $flasher,
+        private GestionCache $gestionCache
     )
     {
     }
@@ -47,6 +49,9 @@ class BackendFrEquipeController extends AbstractController
             }
 
             $frEquipeRepository->save($frEquipe, true);
+
+            // Réinitialisation du cache
+            $this->gestionCache->cacheEquipe('fr', true);
 
             $this->flasher->create('notyf')->addSuccess("Le membre '{$frEquipe->getNom()} {$frEquipe->getPrenom()}' a été ajouté avec succès!");
 
@@ -86,6 +91,10 @@ class BackendFrEquipeController extends AbstractController
 
             $frEquipeRepository->save($frEquipe, true);
 
+            // Réinitialisation du cache
+            $this->gestionCache->cacheEquipeItem('fr', $frEquipe->getSlug(), true);
+            $this->gestionCache->cacheEquipe('fr', true);
+
             $this->flasher->create('notyf')->addSuccess("Le membre '{$frEquipe->getNom()}' a été modifié avec succès!");
 
             return $this->redirectToRoute('app_backend_fr_equipe_index', [], Response::HTTP_SEE_OTHER);
@@ -104,6 +113,9 @@ class BackendFrEquipeController extends AbstractController
             $frEquipeRepository->remove($frEquipe, true);
             if ($frEquipe->getMedia())
                 $this->gestionMedia->removeUpload($frEquipe->getMedia(), 'equipe');
+
+            // Reinitialisation du cache
+            $this->gestionCache->cacheEquipe('fr', true);
 
             $this->flasher->create('notyf')->addSuccess("Le memebre '{$frEquipe->getPrenom()}' a été modifié avec succès!");
         }

@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\FrEquipeRepository;
+use App\Repository\EnEquipeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: FrEquipeRepository::class)]
+#[ORM\Entity(repositoryClass: EnEquipeRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class FrEquipe
+class EnEquipe
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,25 +22,25 @@ class FrEquipe
     private ?string $prenom = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $resume = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $contenu = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $slug = null;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $resume = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $statut = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $createdAt = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $fonction = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $media = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $fonction = null;
+    private ?string $slug = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $titre = null;
@@ -77,18 +77,6 @@ class FrEquipe
         return $this;
     }
 
-    public function getResume(): ?string
-    {
-        return $this->resume;
-    }
-
-    public function setResume(?string $resume): self
-    {
-        $this->resume = $resume;
-
-        return $this;
-    }
-
     public function getContenu(): ?string
     {
         return $this->contenu;
@@ -101,14 +89,14 @@ class FrEquipe
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getResume(): ?string
     {
-        return $this->slug;
+        return $this->resume;
     }
 
-    public function setSlug(?string $slug): self
+    public function setResume(?string $resume): self
     {
-        $this->slug = $slug;
+        $this->resume = $resume;
 
         return $this;
     }
@@ -125,22 +113,16 @@ class FrEquipe
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getFonction(): ?string
     {
-        return $this->createdAt;
+        return $this->fonction;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    public function setFonction(?string $fonction): self
     {
-        $this->createdAt = $createdAt;
+        $this->fonction = $fonction;
 
         return $this;
-    }
-
-    #[ORM\PrePersist]
-    public function setCreatedAtValue(): \DateTime
-    {
-        return $this->createdAt = new  \DateTime();
     }
 
     public function getMedia(): ?string
@@ -155,14 +137,26 @@ class FrEquipe
         return $this;
     }
 
-    public function getFonction(): ?string
+    public function getSlug(): ?string
     {
-        return $this->fonction;
+        return $this->slug;
     }
 
-    public function setFonction(?string $fonction): self
+    public function setSlug(?string $slug): self
     {
-        $this->fonction = $fonction;
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -189,5 +183,11 @@ class FrEquipe
         $this->pageIndex = $pageIndex;
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): \DateTime
+    {
+        return $this->createdAt = new \DateTime();
     }
 }

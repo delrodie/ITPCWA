@@ -7,6 +7,7 @@ use App\Repository\AlbumRepository;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnAlbumRepository;
 use App\Repository\EnBienvenueRepository;
+use App\Repository\EnEquipeRepository;
 use App\Repository\EnInfoRepository;
 use App\Repository\EnJobRepository;
 use App\Repository\EnPresentationRepository;
@@ -15,6 +16,7 @@ use App\Repository\EnRessourceRepository;
 use App\Repository\EnTypeRepository;
 use App\Repository\FrActualiteRepository;
 use App\Repository\FrBienvenueRepository;
+use App\Repository\FrEquipeRepository;
 use App\Repository\FrInfoRepository;
 use App\Repository\FrJobRepository;
 use App\Repository\FrPresentationRepository;
@@ -41,7 +43,8 @@ class GestionCache
         private FrJobRepository $frJobRepository, private EnJobRepository $enJobRepository,
         private AlbumRepository $albumRepository, private EnAlbumRepository $enAlbumRepository,
         private PhotoRepository $photoRepository, private FrBienvenueRepository $frBienvenueRepository,
-        private EnBienvenueRepository $enBienvenueRepository
+        private EnBienvenueRepository $enBienvenueRepository, private FrEquipeRepository $frEquipeRepository,
+        private EnEquipeRepository $enEquipeRepository
     )
     {
     }
@@ -422,6 +425,51 @@ class GestionCache
             $item->expiresAfter(6048000);
             if ($lang==='fr') return $this->frBienvenueRepository->findOneOrNull();
             else return $this->enBienvenueRepository->findOneOrNull();
+        });
+    }
+
+    public function cacheEquipe(string $lang, bool $delete=false)
+    {
+        $cacheName = "{$lang}Equipe";
+        if ($delete) $this->cache->delete($cacheName);
+
+        return $this->cache->get($cacheName, function (ItemInterface $item) use($lang){
+            $item->expiresAfter(604800);
+            if ($lang==='fr')
+                return $this->frEquipeRepository->findAll();
+            else
+                return $this->enEquipeRepository->findAll();
+        });
+    }
+
+    public function cacheEquipeItem(string $lang, string $slug, bool $delete=false)
+    {
+        $cacheName = "{$lang}-{$slug}";
+        if ($delete) $this->cache->delete($cacheName);
+
+        return $this->cache->get($cacheName, function (ItemInterface $item) use($lang, $slug){
+            $item->expiresAfter(604800);
+            if ($lang==="fr"){
+                $equipe = $this->frEquipeRepository->findOneBy(['slug'=>$slug]);
+                if (!$equipe)
+                    return ['locale'=>[], 'traduction'=>[]];
+
+                $traduction = $this->enEquipeRepository->findOneBy(['pageIndex' => $equipe->getPageIndex()]);
+                return [
+                    'locale' => $equipe,
+                    'traduction' => $traduction
+                ];
+            }else{
+                $equipe = $this->enEquipeRepository->findOneBy(['slug' => $slug]);
+                if (!$equipe)
+                    return ['locale'=>[], 'traduction'=>[]];
+
+                $traduction = $this->frEquipeRepository->findOneBy(['pageIndex' => $equipe->getPageIndex()]);
+                return [
+                    'locale' => $equipe,
+                    'traduction' => $traduction,
+                ];
+            }
         });
     }
 

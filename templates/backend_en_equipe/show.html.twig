@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EnEquipe{% endblock %}
+
+{% block body %}
+    <h1>EnEquipe</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ en_equipe.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ en_equipe.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ en_equipe.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ en_equipe.contenu }}</td>
+            </tr>
+            <tr>
+                <th>Resume</th>
+                <td>{{ en_equipe.resume }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ en_equipe.statut ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Fonction</th>
+                <td>{{ en_equipe.fonction }}</td>
+            </tr>
+            <tr>
+                <th>Media</th>
+                <td>{{ en_equipe.media }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ en_equipe.slug }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ en_equipe.createdAt ? en_equipe.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_en_equipe_index') }}">back to list</a>
+
+    <a href="{{ path('app_backend_en_equipe_edit', {'id': en_equipe.id}) }}">edit</a>
+
+    {{ include('backend_en_equipe/_delete_form.html.twig') }}
+{% endblock %}

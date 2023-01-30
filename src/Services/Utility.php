@@ -9,6 +9,7 @@ use App\Repository\AlbumRepository;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnAlbumRepository;
 use App\Repository\EnBienvenueRepository;
+use App\Repository\EnEquipeRepository;
 use App\Repository\EnJobRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnProjetRepository;
@@ -45,7 +46,8 @@ class Utility
         private EnRessourceRepository $enRessourceRepository, private FrJobRepository $frJobRepository,
         private EnJobRepository $enJobRepository, private AlbumRepository $albumRepository,
         private EnAlbumRepository $enAlbumRepository, private FrBienvenueRepository $frBienvenueRepository,
-        private EnBienvenueRepository $enBienvenueRepository, private FrEquipeRepository $equipeRepository
+        private EnBienvenueRepository $enBienvenueRepository, private FrEquipeRepository $frEquipeRepository,
+        private EnEquipeRepository $enEquipeRepository,
     )
     {
     }
@@ -94,13 +96,14 @@ class Utility
 
         // Generation du slug
         $slugify = new AsciiSlugger();
-        $slug = $slugify->slug(strtolower($entity->getNom().$entity->getPrenom()));
+        $slug = $slugify->slug(strtolower($entity->getNom().'-'.$entity->getPrenom()));
 
         // Generation du resume
         $resume = substr(strip_tags($entity->getContenu()), 0,155);
 
         $entity->setSlug($slug);
         $entity->setResume($resume);
+        $entity->setTitre($entity->getNom().' '.$entity->getPrenom());
 
         return $entity;
     }
@@ -196,7 +199,7 @@ class Utility
         // recuperation de la liste des traductions
         $lastTraduction = $this->traductionRepository->findOneBy([],['id'=>"DESC"]);
         if (!$lastTraduction) $id=1;
-        else $id = $lastTraduction->getId();
+        else $id = $lastTraduction->getId() +1;
 
         $traduction = new Traduction();
         $traduction->setPage($id);
@@ -247,6 +250,7 @@ class Utility
             'projet' => $this->frProjetRepository->findOneBy(['pageIndex' => $pageIndex]),
             'job' => $this->frJobRepository->findOneBy(['pageIndex' => $pageIndex]),
             'album' => $this->albumRepository->findOneBy(['pageIndex' => $pageIndex]),
+            'equipe' => $this->frEquipeRepository->findOneBy(['pageIndex' => $pageIndex]),
         };
     }
 

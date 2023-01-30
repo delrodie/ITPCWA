@@ -39,6 +39,14 @@ class FrEquipeRepository extends ServiceEntityRepository
         }
     }
 
+    public function findListInactif()
+    {
+        return $this->createQueryBuilder('fe')
+            ->where('fe.pageIndex is null')
+            ->getQuery()->getResult()
+            ;
+    }
+
 //    /**
 //     * @return FrEquipe[] Returns an array of FrEquipe objects
 //     */

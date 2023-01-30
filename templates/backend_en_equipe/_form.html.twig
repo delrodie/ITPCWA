@@ -1,0 +1,39 @@
+{{ form_start(form, {'attr':{'novalidate': 'novalidate'}}) }}
+<div class="row form-group">
+    <div class="col-6 mt-3">
+        <label for="traduction" class="">French correspondence</label>
+        <select name="_traduction" id="traduction" class="form-select" required="required">
+            {% if traduction %}
+                <option value="{{ traduction.pageIndex }}">{{ traduction.titre }}</option>
+                <option value=""></option>
+            {% else %}
+                <option value=""></option>
+            {% endif %}
+            {% for equipe in fr_equipes  %}
+                <option value="{{ equipe.id }}">{{ equipe.titre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-6 mt-3">{{ form_row(form.nom) }}</div>
+    <div class="col-6 mt-3">{{ form_row(form.prenom) }}</div>
+    <div class="col-6 mt-3">{{ form_row(form.fonction) }}</div>
+    <div class="col-12 mt-3">{{ form_row(form.contenu) }}</div>
+    <div class="col-6 mt-3">{{ form_row(form.media) }}</div>
+    <div class="col-6 mt-3">
+        {% if en_equipe.media %}
+            <img src="{{ absolute_url(asset('uploads/equipe/' ~ en_equipe.media)) }}" class="img-fluid">
+        {% endif %}
+    </div>
+    <div class="col-6 mt-3 form-check">
+        {{ form_widget(form.statut) }}
+        {{ form_label(form.statut) }}
+        {{ form_rest(form.statut) }}
+    </div>
+</div>
+<div class="text-end mt-5">
+    {{ form_widget(form) }}
+    <a href="{{ path('app_backend_en_equipe_index') }}" class="btn btn-outline-secondary">Cancel</a>
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+</div>
+
+{{ form_end(form) }}
