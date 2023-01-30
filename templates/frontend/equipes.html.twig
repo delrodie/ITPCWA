@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Our team'|trans }}{% endblock %}
+
+{% block translate %}
+    {% for locale in locales %}
+        {% if locale != app.request.locale %}
+            <a href="{{ absolute_url(path('app_frontend_equipe_index', {'_locale': locale}) )}}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block body %}
+<main>
+    <section id="page" class="page">
+        <div class="breadcrumb">
+            <nav  style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('app_frontend_index', {'_locale': locale}) }}"><i class="fa-solid fa-house"></i></a></li>
+                    <li class="breadcrumb-item"><a href="#">{{ 'Who are we?'|trans }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ 'Team'|trans}}</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 contenu-page p-lg-5"  data-aos="zoom-in" data-aos-duration="2500">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% for i in 0..8 %}
+                        <div class="col">
+                            <div class="card">
+                                <a href="#">
+                                    <figure>
+                                        <img src="{{ asset('uploads/about/1.jpg') }}" class="card-img-top" alt="...">
+                                    </figure>
+                                </a>
+
+                                <div class="card-body">
+                                    <h5 class="card-title text-center" title="Cliquez sur la photo">AMOIKON Kanga Dieudonné</h5>
+                                    <p class="card-text text-center">Informaticien developpeur</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+

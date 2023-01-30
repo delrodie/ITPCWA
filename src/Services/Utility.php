@@ -16,6 +16,7 @@ use App\Repository\EnRessourceRepository;
 use App\Repository\EnTypeRepository;
 use App\Repository\FrActualiteRepository;
 use App\Repository\FrBienvenueRepository;
+use App\Repository\FrEquipeRepository;
 use App\Repository\FrJobRepository;
 use App\Repository\FrPresentationRepository;
 use App\Repository\FrProjetRepository;
@@ -44,7 +45,7 @@ class Utility
         private EnRessourceRepository $enRessourceRepository, private FrJobRepository $frJobRepository,
         private EnJobRepository $enJobRepository, private AlbumRepository $albumRepository,
         private EnAlbumRepository $enAlbumRepository, private FrBienvenueRepository $frBienvenueRepository,
-        private EnBienvenueRepository $enBienvenueRepository
+        private EnBienvenueRepository $enBienvenueRepository, private FrEquipeRepository $equipeRepository
     )
     {
     }
@@ -76,6 +77,30 @@ class Utility
         }
 
         $entity->setSlug($slug);
+
+        return $entity;
+    }
+
+    /**
+     * Generation des slugs des membres de l'équipe
+     *
+     * @param object $entity
+     * @param string $entityName
+     * @return object
+     */
+    public function slugTeam(object $entity, string $entityName): object
+    {
+        $repository = "{$entityName}Repository";
+
+        // Generation du slug
+        $slugify = new AsciiSlugger();
+        $slug = $slugify->slug(strtolower($entity->getNom().$entity->getPrenom()));
+
+        // Generation du resume
+        $resume = substr(strip_tags($entity->getContenu()), 0,155);
+
+        $entity->setSlug($slug);
+        $entity->setResume($resume);
 
         return $entity;
     }

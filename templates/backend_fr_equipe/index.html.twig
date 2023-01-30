@@ -1,0 +1,64 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des membres de l'équipe{% endblock %}
+
+{% block body %}
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h1 class="page-header-title">Gestion des membres de l'équipe</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-end mb-5">
+                <a href="{{ path('app_backend_fr_equipe_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Ajouter</a>
+            </div>
+            <table id="liste" class="table">
+                <thead>
+                <tr>
+                    <td class="text-center">ID</td>
+                    <td class="text-center">IDENTITES</td>
+                    <td class="text-center">FONCTIONS</td>
+                    <td class="text-center">STATUTS</td>
+                    <td class="text-center">ACTIONS</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for equipe in fr_equipes %}
+                    <tr>
+                        <td class="text-center">{{ loop.index }}</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    {% if equipe.media %}
+                                        <img class="avatar avatar-lg" src="{{ asset('uploads/equipe/' ~ equipe.media) }}" alt="Image Description">
+                                    {% else %}
+                                        <img src="{{ asset('backoffice/img/img.png') }}" alt="{{ equipe.prenom }}" class="avatar avatar-lg">
+                                    {% endif %}
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="text-inherit mb-0">{{ equipe.nom|upper }} {{ equipe.prenom }}</h5>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ equipe.fonction }}</td>
+                        <td class="text-center">
+                            {{ equipe.statut ? '<span class="badge bg-info">ACTIF</span>' : '<span class="badge bg-danger">INACTIF</span>' }}
+                        </td>
+                        <td>
+                            <a href="{{ path('app_backend_fr_equipe_show', {'id': equipe.id}) }}"><i class="fa fa-eye"></i></a> &nbsp; | &nbsp;
+                            <a href="{{ path('app_backend_fr_equipe_edit', {'id': equipe.id}) }}"><i class="fa fa-edit"></i></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td class="text-center" colspan="4" style="color: darkred; font-weight:bold;"><em>Aucun membre trouvé</em></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

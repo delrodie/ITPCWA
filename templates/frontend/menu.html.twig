@@ -1,3 +1,4 @@
 {% for menu in rubriques %}
     <li><a class="dropdown-item" href="{{ path('app_frontend_presentation', {'_locale': locale, 'slug': menu.slug}) }}">{{ menu.titre }}</a></li>
 {% endfor %}
+    <li><a href="{{ path('app_frontend_equipe_index', {'_locale': locale}) }}" class="dropdown-item">{{ 'Team'|trans }}</a></li>
