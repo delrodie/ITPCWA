@@ -962,6 +962,19 @@ main{
                     }
                 }
             }
+
+            &.equipe{
+                figure{
+                    width: 50%;
+                    float: left;
+                    padding-right: 25px;
+                }
+
+                h3{
+                    cursor: pointer;
+                    color: $couleur-secondaire;
+                }
+            }
         }
 
         .social{

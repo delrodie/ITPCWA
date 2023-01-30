@@ -739,6 +739,15 @@ main #page.page .contenu-page .sitemap-tree li span:hover + ul li span, main #pa
 main #page.page .contenu-page .sitemap-tree li span:hover + ul li:after, main #page.page .contenu-page .sitemap-tree li span:hover + ul li:before, main #page.page .contenu-page .sitemap-tree li span:focus + ul li:after, main #page.page .contenu-page .sitemap-tree li span:focus + ul li:before {
   border-color: rgba(56, 1, 1, 0.3);
 }
+main #page.page .contenu-page.equipe figure {
+  width: 50%;
+  float: left;
+  padding-right: 25px;
+}
+main #page.page .contenu-page.equipe h3 {
+  cursor: pointer;
+  color: #ba0606;
+}
 main #page.page .social .ressources {
   margin-bottom: 40px;
 }

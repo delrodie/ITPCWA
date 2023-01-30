@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ equipe.locale.titre }}{% endblock %}
+
+{% block translate %}
+    {% for locale in locales %}
+        {% if locale != app.request.locale %}
+            <a href="{{ absolute_url(path('app_frontend_equipe_show', {'_locale': locale, 'slug': equipe.traduction.slug}) )}}"><img src="{{ absolute_url(asset('assets/images/flag_'~locale~'.svg')) }}" alt="" ></a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block body %}
+    <main>
+        <section id="page" class="page">
+            <div class="breadcrumb">
+                <nav  style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_frontend_index', {'_locale': locale}) }}"><i class="fa-solid fa-house"></i></a></li>
+                        <li class="breadcrumb-item"><a href="#">{{ 'Who are we?'|trans }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ path('app_frontend_equipe_index', {'_locale': locale}) }}">{{ 'Team'|trans }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ equipe.locale.titre }}</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 contenu-page equipe p-lg-5"  data-aos="zoom-in" data-aos-duration="2500">
+                    {% if equipe.locale.media %}
+                        <figure>
+                            <img src="{{ absolute_url(asset('uploads/equipe/' ~ equipe.locale.media)) }}" alt="{{ equipe.locale.titre }}" class="img-fluid img-thumbnail">
+                        </figure>
+                    {% endif %}
+
+                    <h3>{{ equipe.locale.prenom }} {{ equipe.locale.nom|upper }}</h3>
+                    <h5>{{ equipe.locale.fonction }}</h5>
+                    <div class="text">
+                        {{ equipe.locale.contenu|raw }}
+                        <div class="publication text-muted">{{ equipe.locale.createdAt|ago(locale=locale)}} </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 social"  data-aos="fade-left" data-aos-duration="2500">
+                    {{ render(path('app_frontend_newsletter',{'_locale': locale})) }}
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block metas %}
+    <link rel="alternate" href="{{ absolute_url(path('app_frontend_equipe_show', {'slug': equipe.locale.slug, '_locale': locale})) }}" hreflang="{{ locale }}">
+
+    <meta name="keywords" content="{{ equipe.locale.nom }}, {{ equipe.locale.prenom }}">
+    <meta name="description" content="{{ equipe.locale.resume|raw }}" />
+    <link rel="canonical" href="{{ absolute_url(path('app_frontend_equipe_show', {'slug': equipe.locale.slug, '_locale': locale})) }}" />
+    <link rel="next" href=" {{ absolute_url(path('app_frontend_equipe_index', {'_locale': locale})) }}" />
+
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_GB" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ equipe.locale.titre }}" />
+    <meta property="og:description" content="{{ equipe.locale.resume|raw }}" />
+    <meta property="og:url" content="{{ absolute_url(path('app_frontend_equipe_show', {'slug': equipe.locale.slug, '_locale': locale})) }}" />
+    <meta property="og:site_name" content="ITPC West Africa" />
+    <meta property="article:created_time" content="{{ equipe.locale.createdAt|date('Y-m-d') }}T{{ equipe.locale.createdAt|date('H:i:s') }}+00:00" />
+    <meta property="og:image" content="{{ absolute_url(asset('uploads/equipe/'~ equipe.locale.media)) }}" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="{{ equipe.locale.resume|raw }}"/>
+    <meta name="twitter:title" content="{{ equipe.locale.titre }}"/>
+    <meta name="twitter:domain" content="ITPC West Africa"/>
+    <meta name="twitter:image:src" content="{{ absolute_url(asset('uploads/equipe/' ~ equipe.locale.media)) }}"/>
+{% endblock %}

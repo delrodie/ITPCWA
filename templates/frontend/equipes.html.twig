@@ -25,18 +25,22 @@
         <div class="row">
             <div class="col-lg-12 contenu-page p-lg-5"  data-aos="zoom-in" data-aos-duration="2500">
                 <div class="row row-cols-1 row-cols-md-3 g-4">
-                    {% for i in 0..8 %}
+                    {% for equipe in equipes %}
                         <div class="col">
                             <div class="card">
-                                <a href="#">
-                                    <figure>
-                                        <img src="{{ asset('uploads/about/1.jpg') }}" class="card-img-top" alt="...">
+                                <a href="{{ path('app_frontend_equipe_show', {'_locale': locale, 'slug': equipe.slug}) }}">
+                                    <figure class="text-center">
+                                        {% if equipe.media %}
+                                            <img src="{{ absolute_url(asset('uploads/equipe/'~equipe.media) )}}" class="card-img-top" alt="{{ equipe.titre }}">
+                                        {% else %}
+                                            <img src="{{ absolute_url(asset('assets/images/user-avatar.webp')) }}" alt="{{ equipe.titre }}">
+                                        {% endif %}
                                     </figure>
                                 </a>
 
                                 <div class="card-body">
-                                    <h5 class="card-title text-center" title="Cliquez sur la photo">AMOIKON Kanga Dieudonné</h5>
-                                    <p class="card-text text-center">Informaticien developpeur</p>
+                                    <h5 class="card-title text-center" title="Cliquez sur la photo">{{ equipe.prenom }} {{ equipe.nom|upper }} </h5>
+                                    <p class="card-text text-center">{{ equipe.fonction }}</p>
                                 </div>
                             </div>
                         </div>
