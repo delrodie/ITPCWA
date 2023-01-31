@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_backend_cordonnee_delete', {'id': cordonnee.id}) }}" onsubmit="return confirm('Voulez-vous vriament supprimer ces coordonnées?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cordonnee.id) }}">
+    <button class="btn btn-danger btn-sm">Supprimer</button>
+</form>

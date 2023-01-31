@@ -1,0 +1,20 @@
+{{ form_start(form) }}
+<div class="card-body">
+    <div class="row form-group">
+        <div class="col-12 mt-3">{{ form_row(form.localisation) }}</div>
+        <div class="col-12 mt-3">{{ form_row(form.telephone) }}</div>
+        <div class="col-12 mt-3">{{ form_row(form.email) }}</div>
+    </div>
+    {{ form_widget(form) }}
+</div>
+<div class="card-footer">
+    <div class="row">
+        <div class="col-12 text-center">
+            <a href="{{ path('app_backend_cordonnee_index') }}" class="btn btn-outline-secondary btn-sm">Annuler</a>
+            <button class="btn btn-primary btn-sm">{{ button_label|default('Enregistrer') }}</button>
+        </div>
+    </div>
+</div>
+
+
+{{ form_end(form) }}
