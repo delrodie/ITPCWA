@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Backend;
 
 use App\Entity\Cordonnee;
 use App\Form\CordonneeType;
 use App\Repository\CordonneeRepository;
+use App\Services\GestionCache;
 use App\Services\Utility;
 use Flasher\Prime\Flasher;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/backend/cordonnee')]
 class BackendCordonneeController extends AbstractController
 {
-    public function __construct(private Utility $utility, private Flasher $flasher)
+    public function __construct(private Utility $utility, private Flasher $flasher, private GestionCache $gestionCache)
     {
     }
 
@@ -42,6 +43,8 @@ class BackendCordonneeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $cordonneeRepository->save($cordonnee, true);
+
+            $this->gestionCache->cacheCoordonnee(true);
 
             $this->flasher->create('notyf')->addSuccess("Les coordonnées ont été ajoutées avec succès!");
 
@@ -71,6 +74,8 @@ class BackendCordonneeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $cordonneeRepository->save($cordonnee, true);
 
+            $this->gestionCache->cacheCoordonnee(true);
+
             return $this->redirectToRoute('app_backend_cordonnee_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -85,6 +90,7 @@ class BackendCordonneeController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$cordonnee->getId(), $request->request->get('_token'))) {
             $cordonneeRepository->remove($cordonnee, true);
+            $this->gestionCache->cacheCoordonnee(true);
         }
 
         return $this->redirectToRoute('app_backend_cordonnee_index', [], Response::HTTP_SEE_OTHER);

@@ -1,0 +1,5 @@
+{% if coordonnee %}
+    <div><a href="#">{{ coordonnee.localisation }}</a></div>
+    <div><a href="tel:+225{{ coordonnee.telephone }}">Tel: +225 {{ coordonnee.telephone }}</a></div>
+    <div><a href="mailto:{{ coordonnee.email }}">{{ coordonnee.email }}</a></div>
+{% endif %}

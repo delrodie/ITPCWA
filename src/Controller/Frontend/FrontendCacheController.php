@@ -56,6 +56,7 @@ class FrontendCacheController extends AbstractController
             $this->gestionCache->cacheAlbum($lang, true);
             $this->gestionCache->cacheBienvenue($lang, true);
             $this->gestionCache->cacheEquipe($lang, true);
+            $this->gestionCache->cacheCoordonnee(true);
 
             foreach ($itemPresentations as $str){
                 $this->gestionCache->cacheItemPresentation($lang, $str, true);

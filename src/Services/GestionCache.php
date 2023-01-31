@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entity\FrBienvenue;
 use App\Repository\AlbumRepository;
+use App\Repository\CordonneeRepository;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnAlbumRepository;
 use App\Repository\EnBienvenueRepository;
@@ -44,7 +45,7 @@ class GestionCache
         private AlbumRepository $albumRepository, private EnAlbumRepository $enAlbumRepository,
         private PhotoRepository $photoRepository, private FrBienvenueRepository $frBienvenueRepository,
         private EnBienvenueRepository $enBienvenueRepository, private FrEquipeRepository $frEquipeRepository,
-        private EnEquipeRepository $enEquipeRepository
+        private EnEquipeRepository $enEquipeRepository, private CordonneeRepository $cordonneeRepository
     )
     {
     }
@@ -470,6 +471,17 @@ class GestionCache
                     'traduction' => $traduction,
                 ];
             }
+        });
+    }
+
+    public function cacheCoordonnee(bool $delete=false)
+    {
+        $cacheName = "Coordonnees";
+        if ($delete) $this->cache->delete($cacheName);
+
+        return $this->cache->get($cacheName, function (ItemInterface $item){
+            $item->expiresAfter(604800);
+            return $this->cordonneeRepository->findOneBy([],['id'=>"DESC"]);
         });
     }
 

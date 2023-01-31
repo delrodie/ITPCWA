@@ -1,0 +1,18 @@
+{% if coordonnee %}
+    <div class="col-12 col-md-4">
+        <a href="tel:+225{{ coordonnee.telephone }}">
+            <i class="fa-solid fa-phone"></i> +225 {{ coordonnee.telephone }}
+        </a>
+    </div>
+    <div class="col-12 col-md-3">
+        <a href="mailto:{{ coordonnee.email }}">
+            <i class="fa-solid fa-envelope"></i> {{ coordonnee.email }}
+        </a>
+    </div>
+    <div class="col-12 col-md-5">
+        <a href="#">
+            <i class="fa-solid fa-house"></i> {{ coordonnee.localisation }}
+        </a>
+    </div>
+{% endif %}
+
