@@ -436,9 +436,9 @@ class GestionCache
         return $this->cache->get($cacheName, function (ItemInterface $item) use($lang){
             $item->expiresAfter(604800);
             if ($lang==='fr')
-                return $this->frEquipeRepository->findAll();
+                return $this->frEquipeRepository->findBy(['statut'=>true]);
             else
-                return $this->enEquipeRepository->findAll();
+                return $this->enEquipeRepository->findBy(['statut'=>true]);
         });
     }
 
@@ -450,21 +450,21 @@ class GestionCache
         return $this->cache->get($cacheName, function (ItemInterface $item) use($lang, $slug){
             $item->expiresAfter(604800);
             if ($lang==="fr"){
-                $equipe = $this->frEquipeRepository->findOneBy(['slug'=>$slug]);
+                $equipe = $this->frEquipeRepository->findOneBy(['slug'=>$slug, 'statut'=>true]);
                 if (!$equipe)
                     return ['locale'=>[], 'traduction'=>[]];
 
-                $traduction = $this->enEquipeRepository->findOneBy(['pageIndex' => $equipe->getPageIndex()]);
+                $traduction = $this->enEquipeRepository->findOneBy(['pageIndex' => $equipe->getPageIndex(), 'statut'=>true]);
                 return [
                     'locale' => $equipe,
                     'traduction' => $traduction
                 ];
             }else{
-                $equipe = $this->enEquipeRepository->findOneBy(['slug' => $slug]);
+                $equipe = $this->enEquipeRepository->findOneBy(['slug' => $slug, 'statut'=>true]);
                 if (!$equipe)
                     return ['locale'=>[], 'traduction'=>[]];
 
-                $traduction = $this->frEquipeRepository->findOneBy(['pageIndex' => $equipe->getPageIndex()]);
+                $traduction = $this->frEquipeRepository->findOneBy(['pageIndex' => $equipe->getPageIndex(), 'statut'=>true]);
                 return [
                     'locale' => $equipe,
                     'traduction' => $traduction,

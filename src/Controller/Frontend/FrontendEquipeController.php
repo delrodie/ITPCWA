@@ -4,24 +4,34 @@ namespace App\Controller\Frontend;
 
 use App\Services\GestionCache;
 use Flasher\Prime\Flasher;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/team')]
 class FrontendEquipeController extends AbstractController
 {
-    public function __construct(Private GestionCache $gestionCache, private Flasher $flasher)
+    public function __construct(
+        Private GestionCache $gestionCache, private Flasher $flasher, private PaginatorInterface $paginator
+    )
     {
     }
 
     #[Route('/{_locale}/', name: 'app_frontend_equipe_index')]
-    public function index($_locale): Response
+    public function index(Request $request, $_locale): Response
     {
+        $datas = $this->gestionCache->cacheEquipe($_locale);
+        $equipes = $this->paginator->paginate(
+            $datas,
+            $request->query->getInt('page', 1),
+            9
+        );
         return $this->render('frontend/equipes.html.twig',[
             'locale' => $_locale,
             'active' => "presentation",
-            'equipes' => $this->gestionCache->cacheEquipe($_locale)
+            'equipes' => $equipes
         ]);
     }
 

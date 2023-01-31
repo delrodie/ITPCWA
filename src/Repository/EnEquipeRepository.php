@@ -39,6 +39,14 @@ class EnEquipeRepository extends ServiceEntityRepository
         }
     }
 
+    public function findListActif()
+    {
+        return $this->createQueryBuilder('fe')
+            ->where('fe.pageIndex is not null')
+            ->getQuery()->getResult()
+            ;
+    }
+
 //    /**
 //     * @return EnEquipe[] Returns an array of EnEquipe objects
 //     */

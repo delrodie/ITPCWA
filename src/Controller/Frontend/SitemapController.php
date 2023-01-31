@@ -5,11 +5,13 @@ namespace App\Controller\Frontend;
 use App\Repository\AlbumRepository;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnAlbumRepository;
+use App\Repository\EnEquipeRepository;
 use App\Repository\EnJobRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnProjetRepository;
 use App\Repository\EnRessourceRepository;
 use App\Repository\FrActualiteRepository;
+use App\Repository\FrEquipeRepository;
 use App\Repository\FrJobRepository;
 use App\Repository\FrPresentationRepository;
 use App\Repository\FrProjetRepository;
@@ -35,7 +37,9 @@ class SitemapController extends AbstractController
         FrJobRepository $frJobRepository,
         EnJobRepository $enJobRepository,
         AlbumRepository $albumRepository,
-        EnAlbumRepository $enAlbumRepository
+        EnAlbumRepository $enAlbumRepository,
+        FrEquipeRepository $frEquipeRepository,
+        EnEquipeRepository $enEquipeRepository
     ): Response
     {
         $hostname = $request->getSchemeAndHttpHost(); // recuperation du nom de l'hôte depuis l'url
@@ -60,6 +64,7 @@ class SitemapController extends AbstractController
                 $jobs = $frJobRepository->findListActif();
                 $rubrique = 'actualites';
                 $albums = $albumRepository->findListActif();
+                $equipes = $frEquipeRepository->findListActif();
             }else{
                 $presentations = $enPresentationRepository->findAll();
                 $actualites = $enActualiteRepository->findAll();
@@ -68,6 +73,7 @@ class SitemapController extends AbstractController
                 $jobs = $enJobRepository->findListActif();
                 $rubrique = 'news';
                 $albums = $enAlbumRepository->findListActif();
+                $equipes = $enEquipeRepository->findListActif();
             }
 
             $urls[] = ['loc' => $this->generateUrl('app_frontend_index',['_locale' => $loc])];
@@ -78,6 +84,7 @@ class SitemapController extends AbstractController
             $urls[] = ['loc' => $this->generateUrl('app_frontend_bienvenue',['_locale'=>$loc])];
             $urls[] = ['loc' => $this->generateUrl('app_frontend_contact',['_locale'=>$loc])];
             $urls[] = ['loc' => $this->generateUrl('app_frontend_multimedia',['_locale'=>$loc, 'rubrique' => 'picture'])];
+            $urls[] = ['loc' => $this->generateUrl('app_frontend_equipe_index', ['_locale' => $loc])];
             foreach ($presentations as $presentation){
                 $images = [
                     'loc' => '/uploads/presentation/'.$presentation->getMedia(),
@@ -151,6 +158,23 @@ class SitemapController extends AbstractController
                         'rubrique' => "picture"
                     ]),
                     'lastmod' => $date->format('Y-m-d'),
+                    'image' => $images
+                ];
+            }
+
+            foreach ($equipes as $equipe){
+                $date = $equipe->getCreatedAt()->format('Y-m-d');
+
+                $images = [
+                    'loc' => '/uploads/equipe/'.$equipe->getMedia(),
+                    'title' => $equipe->getTitre()
+                ];
+                $urls[] = [
+                    'loc' => $this->generateUrl('app_frontend_equipe_show',[
+                        '_locale' => $loc,
+                        'slug' => $equipe->getSlug()
+                    ]),
+                    'lastmod' => $date,
                     'image' => $images
                 ];
             }

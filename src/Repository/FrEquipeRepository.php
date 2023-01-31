@@ -39,10 +39,10 @@ class FrEquipeRepository extends ServiceEntityRepository
         }
     }
 
-    public function findListInactif()
+    public function findListActif()
     {
         return $this->createQueryBuilder('fe')
-            ->where('fe.pageIndex is null')
+            ->where('fe.pageIndex is not null')
             ->getQuery()->getResult()
             ;
     }

@@ -44,7 +44,15 @@
                                 </div>
                             </div>
                         </div>
+                    {% else %}
+                        <div class="text-center">
+                            <h5><em>{{ 'Page being edited'|trans }}</em></h5>
+                        </div>
                     {% endfor %}
+
+                    <div class="pagination justify-content-center mt-5">
+                        <div class="mt-5">{{ knp_pagination_render(equipes) }}</div>
+                    </div>
 
                 </div>
             </div>

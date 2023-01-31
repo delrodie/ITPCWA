@@ -23,6 +23,7 @@
                                  {% for menu in rubriques %}
                                      <li><a href="{{ path('app_frontend_presentation', {'slug': menu.slug, '_locale': locale}) }}"><span>{{ menu.titre }}</span></a></li>
                                  {% endfor %}
+                                 <li><a href="{{ path('app_frontend_equipe_index', {'_locale': locale}) }}"><span>{{ 'Team'|trans }}</span></a></li>
                              </ul>
                          </li>
                          <li><a href="{{ path('app_frontend_actualite_index', {'rubrique': 'news'|trans, '_locale': locale}) }}"><span>{{ 'News'|trans }}</span></a></li>

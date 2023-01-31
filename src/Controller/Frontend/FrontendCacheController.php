@@ -6,11 +6,13 @@ use App\Repository\AlbumRepository;
 use App\Repository\EnActualiteRepository;
 use App\Repository\EnAlbumRepository;
 use App\Repository\EnBienvenueRepository;
+use App\Repository\EnEquipeRepository;
 use App\Repository\EnJobRepository;
 use App\Repository\EnPresentationRepository;
 use App\Repository\EnProjetRepository;
 use App\Repository\FrActualiteRepository;
 use App\Repository\FrBienvenueRepository;
+use App\Repository\FrEquipeRepository;
 use App\Repository\FrJobRepository;
 use App\Repository\FrPresentationRepository;
 use App\Repository\FrProjetRepository;
@@ -31,7 +33,8 @@ class FrontendCacheController extends AbstractController
         private EnPresentationRepository $enPresentationRepository, private FrJobRepository $frJobRepository,
         private EnJobRepository $enJobRepository, private AlbumRepository $albumRepository,
         private EnAlbumRepository $enAlbumRepository, private FrBienvenueRepository $frBienvenueRepository,
-        private EnBienvenueRepository $enBienvenueRepository
+        private EnBienvenueRepository $enBienvenueRepository, private FrEquipeRepository $frEquipeRepository,
+        private EnEquipeRepository $enEquipeRepository
     )
     {
     }
@@ -52,6 +55,7 @@ class FrontendCacheController extends AbstractController
             $this->gestionCache->cacheJob($lang, true);
             $this->gestionCache->cacheAlbum($lang, true);
             $this->gestionCache->cacheBienvenue($lang, true);
+            $this->gestionCache->cacheEquipe($lang, true);
 
             foreach ($itemPresentations as $str){
                 $this->gestionCache->cacheItemPresentation($lang, $str, true);
@@ -81,6 +85,11 @@ class FrontendCacheController extends AbstractController
                 foreach ($frAlbums as $album){
                     $this->gestionCache->cacheAlbumItem($lang, $album->getSlug(), true);
                 }
+
+                $frEquipe = $this->frEquipeRepository->findAll();
+                foreach ($frEquipe as $equipe){
+                    $this->gestionCache->cacheEquipeItem($lang, $equipe->getSlug(), true);
+                }
             }else{
                 $enPresentations = $this->enPresentationRepository->findAll();
                 foreach ($enPresentations as $presentation){
@@ -105,6 +114,11 @@ class FrontendCacheController extends AbstractController
                 $enAlbums = $this->enAlbumRepository->findAll();
                 foreach ($enAlbums as $album){
                     $this->gestionCache->cacheAlbumItem($lang, $album->getSlug(), true);
+                }
+
+                $enEquipes = $this->enEquipeRepository->findAll();
+                foreach ($enEquipes as $equipe){
+                    $this->gestionCache->cacheEquipeItem($lang, $equipe->getSlug(), true);
                 }
             }
 
