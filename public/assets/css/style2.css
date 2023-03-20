@@ -192,6 +192,10 @@ header #sliders.sliders {
   padding: 0;
   position: absolute;
 }
+header #sliders.sliders img {
+  max-height: 865px;
+  object-fit: cover;
+}
 
 main #bienvenue.bienvenue {
   margin-top: 600px;

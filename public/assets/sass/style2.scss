@@ -233,6 +233,11 @@ header{
         margin: 50px 0 0;
         padding: 0;
         position: absolute;
+
+        img{
+            max-height: 865px;
+            object-fit: cover;
+        }
     }
 }
 main{
