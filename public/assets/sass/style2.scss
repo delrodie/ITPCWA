@@ -234,10 +234,15 @@ header{
         padding: 0;
         position: absolute;
 
-        img{
-            max-height: 865px;
-            object-fit: cover;
+        .carousel-item{
+            img{
+                width: auto;
+                max-height: 865px;
+                object-fit: cover;
+            }
         }
+
+
     }
 }
 main{
