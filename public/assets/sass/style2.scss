@@ -236,9 +236,11 @@ header{
 
         .carousel-item{
             img{
-                width: auto;
-                max-height: 865px;
-                object-fit: cover;
+                &.slide{
+                    width: auto;
+                    max-height: 565px;
+                    object-fit: cover;
+                }
             }
         }
 

@@ -192,9 +192,9 @@ header #sliders.sliders {
   padding: 0;
   position: absolute;
 }
-header #sliders.sliders .carousel-item img {
+header #sliders.sliders .carousel-item img.slide {
   width: auto;
-  max-height: 865px;
+  max-height: 565px;
   object-fit: cover;
 }
 
