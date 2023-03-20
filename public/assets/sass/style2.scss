@@ -237,8 +237,9 @@ header{
         .carousel-item{
             img{
                 &.slide{
-                    width: auto;
-                    max-height: 565px;
+                    //width: auto;
+                    //max-height: 865px;
+                    max-height: 500px;
                     object-fit: cover;
                 }
             }
